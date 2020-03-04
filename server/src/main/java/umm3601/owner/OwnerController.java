@@ -1,4 +1,4 @@
-package umm3601.user;
+package umm3601.owner;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
@@ -26,112 +26,113 @@ import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
 
 /**
- * Controller that manages requests for info about users.
+ * Controller that manages requests for info about owners.
  */
-public class UserController {
+public class OwnerController {
 
   static String emailRegex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
   JacksonCodecRegistry jacksonCodecRegistry = JacksonCodecRegistry.withDefaultObjectMapper();
 
-  private final MongoCollection<User> userCollection;
+  private final MongoCollection<Owner> OwnerCollection;
 
   /**
-   * Construct a controller for users.
+   * Construct a controller for owners.
    *
-   * @param database the database containing user data
+   * @param database the database containing owner data
    */
-  public UserController(MongoDatabase database) {
-    jacksonCodecRegistry.addCodecForClass(User.class);
-    userCollection = database.getCollection("users").withDocumentClass(User.class)
+  public OwnerController(MongoDatabase database) {
+    jacksonCodecRegistry.addCodecForClass(Owner.class);
+    OwnerCollection = database.getCollection("owners").withDocumentClass(Owner.class)
         .withCodecRegistry(jacksonCodecRegistry);
   }
 
   /**
-   * Get the single user specified by the `id` parameter in the request.
+   * Get the single owner specified by the `id` parameter in the request.
    *
    * @param ctx a Javalin HTTP context
    */
-  public void getUser(Context ctx) {
+  public void getOwner(Context ctx) {
     String id = ctx.pathParam("id");
-    User user;
+    Owner owner;
 
     try {
-      user = userCollection.find(eq("_id", new ObjectId(id))).first();
+      owner = OwnerCollection.find(eq("_id", new ObjectId(id))).first();
     } catch(IllegalArgumentException e) {
-      throw new BadRequestResponse("The requested user id wasn't a legal Mongo Object ID.");
+      throw new BadRequestResponse("The requested owner id wasn't a legal Mongo Object ID.");
     }
-    if (user == null) {
-      throw new NotFoundResponse("The requested user was not found");
+    if (owner == null) {
+      throw new NotFoundResponse("The requested owner was not found");
     } else {
-      ctx.json(user);
+      ctx.json(owner);
     }
   }
 
   /**
-   * Delete the user specified by the `id` parameter in the request.
+   * Delete the owner specified by the `id` parameter in the request.
    *
    * @param ctx a Javalin HTTP context
    */
-  public void deleteUser(Context ctx) {
+  public void deleteOwner(Context ctx) {
     String id = ctx.pathParam("id");
-    userCollection.deleteOne(eq("_id", new ObjectId(id)));
+    OwnerCollection.deleteOne(eq("_id", new ObjectId(id)));
   }
 
   /**
-   * Get a JSON response with a list of all the users.
+   * Get a JSON response with a list of all the owners.
    *
    * @param ctx a Javalin HTTP context
    */
-  public void getUsers(Context ctx) {
+  public void getOwners(Context ctx) {
 
     List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
 
-    if (ctx.queryParamMap().containsKey("age")) {
-        int targetAge = ctx.queryParam("age", Integer.class).get();
-        filters.add(eq("age", targetAge));
+    if (ctx.queryParamMap().containsKey("officeID")) {
+        String officeID = ctx.queryParam("officeID", String.class).get();
+        filters.add(eq("officeID", officeID));
     }
 
-    if (ctx.queryParamMap().containsKey("company")) {
-      filters.add(regex("company", ctx.queryParam("company"), "i"));
+    if (ctx.queryParamMap().containsKey("email")) {
+      filters.add(regex("email", ctx.queryParam("email"), "i"));
     }
 
-    if (ctx.queryParamMap().containsKey("role")) {
-      filters.add(eq("role", ctx.queryParam("role")));
+    if (ctx.queryParamMap().containsKey("building")) {
+      filters.add(eq("building", ctx.queryParam("building")));
     }
 
     String sortBy = ctx.queryParam("sortby", "name"); //Sort by sort query param, default is name
     String sortOrder = ctx.queryParam("sortorder", "asc");
 
-    ctx.json(userCollection.find(filters.isEmpty() ? new Document() : and(filters))
+    ctx.json(OwnerCollection.find(filters.isEmpty() ? new Document() : and(filters))
       .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy))
       .into(new ArrayList<>()));
   }
 
   /**
-   * Get a JSON response with a list of all the users.
+   * Get a JSON response with a list of all the owners.
    *
    * @param ctx a Javalin HTTP context
    */
-  public void addNewUser(Context ctx) {
-    User newUser = ctx.bodyValidator(User.class)
-      .check((usr) -> usr.name != null && usr.name.length() > 0) //Verify that the user has a name that is not blank
-      .check((usr) -> usr.email.matches(emailRegex)) // Verify that the provided email is a valid email
-      .check((usr) -> usr.age > 0) // Verify that the provided age is > 0
-      .check((usr) -> usr.role.matches("^(admin|editor|viewer)$")) // Verify that the role is one of the valid roles
-      .check((usr) -> usr.company != null && usr.company.length() > 0) // Verify that the user has a company that is not blank
+  public void addNewOwner(Context ctx) {
+    Owner newOwner = ctx.bodyValidator(Owner.class)
+      .check((owner) -> owner.name != null && owner.name.length() > 0) //Verify that the owner has a name that is not blank
+      .check((owner) -> owner.email.matches(emailRegex)) // Verify that the provided email is a valid email
+      .check((owner) -> owner.officeID != null && owner.officeID.length() > 0 ) // Verify that the provided string is not null and length is  is > 0
+      .check((owner) -> owner.building != null && owner.building.length() > 0 ) // Verify that the provided string is not null and length is  is > 0
       .get();
 
-    // Generate user avatar (you won't need this part for todos)
+    // Generate owner avatar (you won't need this part for todos)
+    /*
     try {
-      newUser.avatar = "https://gravatar.com/avatar/" + md5(newUser.email) + "?d=identicon";  // generate unique md5 code for identicon
+      newOwner.avatar = "https://gravatar.com/avatar/" + md5(newOwner.email) + "?d=identicon";  // generate unique md5 code for identicon
     } catch (NoSuchAlgorithmException ignored) {
-      newUser.avatar = "https://gravatar.com/avatar/?d=mp";                           // set to mystery person
+      newOwner.avatar = "https://gravatar.com/avatar/?d=mp";                           // set to mystery person
     }
+    */
 
-    userCollection.insertOne(newUser);
+    OwnerCollection.insertOne(newOwner);
     ctx.status(201);
-    ctx.json(ImmutableMap.of("id", newUser._id));
+    ctx.json(ImmutableMap.of("id", newOwner._id));
   }
 
   /**
