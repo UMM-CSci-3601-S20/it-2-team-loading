@@ -3,41 +3,47 @@
 
     <mat-card class="search-card">
       <mat-card-header>
-        <mat-card-title class="user-list-title">Users</mat-card-title>
+        <mat-card-title class="owner-list-title">Owners</mat-card-title>
       </mat-card-header>
       <mat-card-content fxLayout="column" >
 
         <div fxLayout="row wrap" fxLayoutGap="10px">
-          <!-- Examples of filtering in Angular -->
+          <!-- Everything is set to be filtered via angular for now. Probably want to change to database filtering -->
 
           <mat-form-field class="input-field">
             <mat-label>Name</mat-label>
-            <input matInput id="user-name-input" placeholder="Filter by name"
-            [(ngModel)]="userName" (input)="updateFilter()">
+            <input matInput id="owner-name-input" placeholder="Filter by name"
+            [(ngModel)]="ownerName" (input)="updateFilter()">
             <mat-hint>Filtered in Angular</mat-hint>
           </mat-form-field>
 
           <mat-form-field class="input-field">
-            <mat-label>Company</mat-label>
-            <input matInput id="user-company-input" placeholder="Filter by company"
-            [(ngModel)]="userCompany" (input)="updateFilter()">
+            <mat-label>Building</mat-label>
+            <input matInput id="owner-building-input" placeholder="Filter by building"
+            [(ngModel)]="ownerBuilding" (input)="updateFilter()">
             <mat-hint>Filtered in Angular</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="input-field">
+            <mat-label>Office ID number</mat-label>
+            <input matInput id="owner-officeID-input" placeholder="Filter by Office ID number"
+            [(ngModel)]="ownerOfficeID" (input)="updateFilter()">
           </mat-form-field>
         </div>
 
         <div fxLayout="row wrap" fxLayoutGap="10px">
-          <!-- Examples of filtering on the server -->
+          <!-- Keeping these commented for now, seem like they might be useful for formatting options later -->
 
-          <mat-form-field class="input-field">
-            <mat-label>Age</mat-label>
-            <input matInput id="user-age-input" type="number" placeholder="Filter by age"
-            min="0" max="200" [(ngModel)]="userAge" (input)="getUsersFromServer()">
+          <!-- <mat-form-field class="input-field">
+            <mat-label></mat-label>
+            <input matInput id="owner-age-input" type="number" placeholder="Filter by age"
+            min="0" max="200" [(ngModel)]="ownerAge" (input)="getOwnersFromServer()">
             <mat-hint>Filtered on Server</mat-hint>
           </mat-form-field>
 
           <mat-form-field class="input-field">
             <mat-label>Role</mat-label>
-            <mat-select (selectionChange)="getUsersFromServer()" [(ngModel)]="userRole" id="user-role-select">
+            <mat-select (selectionChange)="getOwnersFromServer()" [(ngModel)]="ownerRole" id="owner-role-select">
               <mat-option>--</mat-option>
               <mat-option value="admin">Admin</mat-option>
               <mat-option value="editor">Editor</mat-option>
@@ -45,16 +51,16 @@
             </mat-select>
             <mat-hint>Filtered on server</mat-hint>
           </mat-form-field>
-        </div>
+        </div> -->
 
         <br>
-        <div fxLayout="row wrap" fxLayoutGap="10px">
+        <!-- <div fxLayout="row wrap" fxLayoutGap="10px">
           <label>View type: </label>
           <mat-radio-group aria-label="View type" [(ngModel)]="viewType" id="view-type-radio">
             <mat-radio-button value="card">Card</mat-radio-button>
             <mat-radio-button value="list">List</mat-radio-button>
           </mat-radio-group>
-        </div>
+        </div> -->
 
       </mat-card-content>
     </mat-card>
@@ -62,37 +68,35 @@
 </div>
 
 <div fxLayout="row">
-  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredUsers; else usersError" >
-    <!-- Switch between card and list view based on the viewType variable, set above in the mar-radio-group -->
-    <div [ngSwitch]="viewType">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredOwners; else ownersError" >
 
       <!-- Card grid view -->
-      <div *ngSwitchCase="'card'" fxLayout="row wrap" fxLayoutGap="10px" class="user-cards-container">
-        <app-user-card simple="true" *ngFor="let user of filteredUsers" class="user-card" [user]="user" fxFlex="1 1 280px"></app-user-card>
+      <div fxLayout="row wrap" fxLayoutGap="10px" class="owner-cards-container">
+        <app-owner-card simple="true" *ngFor="let owner of filteredOwners" class="owner-card" [owner]="owner" fxFlex="1 1 280px"></app-owner-card>
       </div>
-
-      <!-- List view -->
+<!--also keeping this for later in case we want multiple views-->
+      <!-- List view
       <mat-card *ngSwitchCase="'list'">
         <mat-card-content>
-          <mat-nav-list class="user-nav-list">
-            <h3 mat-subheader>Users</h3>
-            <a mat-list-item *ngFor="let user of this.filteredUsers" [routerLink]="['/users', user._id]" class="user-list-item">
-              <img matListAvatar [src]="user.avatar" *ngIf="this.user.avatar">
-              <h3 matLine class="user-list-name"> {{user.name}} </h3>
-              <p matLine class="user-list-role"> {{user.role}} </p>
+          <mat-nav-list class="owner-nav-list">
+            <h3 mat-subheader>Owners</h3>
+            <a mat-list-item *ngFor="let owner of this.filteredOwners" [routerLink]="['/owners', owner._id]" class="owner-list-item">
+              <img matListAvatar [src]="owner.avatar" *ngIf="this.owner.avatar">
+              <h3 matLine class="owner-list-name"> {{owner.name}} </h3>
+              <p matLine class="owner-list-role"> {{owner.role}} </p>
             </a>
           </mat-nav-list>
         </mat-card-content>
-      </mat-card>
+      </mat-card> -->
 
     </div>
   </div>
 
   <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
-  <ng-template #usersError>
-    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="user-error">
+  <ng-template #ownersError>
+    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="owner-error">
       <mat-error>
-        There was a problem loading the users. Possibly the server is down or perhaps there are network
+        There was a problem loading the owners. Possibly the server is down or perhaps there are network
         issues.
       </mat-error>
       <mat-error>
@@ -103,6 +107,6 @@
 
 </div>
 
-<button mat-fab class="add-user-fab" matTooltip="Add User" matTooltipPosition="left" routerLink="/users/new">
-    <mat-icon class="md-24" aria-label="Add User">add</mat-icon>
+<button mat-fab class="add-owner-fab" matTooltip="Add Owner" matTooltipPosition="left" routerLink="/owners/new">
+    <mat-icon class="md-24" aria-label="Add Owner">add</mat-icon>
 </button>
