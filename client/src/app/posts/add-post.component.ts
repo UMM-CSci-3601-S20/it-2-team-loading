@@ -8,7 +8,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-post.component.html',
-  styleUrls: ['./add-post-component.scss']
+  styleUrls: ['./add-post.component.scss']
 })
 export class AddPostComponent implements OnInit {
 

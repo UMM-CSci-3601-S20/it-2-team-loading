@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Post } from './post';
 import { map } from 'rxjs/operators';
+import { Owner } from '../owners/owner';
 
 @Injectable()
 export class PostService {
