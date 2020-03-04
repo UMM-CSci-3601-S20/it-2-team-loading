@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Post } from './post';
 import { PostService } from './post.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,14 +20,15 @@ export class AddPostComponent implements OnInit {
 
   }
 
+  // tslint:disable-next-line: variable-name
   add_post_validation_messages = {
     message: [
-      {type: 'required', message: 'Message is required'},
-      {type: 'minlength', message: 'Message is too short'},
-      {type: 'maxlength', message: 'Message is too long'}
+      { type: 'required', message: 'Message is required' },
+      { type: 'minlength', message: 'Message is too short' },
+      { type: 'maxlength', message: 'Message is too long' }
     ],
     owner: [
-      {type: 'required', message: 'Owner is required'},
+      { type: 'required', message: 'Owner is required' },
     ]
   };
 
@@ -41,7 +42,7 @@ export class AddPostComponent implements OnInit {
         Validators.required,
       ]))
     });
-  };
+  }
 
   ngOnInit() {
     this.createForms();
@@ -49,7 +50,7 @@ export class AddPostComponent implements OnInit {
 
   submitForm() {
     this.postService.addPost(this.addPostForm.value).subscribe(newID => {
-      this.snackBar.open('Posted '+ this.addPostForm.value.message, null,{
+      this.snackBar.open('Posted ' + this.addPostForm.value.message, null, {
         duration: 2000,
       });
       /*this.router.navigate(['/'])*/
