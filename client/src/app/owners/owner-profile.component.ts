@@ -1,38 +1,38 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { User } from './user';
-import { UserService } from './user.service';
+import { Owner } from './owner';
+import { OwnerService } from './owner.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss']
+  selector: 'app-owner-profile',
+  templateUrl: './owner-profile.component.html',
+  styleUrls: ['./owner-profile.component.scss']
 })
-export class UserProfileComponent implements OnInit, OnDestroy {
+export class OwnerProfileComponent implements OnInit, OnDestroy {
 
-  constructor(private route: ActivatedRoute, private userService: UserService) { }
+  constructor(private route: ActivatedRoute, private ownerService: OwnerService) { }
 
-  user: User;
+  owner: Owner;
   id: string;
-  getUserSub: Subscription;
+  getOwnerSub: Subscription;
 
   ngOnInit(): void {
     // We subscribe to the parameter map here so we'll be notified whenever
     // that changes (i.e., when the URL changes) so this component will update
-    // to display the newly requested user.
+    // to display the newly requested owner.
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
-      if (this.getUserSub) {
-        this.getUserSub.unsubscribe();
+      if (this.getOwnerSub) {
+        this.getOwnerSub.unsubscribe();
       }
-      this.getUserSub = this.userService.getUserById(this.id).subscribe(user => this.user = user);
+      this.getOwnerSub = this.ownerService.getOwnerById(this.id).subscribe(owner => this.owner = owner);
     });
   }
 
   ngOnDestroy(): void {
-    if (this.getUserSub) {
-      this.getUserSub.unsubscribe();
+    if (this.getOwnerSub) {
+      this.getOwnerSub.unsubscribe();
     }
   }
 

@@ -1,62 +1,66 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { User, UserRole } from './user';
-import { UserService } from './user.service';
+import { Owner } from './owner';
+import { OwnerService } from './owner.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-user-list-component',
-  templateUrl: 'user-list.component.html',
-  styleUrls: ['./user-list.component.scss'],
+  selector: 'app-owner-list-component',
+  templateUrl: 'owner-list.component.html',
+  styleUrls: ['./owner-list.component.scss'],
   providers: []
 })
 
-export class UserListComponent implements OnInit, OnDestroy  {
+export class OwnerListComponent implements OnInit, OnDestroy {
   // These are public so that tests can reference them (.spec.ts)
-  public serverFilteredUsers: User[];
-  public filteredUsers: User[];
+  public serverFilteredOwners: Owner[];
+  public filteredOwners: Owner[];
 
-  public userName: string;
-  public userAge: number;
-  public userRole: UserRole;
-  public userCompany: string;
-  public viewType: 'card' | 'list' = 'card';
-  getUsersSub: Subscription;
+  public ownerName: string;
+  public ownerOfficeID: string;
+  public ownerEmail: string;
+  public ownerBuilding: string;
+  getOwnersSub: Subscription;
 
 
-  // Inject the UserService into this component.
+  // Inject the OwnerService into this component.
   // That's what happens in the following constructor.
   //
   // We can call upon the service for interacting
   // with the server.
 
-  constructor(private userService: UserService) {
+  constructor(private ownerService: OwnerService) {
 
   }
 
-  getUsersFromServer(): void {
+  getOwnersFromServer(): void {
     this.unsub();
-    this.getUsersSub = this.userService.getUsers({
-      role: this.userRole,
-      age: this.userAge
-    }).subscribe(returnedUsers => {
-      this.serverFilteredUsers = returnedUsers;
+    this.getOwnersSub = this.ownerService.getOwners({
+      // stick our server filtered owners here when we decide how we want to filter them
+    }).subscribe(returnedOwners => {
+      this.serverFilteredOwners = returnedOwners;
       this.updateFilter();
     }, err => {
       console.log(err);
     });
   }
 
+  // currently has every parameter being filtered on angular
+  // Some of these probably won't work because I've just been refactoring so things will compile to start
   public updateFilter(): void {
-    this.filteredUsers = this.userService.filterUsers(
-      this.serverFilteredUsers, { name: this.userName, company: this.userCompany });
+    this.filteredOwners = this.ownerService.filterOwners(
+      this.serverFilteredOwners, {
+      name: this.ownerName,
+      officeID: this.ownerOfficeID,
+      building: this.ownerBuilding
+    });
   }
 
   /**
-   * Starts an asynchronous operation to update the users list
+   * Starts an asynchronous operation to update the owners list
    *
    */
   ngOnInit(): void {
-    this.getUsersFromServer();
+    this.getOwnersFromServer();
   }
 
   ngOnDestroy(): void {
@@ -64,8 +68,8 @@ export class UserListComponent implements OnInit, OnDestroy  {
   }
 
   unsub(): void {
-    if (this.getUsersSub) {
-      this.getUsersSub.unsubscribe();
+    if (this.getOwnersSub) {
+      this.getOwnersSub.unsubscribe();
     }
   }
 }

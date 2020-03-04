@@ -1,14 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from './user';
+import { Owner } from './owner';
 
 @Component({
-  selector: 'app-user-card',
-  templateUrl: './user-card.component.html',
-  styleUrls: ['./user-card.component.scss']
+  selector: 'app-owner-card',
+  templateUrl: './owner-card.component.html',
+  styleUrls: ['./owner-card.component.scss']
 })
-export class UserCardComponent implements OnInit {
+export class OwnerCardComponent implements OnInit {
 
-  @Input() user: User;
+  @Input() owner: Owner;
   @Input() simple ? = false;
 
   constructor() { }
