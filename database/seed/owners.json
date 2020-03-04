@@ -1,0 +1,29 @@
+[
+  {
+    "_id": {
+      "$oid": "588935f57546a2daea44de7c"
+    },
+    "name": "Rachael Johnson",
+    "officeID": "1310",
+    "email": "rmjohns@morris.umn.edu",
+    "building": "Science"
+  },
+  {
+    "_id": {
+      "$oid": "588935f57546a2daea44de7c"
+    },
+    "name": "Indrajit Chaudhury",
+    "officeID": "1375",
+    "email": "chaud072@morris.umn.edu",
+    "building": "Science"
+  },
+  {
+    "_id": {
+      "$oid": "588935f57546a2daea44de7c"
+    },
+    "name": "Robert Denton",
+    "officeID": "2065",
+    "email": "rdenton@morris.umn.edu",
+    "building": "Science"
+  }
+]
