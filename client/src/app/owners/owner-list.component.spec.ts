@@ -1,127 +1,127 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatOptionModule } from '@angular/material/core';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatListModule } from '@angular/material/list';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Observable } from 'rxjs';
-import { MockUserService } from '../../testing/user.service.mock';
-import { User } from './user';
-import { UserCardComponent } from './user-card.component';
-import { UserListComponent } from './user-list.component';
-import { UserService } from './user.service';
-import { MatIconModule } from '@angular/material/icon';
+// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+// import { FormsModule } from '@angular/forms';
+// import { MatButtonModule } from '@angular/material/button';
+// import { MatCardModule } from '@angular/material/card';
+// import { MatOptionModule } from '@angular/material/core';
+// import { MatDividerModule } from '@angular/material/divider';
+// import { MatExpansionModule } from '@angular/material/expansion';
+// import { MatFormFieldModule } from '@angular/material/form-field';
+// import { MatInputModule } from '@angular/material/input';
+// import { MatListModule } from '@angular/material/list';
+// import { MatRadioModule } from '@angular/material/radio';
+// import { MatSelectModule } from '@angular/material/select';
+// import { MatTooltipModule } from '@angular/material/tooltip';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { RouterTestingModule } from '@angular/router/testing';
+// import { Observable } from 'rxjs';
+// import { MockOwnerService } from '../../testing/owner.service.mock';
+// import { Owner } from './owner';
+// import { OwnerCardComponent } from './owner-card.component';
+// import { OwnerListComponent } from './owner-list.component';
+// import { OwnerService } from './owner.service';
+// import { MatIconModule } from '@angular/material/icon';
 
-const COMMON_IMPORTS: any[] = [
-  FormsModule,
-  MatCardModule,
-  MatFormFieldModule,
-  MatSelectModule,
-  MatOptionModule,
-  MatButtonModule,
-  MatInputModule,
-  MatExpansionModule,
-  MatTooltipModule,
-  MatListModule,
-  MatDividerModule,
-  MatRadioModule,
-  MatIconModule,
-  BrowserAnimationsModule,
-  RouterTestingModule,
-];
+// const COMMON_IMPORTS: any[] = [
+//   FormsModule,
+//   MatCardModule,
+//   MatFormFieldModule,
+//   MatSelectModule,
+//   MatOptionModule,
+//   MatButtonModule,
+//   MatInputModule,
+//   MatExpansionModule,
+//   MatTooltipModule,
+//   MatListModule,
+//   MatDividerModule,
+//   MatRadioModule,
+//   MatIconModule,
+//   BrowserAnimationsModule,
+//   RouterTestingModule,
+// ];
 
-describe('User list', () => {
+// describe('Owner list', () => {
 
-  let userList: UserListComponent;
-  let fixture: ComponentFixture<UserListComponent>;
+//   let ownerList: OwnerListComponent;
+//   let fixture: ComponentFixture<OwnerListComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [COMMON_IMPORTS],
-      declarations: [UserListComponent, UserCardComponent],
-      // providers:    [ UserService ]  // NO! Don't provide the real service!
-      // Provide a test-double instead
-      providers: [{ provide: UserService, useValue: new MockUserService() }]
-    });
-  });
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       imports: [COMMON_IMPORTS],
+//       declarations: [OwnerListComponent, OwnerCardComponent],
+//       // providers:    [ OwnerService ]  // NO! Don't provide the real service!
+//       // Provide a test-double instead
+//       providers: [{ provide: OwnerService, useValue: new MockOwnerService() }]
+//     });
+//   });
 
-  beforeEach(async(() => {
-    TestBed.compileComponents().then(() => {
-      fixture = TestBed.createComponent(UserListComponent);
-      userList = fixture.componentInstance;
-      fixture.detectChanges();
-    });
-  }));
+//   beforeEach(async(() => {
+//     TestBed.compileComponents().then(() => {
+//       fixture = TestBed.createComponent(OwnerListComponent);
+//       ownerList = fixture.componentInstance;
+//       fixture.detectChanges();
+//     });
+//   }));
 
-  it('contains all the users', () => {
-    expect(userList.serverFilteredUsers.length).toBe(3);
-  });
+//   it('contains all the owners', () => {
+//     expect(ownerList.serverFilteredOwners.length).toBe(3);
+//   });
 
-  it('contains a user named \'Chris\'', () => {
-    expect(userList.serverFilteredUsers.some((user: User) => user.name === 'Chris')).toBe(true);
-  });
+//   it('contains a owner named \'Chris\'', () => {
+//     expect(ownerList.serverFilteredOwners.some((owner: Owner) => owner.name === 'Chris')).toBe(true);
+//   });
 
-  it('contain a user named \'Jamie\'', () => {
-    expect(userList.serverFilteredUsers.some((user: User) => user.name === 'Jamie')).toBe(true);
-  });
+//   it('contain a owner named \'Jamie\'', () => {
+//     expect(ownerList.serverFilteredOwners.some((owner: Owner) => owner.name === 'Jamie')).toBe(true);
+//   });
 
-  it('doesn\'t contain a user named \'Santa\'', () => {
-    expect(userList.serverFilteredUsers.some((user: User) => user.name === 'Santa')).toBe(false);
-  });
+//   it('doesn\'t contain a owner named \'Santa\'', () => {
+//     expect(ownerList.serverFilteredOwners.some((owner: Owner) => owner.name === 'Santa')).toBe(false);
+//   });
 
-  it('has two users that are 37 years old', () => {
-    expect(userList.serverFilteredUsers.filter((user: User) => user.age === 37).length).toBe(2);
-  });
-});
+//   it('has two owners that are 37 years old', () => {
+//     expect(ownerList.serverFilteredOwners.filter((owner: Owner) => owner.age === 37).length).toBe(2);
+//   });
+// });
 
-describe('Misbehaving User List', () => {
-  let userList: UserListComponent;
-  let fixture: ComponentFixture<UserListComponent>;
+// describe('Misbehaving Owner List', () => {
+//   let ownerList: OwnerListComponent;
+//   let fixture: ComponentFixture<OwnerListComponent>;
 
-  let userServiceStub: {
-    getUsers: () => Observable<User[]>;
-    getUsersFiltered: () => Observable<User[]>;
-  };
+//   let ownerServiceStub: {
+//     getOwners: () => Observable<Owner[]>;
+//     getOwnersFiltered: () => Observable<Owner[]>;
+//   };
 
-  beforeEach(() => {
-    // stub UserService for test purposes
-    userServiceStub = {
-      getUsers: () => new Observable(observer => {
-        observer.error('Error-prone observable');
-      }),
-      getUsersFiltered: () => new Observable(observer => {
-        observer.error('Error-prone observable');
-      })
-    };
+//   beforeEach(() => {
+//     // stub OwnerService for test purposes
+//     ownerServiceStub = {
+//       getOwners: () => new Observable(observer => {
+//         observer.error('Error-prone observable');
+//       }),
+//       getOwnersFiltered: () => new Observable(observer => {
+//         observer.error('Error-prone observable');
+//       })
+//     };
 
-    TestBed.configureTestingModule({
-      imports: [COMMON_IMPORTS],
-      declarations: [UserListComponent],
-      // providers:    [ UserService ]  // NO! Don't provide the real service!
-      // Provide a test-double instead
-      providers: [{ provide: UserService, useValue: userServiceStub }]
-    });
-  });
+//     TestBed.configureTestingModule({
+//       imports: [COMMON_IMPORTS],
+//       declarations: [OwnerListComponent],
+//       // providers:    [ OwnerService ]  // NO! Don't provide the real service!
+//       // Provide a test-double instead
+//       providers: [{ provide: OwnerService, useValue: ownerServiceStub }]
+//     });
+//   });
 
-  beforeEach(async(() => {
-    TestBed.compileComponents().then(() => {
-      fixture = TestBed.createComponent(UserListComponent);
-      userList = fixture.componentInstance;
-      fixture.detectChanges();
-    });
-  }));
+//   beforeEach(async(() => {
+//     TestBed.compileComponents().then(() => {
+//       fixture = TestBed.createComponent(OwnerListComponent);
+//       ownerList = fixture.componentInstance;
+//       fixture.detectChanges();
+//     });
+//   }));
 
-  it('generates an error if we don\'t set up a UserListService', () => {
-    // Since the observer throws an error, we don't expect users to be defined.
-    expect(userList.serverFilteredUsers).toBeUndefined();
-  });
-});
+//   it('generates an error if we don\'t set up a OwnerListService', () => {
+//     // Since the observer throws an error, we don't expect owners to be defined.
+//     expect(ownerList.serverFilteredOwners).toBeUndefined();
+//   });
+// });

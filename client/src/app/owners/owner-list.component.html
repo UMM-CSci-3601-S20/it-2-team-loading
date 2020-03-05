@@ -30,8 +30,6 @@
             [(ngModel)]="ownerOfficeID" (input)="updateFilter()">
           </mat-form-field>
         </div>
-
-        <div fxLayout="row wrap" fxLayoutGap="10px">
           <!-- Keeping these commented for now, seem like they might be useful for formatting options later -->
 
           <!-- <mat-form-field class="input-field">
@@ -104,8 +102,6 @@
       </mat-error>
     </div>
   </ng-template>
-
-</div>
 
 <button mat-fab class="add-owner-fab" matTooltip="Add Owner" matTooltipPosition="left" routerLink="/owners/new">
     <mat-icon class="md-24" aria-label="Add Owner">add</mat-icon>

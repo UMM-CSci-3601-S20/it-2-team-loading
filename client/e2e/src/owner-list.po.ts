@@ -1,49 +1,49 @@
-import {browser, by, element, Key, ElementFinder} from 'protractor';
+// import {browser, by, element, Key, ElementFinder} from 'protractor';
 
-export class UserPage {
-  navigateTo() {
-    return browser.get('/users');
-  }
+// export class OwnerPage {
+//   navigateTo() {
+//     return browser.get('/owners');
+//   }
 
-  getUrl() {
-    return browser.getCurrentUrl();
-  }
+//   getUrl() {
+//     return browser.getCurrentUrl();
+//   }
 
-  getUserTitle() {
-    const title = element(by.className('user-list-title')).getText();
-    return title;
-  }
+//   getOwnerTitle() {
+//     const title = element(by.className('owner-list-title')).getText();
+//     return title;
+//   }
 
-  async typeInput(inputId: string, text: string) {
-    const input = element(by.id(inputId));
-    await input.click();
-    await input.sendKeys(text);
-  }
+//   async typeInput(inputId: string, text: string) {
+//     const input = element(by.id(inputId));
+//     await input.click();
+//     await input.sendKeys(text);
+//   }
 
-  selectMatSelectValue(selectID: string, value: string) {
-    const sel = element(by.id(selectID));
-    return sel.click().then(() => {
-      return element(by.css('mat-option[value="' + value + '"]')).click();
-    });
-  }
+//   selectMatSelectValue(selectID: string, value: string) {
+//     const sel = element(by.id(selectID));
+//     return sel.click().then(() => {
+//       return element(by.css('mat-option[value="' + value + '"]')).click();
+//     });
+//   }
 
-  getUserCards() {
-    return element(by.className('user-cards-container')).all(by.tagName('app-user-card'));
-  }
+//   getOwnerCards() {
+//     return element(by.className('owner-cards-container')).all(by.tagName('app-owner-card'));
+//   }
 
-  getUserListItems() {
-    return element(by.className('user-nav-list')).all(by.className('user-list-item'));
-  }
+//   getOwnerListItems() {
+//     return element(by.className('owner-nav-list')).all(by.className('owner-list-item'));
+//   }
 
-  clickViewProfile(card: ElementFinder) {
-    return card.element(by.buttonText('VIEW PROFILE')).click();
-  }
+//   clickViewProfile(card: ElementFinder) {
+//     return card.element(by.buttonText('VIEW PROFILE')).click();
+//   }
 
-  changeView(viewType: 'card' | 'list') {
-    return element(by.id('view-type-radio')).element(by.css('mat-radio-button[value="' + viewType + '"]')).click();
-  }
+//   changeView(viewType: 'card' | 'list') {
+//     return element(by.id('view-type-radio')).element(by.css('mat-radio-button[value="' + viewType + '"]')).click();
+//   }
 
-  clickAddUserFAB() {
-    return element(by.className('add-user-fab')).click();
-  }
-}
+//   clickAddOwnerFAB() {
+//     return element(by.className('add-owner-fab')).click();
+//   }
+// }
