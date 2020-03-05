@@ -27,9 +27,9 @@ export class AddPostComponent implements OnInit {
       { type: 'minlength', message: 'Message is too short' },
       { type: 'maxlength', message: 'Message is too long' }
     ],
-    /*owner: [
+    owner: [
       { type: 'required', message: 'Owner is required' },
-    ]*/
+    ]
   };
 
   createForms() {
@@ -39,9 +39,9 @@ export class AddPostComponent implements OnInit {
         Validators.minLength(2),
         Validators.maxLength(550)
       ])),
-      /*owner: new FormControl('', Validators.compose([
+      owner: new FormControl('', Validators.compose([
         Validators.required,
-      ]))*/
+      ]))
     });
   }
 
@@ -54,7 +54,7 @@ export class AddPostComponent implements OnInit {
       this.snackBar.open('Posted ' + this.addPostForm.value.message, null, {
         duration: 2000,
       });
-      /*this.router.navigate(['/'])*/
+      this.router.navigate(['/'])
     }, err => {
       this.snackBar.open('Failed to post', null, {
         duration: 2000,

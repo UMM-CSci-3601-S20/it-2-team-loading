@@ -90,13 +90,13 @@ describe('AddPostComponent', () => {
       expect(messageControl.hasError('minlength')).toBeTruthy();
     });
 
-    /*it('should fail on really long message', () => {
+    it('should fail on really long message', () => {
       messageControl.setValue('x'.repeat(100));
       expect(messageControl.valid).toBeFalsy();
       // Annoyingly, Angular uses lowercase 'l' here
       // when it's an upper case 'L' in `Validators.maxLength(2)`.
       expect(messageControl.hasError('maxlength')).toBeTruthy();
-    });*/
+    });
 
     it('should allow a message to contain a symbol', () => {
       messageControl.setValue('bad@email.com');
@@ -122,7 +122,7 @@ describe('AddPostComponent', () => {
   });
 
 
-  /*describe('The owner field', () => {
+  describe('The owner field', () => {
     let ownerControl: AbstractControl;
 
     beforeEach(() => {
@@ -149,5 +149,5 @@ describe('AddPostComponent', () => {
       ownerControl.setValue('viewer');
       expect(ownerControl.valid).toBeTruthy();
     });
-  });*/
+  });
 });

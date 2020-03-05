@@ -6,17 +6,17 @@
           <mat-card-title class="add-post-title">New Post</mat-card-title>
         </mat-card-header>
           <mat-card-content fxLayout="column">
-            <!--<mat-form-field>
+            <mat-form-field>
               <mat-label>Owner</mat-label>
               <input matInput id="ownerField" placeholder="Name" formControlName="owner"
                     required>
               <mat-error *ngFor="let validation of add_post_validation_messages.owner">
                 <mat-error class="error-message" id="owner-error"
-                      *ngif="addPostForm.get('owner').hasError(validation.type) && (addPostForm.get('owner').touched)">
+                      *ngIf="addPostForm.get('owner').hasError(validation.type) && (addPostForm.get('owner').dirty || addPostForm.get('message').touched)">
                     {{validation.message}}
                 </mat-error>
               </mat-error>
-            </mat-form-field>-->
+            </mat-form-field>
 
             <mat-form-field>
               <mat-label>Message</mat-label>
