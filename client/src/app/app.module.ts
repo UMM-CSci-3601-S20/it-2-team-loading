@@ -31,6 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AddPostComponent } from './posts/add-post.component';
 import { PostService } from './posts/post.service';
+import { PostListComponent } from './posts/post-list.component';
 import { OwnerCardComponent } from './owners/owner-card.component';
 import { OwnerProfileComponent } from './owners/owner-profile.component';
 import { AddOwnerComponent } from './owners/add-owner.component';
@@ -63,6 +64,7 @@ const MATERIAL_MODULES: any[] = [
     OwnerCardComponent,
     OwnerProfileComponent,
     AddOwnerComponent,
+    PostListComponent,
   ],
   imports: [
     BrowserModule,
