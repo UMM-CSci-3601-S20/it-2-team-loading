@@ -2,26 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { User } from './user';
-import { UserService } from './user.service';
+import { Owner } from './owner';
+import { OwnerService } from './owner.service';
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.scss']
+  selector: 'app-add-owner',
+  templateUrl: './add-owner.component.html',
+  styleUrls: ['./add-owner.component.scss']
 })
-export class AddUserComponent implements OnInit {
+export class AddOwnerComponent implements OnInit {
 
-  addUserForm: FormGroup;
+  addOwnerForm: FormGroup;
 
-  user: User;
+  owner: Owner;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private snackBar: MatSnackBar, private router: Router) {
+  constructor(private fb: FormBuilder, private ownerService: OwnerService, private snackBar: MatSnackBar, private router: Router) {
   }
 
   // not sure if this name is magical and making it be found or if I'm missing something,
   // but this is where the red text that shows up (when there is invalid input) comes from
-  add_user_validation_messages = {
+  add_owner_validation_messages = {
     name: [
       {type: 'required', message: 'Name is required'},
       {type: 'minlength', message: 'Name must be at least 2 characters long'},
@@ -30,7 +30,7 @@ export class AddUserComponent implements OnInit {
       {type: 'existingName', message: 'Name has already been taken'}
     ],
 
-    age: [
+    officeID: [
       {type: 'pattern', message: 'Age must be a number'},
       {type: 'min', message: 'Age must be at least 15'},
       {type: 'max', message: 'Age may not be greater than 200'},
@@ -42,7 +42,7 @@ export class AddUserComponent implements OnInit {
       {type: 'required', message: 'Email is required'}
     ],
 
-    role: [
+    building: [
       { type: 'required', message: 'Role is required' },
       { type: 'pattern', message: 'Role must be Admin, Editor, or Viewer' },
     ]
@@ -50,8 +50,8 @@ export class AddUserComponent implements OnInit {
 
   createForms() {
 
-    // add user form validations
-    this.addUserForm = this.fb.group({
+    // add owner form validations
+    this.addOwnerForm = this.fb.group({
       // We allow alphanumeric input and limit the length for name.
       name: new FormControl('', Validators.compose([
         Validators.required,
@@ -104,13 +104,13 @@ export class AddUserComponent implements OnInit {
 
 
   submitForm() {
-    this.userService.addUser(this.addUserForm.value).subscribe(newID => {
-      this.snackBar.open('Added User ' + this.addUserForm.value.name, null, {
+    this.ownerService.addOwner(this.addOwnerForm.value).subscribe(newID => {
+      this.snackBar.open('Added Owner ' + this.addOwnerForm.value.name, null, {
         duration: 2000,
       });
-      this.router.navigate(['/users/', newID]);
+      this.router.navigate(['/owners/', newID]);
     }, err => {
-      this.snackBar.open('Failed to add the user', null, {
+      this.snackBar.open('Failed to add the owner', null, {
         duration: 2000,
       });
     });

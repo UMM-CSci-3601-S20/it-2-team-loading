@@ -1,18 +1,15 @@
-package umm3601.user;
+package umm3601.owner;
 
 import org.mongojack.Id;
 import org.mongojack.ObjectId;
 
-public class User {
+public class Owner {
 
   @ObjectId @Id
   public String _id;
-
   public String name;
-  public int age;
-  public String company;
+  public String officeID;
   public String email;
-  public String avatar;
-  public String role;
+  public String building;
 
 }
