@@ -27,20 +27,21 @@ export class AddPostComponent implements OnInit {
       { type: 'minlength', message: 'Message is too short' },
       { type: 'maxlength', message: 'Message is too long' }
     ],
-    owner: [
+    /*owner: [
       { type: 'required', message: 'Owner is required' },
-    ]
+    ]*/
   };
 
   createForms() {
     this.addPostForm = this.fb.group({
       message: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.minLength(2)
+        Validators.minLength(2),
+        Validators.maxLength(550)
       ])),
-      owner: new FormControl('', Validators.compose([
+      /*owner: new FormControl('', Validators.compose([
         Validators.required,
-      ]))
+      ]))*/
     });
   }
 

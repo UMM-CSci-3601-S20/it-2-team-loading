@@ -32,6 +32,8 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { UserCardComponent } from './users/user-card.component';
 import { UserProfileComponent } from './users/user-profile.component';
 import { AddUserComponent } from './users/add-user.component';
+import { AddPostComponent } from './posts/add-post.component';
+import { PostService } from './posts/post.service';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -60,6 +62,7 @@ const MATERIAL_MODULES: any[] = [
     UserCardComponent,
     UserProfileComponent,
     AddUserComponent,
+    AddPostComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,7 +76,8 @@ const MATERIAL_MODULES: any[] = [
     LayoutModule,
   ],
   providers: [
-    UserService
+    UserService,
+    PostService
   ],
   bootstrap: [AppComponent]
 })

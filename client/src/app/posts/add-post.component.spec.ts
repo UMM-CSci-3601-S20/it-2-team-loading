@@ -122,7 +122,7 @@ describe('AddPostComponent', () => {
   });
 
 
-  describe('The owner field', () => {
+  /*describe('The owner field', () => {
     let ownerControl: AbstractControl;
 
     beforeEach(() => {
@@ -149,5 +149,5 @@ describe('AddPostComponent', () => {
       ownerControl.setValue('viewer');
       expect(ownerControl.valid).toBeTruthy();
     });
-  });
+  });*/
 });

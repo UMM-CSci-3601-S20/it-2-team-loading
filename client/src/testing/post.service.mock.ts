@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Post } from '../app/posts/post';
 import { PostService } from '../app/posts/post.service';
-import { Owner } from '../app/owners/owner';
+//import { Owner } from '../app/owners/owner';
 
 /**
  * A "mock" version of the `PostService` that can be used to test components
@@ -14,17 +14,17 @@ export class MockPostService extends PostService {
     {
       _id: 'one_id',
       message: 'Spirate pur, Spirate',
-      owner:
+      //owner:
     },
     {
       _id: 'two_id',
       message: 'In te spera verunt',
-      owner:
+      //owner:
     },
     {
       _id: 'three_id',
       message: 'patre nostris',
-      owner:
+      //owner:
     }
   ];
 
@@ -32,7 +32,7 @@ export class MockPostService extends PostService {
     super(null);
   }
 
-  getPosts(filters: { message?: string, owner?: Owner }): Observable<Post[]> {
+  getPosts(filters: { message?: string, /*owner?: Owner*/ }): Observable<Post[]> {
     // Just return the test posts regardless of what filters are passed in
     return of(MockPostService.testPosts);
   }
