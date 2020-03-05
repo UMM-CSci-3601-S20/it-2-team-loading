@@ -10,11 +10,11 @@ import com.mongodb.client.MongoDatabase;
 
 import io.javalin.Javalin;
 
-import umm3601.user.UserController;
+import umm3601.owner.OwnerController;
 
 public class Server {
 
-  static String appName = "CSCI 3601 Iteration Template";
+  static String appName = "CSCI 3601 Announce It!";
 
   private static MongoDatabase database;
 
@@ -36,8 +36,8 @@ public class Server {
     database = mongoClient.getDatabase(databaseName);
 
     // Initialize dependencies
-    UserController userController = new UserController(database);
-    //UserRequestHandler userRequestHandler = new UserRequestHandler(userController);
+    OwnerController ownerController = new OwnerController(database);
+    //OwnerRequestHandler ownerRequestHandler = new OwnerRequestHandler(ownerController);
 
     Javalin server = Javalin.create().start(4567);
 
@@ -47,16 +47,16 @@ public class Server {
     // Utility routes
     server.get("api", ctx -> ctx.result(appName));
 
-    // Get specific user
-    server.get("api/users/:id", userController::getUser);
+    // Get specific owner
+    server.get("api/owners/:id", ownerController::getOwner);
 
-    server.delete("api/users/:id", userController::deleteUser);
+    server.delete("api/owners/:id", ownerController::deleteOwner);
 
-    // List users, filtered using query parameters
-    server.get("api/users", userController::getUsers);
+    // List owners, filtered using query parameters
+    server.get("api/owners", ownerController::getOwners);
 
-    // Add new user
-    server.post("api/users/new", userController::addNewUser);
+    // Add new owner
+    server.post("api/owners/new", ownerController::addNewOwner);
 
 
 
