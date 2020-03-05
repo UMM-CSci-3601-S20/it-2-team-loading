@@ -88,16 +88,15 @@ public class OwnerController {
     List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
 
     if (ctx.queryParamMap().containsKey("officeID")) {
-        String officeID = ctx.queryParam("officeID", String.class).get();
-        filters.add(eq("officeID", officeID));
+        filters.add(regex("officeID", ctx.queryParam("officeID"), "i"));
     }
 
-    if (ctx.queryParamMap().containsKey("email")) {
-      filters.add(regex("email", ctx.queryParam("email"), "i"));
-    }
+    if (ctx.queryParamMap().containsKey("name")) {
+      filters.add(regex("name", ctx.queryParam("name"), "i"));
+  }
 
     if (ctx.queryParamMap().containsKey("building")) {
-      filters.add(eq("building", ctx.queryParam("building")));
+      filters.add(regex("building", ctx.queryParam("building"), "i"));
     }
 
     String sortBy = ctx.queryParam("sortby", "name"); //Sort by sort query param, default is name

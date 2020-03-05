@@ -11,21 +11,20 @@ export class OwnerService {
 
   constructor(private httpClient: HttpClient) {
   }
-  // commented out filters for now as we haven't decided where we will filter things
-  // and currently all filtering is handled by Angular
-  getOwners(filters?: {}): Observable<Owner[]> {
+  // Planning on just filtering everything from the database so that there won't be as much strain on user phones
+  getOwners(filters?: { name?: string, officeID?: string, building?: string}): Observable<Owner[]> {
     let httpParams: HttpParams = new HttpParams();
-    // if (filters) {
-    //   if (filters.role) {
-    //     httpParams = httpParams.set('role', filters.role);
-    //   }
-    //   if (filters.age) {
-    //     httpParams = httpParams.set('age', filters.age.toString());
-    //   }
-    //   if (filters.officeID) {
-    //     httpParams = httpParams.set('officeID', filters.officeID);
-    //   }
-    // }
+    if (filters) {
+      if (filters.name) {
+        httpParams = httpParams.set('name', filters.name);
+      }
+      if (filters.officeID) {
+        httpParams = httpParams.set('officeID', filters.officeID);
+      }
+      if (filters.building) {
+        httpParams = httpParams.set('building', filters.building);
+      }
+    }
     return this.httpClient.get<Owner[]>(this.ownerUrl, {
       params: httpParams,
     });
@@ -35,36 +34,36 @@ export class OwnerService {
     return this.httpClient.get<Owner>(this.ownerUrl + '/' + id);
   }
 
-  filterOwners(owners: Owner[], filters: { name?: string, officeID?: string, building?: string }): Owner[] {
+  filterOwners(owners: Owner[], filters: {  }): Owner[] {
 
     let filteredOwners = owners;
 
-    // Filter by name
-    if (filters.name) {
-      filters.name = filters.name.toLowerCase();
+    // // Filter by name
+    // if (filters.name) {
+    //   filters.name = filters.name.toLowerCase();
 
-      filteredOwners = filteredOwners.filter(owner => {
-        return owner.name.toLowerCase().indexOf(filters.name) !== -1;
-      });
-    }
+    //   filteredOwners = filteredOwners.filter(owner => {
+    //     return owner.name.toLowerCase().indexOf(filters.name) !== -1;
+    //   });
+    // }
 
-    // Filter by officeID
-    if (filters.officeID) {
-      filters.officeID = filters.officeID.toLowerCase();
+    // // Filter by officeID
+    // if (filters.officeID) {
+    //   filters.officeID = filters.officeID.toLowerCase();
 
-      filteredOwners = filteredOwners.filter(owner => {
-        return owner.officeID.toLowerCase().indexOf(filters.officeID) !== -1;
-      });
-    }
+    //   filteredOwners = filteredOwners.filter(owner => {
+    //     return owner.officeID.toLowerCase().indexOf(filters.officeID) !== -1;
+    //   });
+    // }
 
-    // Filter by building
-    if (filters.building) {
-      filters.building = filters.building.toLowerCase();
+    // // Filter by building
+    // if (filters.building) {
+    //   filters.building = filters.building.toLowerCase();
 
-      filteredOwners = filteredOwners.filter(owner => {
-        return owner.building.toLowerCase().indexOf(filters.building) !== -1;
-      });
-    }
+    //   filteredOwners = filteredOwners.filter(owner => {
+    //     return owner.building.toLowerCase().indexOf(filters.building) !== -1;
+    //   });
+    // }
 
     return filteredOwners;
   }
