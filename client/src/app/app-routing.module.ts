@@ -9,7 +9,7 @@ import { AddOwnerComponent } from './owners/add-owner.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'posts/new', component: AddPostComponent}
+  {path: 'posts/new', component: AddPostComponent},
   {path: 'owners', component: OwnerListComponent},
   {path: 'owners/new', component: AddOwnerComponent},
   {path: 'owners/:id', component: OwnerProfileComponent}
