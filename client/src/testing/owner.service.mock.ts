@@ -12,7 +12,7 @@ export class MockOwnerService extends OwnerService {
   static testOwners: Owner[] = [
     {
       _id: 'rachaeljohnson_id',
-      name: 'Rahael Johnson',
+      name: 'Rachael Johnson',
       officeID: '1310',
       email: 'rmjohns@morris.umn.edu',
       building: 'Science'
@@ -30,6 +30,20 @@ export class MockOwnerService extends OwnerService {
       officeID: '2065',
       email: 'rdenton@morris.umn.edu',
       building: 'Science'
+    },
+    {
+      _id: 'spaceman_id',
+      name: 'Space Man',
+      officeID: '9999',
+      email: 'moonrocks@hotmail.com',
+      building: 'The moon'
+    },
+    {
+      _id: 'cowtipper_id',
+      name: 'Cow Tipper',
+      officeID: '4512',
+      email: 'fiendofthebovine@gmail.com',
+      building: 'Some pasture'
     },
   ];
 
