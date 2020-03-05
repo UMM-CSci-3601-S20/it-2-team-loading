@@ -91,7 +91,7 @@ describe('AddPostComponent', () => {
     });
 
     it('should fail on really long message', () => {
-      messageControl.setValue('x'.repeat(100));
+      messageControl.setValue('x'.repeat(700));
       expect(messageControl.valid).toBeFalsy();
       // Annoyingly, Angular uses lowercase 'l' here
       // when it's an upper case 'L' in `Validators.maxLength(2)`.
