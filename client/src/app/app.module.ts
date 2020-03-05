@@ -58,7 +58,6 @@ const MATERIAL_MODULES: any[] = [
   declarations: [
     AppComponent,
     HomeComponent,
-    AddUserComponent,
     AddPostComponent,
     OwnerListComponent,
     OwnerCardComponent,
@@ -77,7 +76,7 @@ const MATERIAL_MODULES: any[] = [
     LayoutModule,
   ],
   providers: [
-    PostService
+    PostService,
     OwnerService
   ],
   bootstrap: [AppComponent]
