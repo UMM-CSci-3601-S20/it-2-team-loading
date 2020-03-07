@@ -174,30 +174,30 @@ describe('AddOwnerComponent', () => {
   //   });
   // });
 
-  // describe('The email field', () => {
-  //   let emailControl: AbstractControl;
+  describe('The email field', () => {
+    let emailControl: AbstractControl;
 
-  //   beforeEach(() => {
-  //     emailControl = addOwnerComponent.addOwnerForm.controls[`email`];
-  //   });
+    beforeEach(() => {
+      emailControl = addOwnerComponent.addOwnerForm.controls[`email`];
+    });
 
-  //   it('should not allow empty values', () => {
-  //     emailControl.setValue('');
-  //     expect(emailControl.valid).toBeFalsy();
-  //     expect(emailControl.hasError('required')).toBeTruthy();
-  //   });
+    it('should not allow empty values', () => {
+      emailControl.setValue('');
+      expect(emailControl.valid).toBeFalsy();
+      expect(emailControl.hasError('required')).toBeTruthy();
+    });
 
-  //   it('should accept legal emails', () => {
-  //     emailControl.setValue('conniestewart@ohmnet.com');
-  //     expect(emailControl.valid).toBeTruthy();
-  //   });
+    it('should accept legal emails', () => {
+      emailControl.setValue('conniestewart@ohmnet.com');
+      expect(emailControl.valid).toBeTruthy();
+    });
 
-  //   it('should fail without @', () => {
-  //     emailControl.setValue('conniestewart');
-  //     expect(emailControl.valid).toBeFalsy();
-  //     expect(emailControl.hasError('email')).toBeTruthy();
-  //   });
-  // });
+    it('should fail without @', () => {
+      emailControl.setValue('conniestewart');
+      expect(emailControl.valid).toBeFalsy();
+      expect(emailControl.hasError('email')).toBeTruthy();
+    });
+  });
 
   // describe('The role field', () => {
   //   let roleControl: AbstractControl;

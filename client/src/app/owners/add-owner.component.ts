@@ -38,8 +38,8 @@ export class AddOwnerComponent implements OnInit {
     ],
 
     email: [
-      // {type: 'email', message: 'Email must be formatted properly'},
-      // {type: 'required', message: 'Email is required'}
+      {type: 'email', message: 'Email must be formatted properly'},
+      {type: 'required', message: 'Email is required'}
     ],
 
     building: [
@@ -93,8 +93,8 @@ export class AddOwnerComponent implements OnInit {
       // We don't need a special validator just for our app here, but there is a default one for email.
       // We will require the email, though.
       email: new FormControl('', Validators.compose([
-        // Validators.required,
-        // Validators.email,
+        Validators.required,
+        Validators.email,
       ])),
 
       // role: new FormControl('viewer', Validators.compose([
