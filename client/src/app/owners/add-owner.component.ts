@@ -30,10 +30,9 @@ export class AddOwnerComponent implements OnInit {
     ],
 
     officeID: [
-      // {type: 'required', message: 'Building is required'},
-      // {type: 'minlength', message: 'Building must be at least 2 characters long'},
-      // {type: 'maxlength', message: 'Building cannot be more than 100 characters long'},
-      // {type: 'pattern', message: 'Building must contain only letters'}, // need to change this to just numbers
+      {type: 'required', message: 'officeID is required'},
+      {type: 'maxlength', message: 'OfficeID cannot be more than 30 numbers long'},
+      {type: 'pattern', message: 'OfficeID must contain only numbers'}, // need to change this to just numbers
     ],
 
     email: [
@@ -111,7 +110,7 @@ export class AddOwnerComponent implements OnInit {
     this.createForms();
   }
 
-
+  // don't know how to test this in the add-owner.component.spec... maybe e2e tests will get this?
   submitForm() {
     this.ownerService.addOwner(this.addOwnerForm.value).subscribe(newID => {
       this.snackBar.open('Added Owner ' + this.addOwnerForm.value.name, null, {

@@ -27,7 +27,7 @@ is potentially helpful and contributed to the shaping of this example -->
                   formControlName="officeID" required>
             <mat-error *ngFor="let validation of add_owner_validation_messages.officeID">
               <mat-error class="error-message" id="officeID-error"
-                        *ngIf="addOwnerForm.get('age').hasError(validation.type) && (addOwnerForm.get('age').dirty || addOwnerForm.get('age').touched)">
+                        *ngIf="addOwnerForm.get('officeID').hasError(validation.type) && (addOwnerForm.get('officeID').dirty || addOwnerForm.get('officeID').touched)">
                 {{validation.message}}
               </mat-error>
             </mat-error>
