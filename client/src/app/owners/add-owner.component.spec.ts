@@ -125,7 +125,130 @@ describe('AddOwnerComponent', () => {
     });
   });
 
-  // describe('The age field', () => {
+  describe('The officeID field', () => {
+    let officeIDControl: AbstractControl;
+
+    beforeEach(() => {
+      officeIDControl = addOwnerComponent.addOwnerForm.controls[`officeID`];
+    });
+
+    it('should not allow empty values', () => {
+      officeIDControl.setValue('');
+      expect(officeIDControl.valid).toBeFalsy();
+      expect(officeIDControl.hasError('required')).toBeTruthy();
+    });
+
+    it('should accept legal officeID\'s', () => {
+      officeIDControl.setValue('114');
+      expect(officeIDControl.valid).toBeTruthy();
+      expect(officeIDControl.hasError('officeID')).toBeFalsy();
+    });
+
+    it('should not accept an officeID with a letter in it', () => {
+      officeIDControl.setValue('abcd158');
+      expect(officeIDControl.valid).toBeFalsy();
+      expect(officeIDControl.hasError('pattern')).toBeTruthy();
+    });
+
+    it('should not allow overly long officeID numbers', () => {
+      officeIDControl.setValue('x'.repeat(50));
+      expect(officeIDControl.valid).toBeFalsy();
+      expect(officeIDControl.hasError('maxlength'));
+    });
+
+    it('should not allow spaces before numbers', () => {
+      officeIDControl.setValue(' 123');
+      expect(officeIDControl.valid).toBeFalsy();
+      expect(officeIDControl.hasError('pattern')).toBeTruthy();
+    });
+
+    it('should not allow spaces between numbers', () => {
+      officeIDControl.setValue('1 23');
+      expect(officeIDControl.valid).toBeFalsy();
+      expect(officeIDControl.hasError('pattern')).toBeTruthy();
+    });
+
+    it('should not allow spaces after numbers', () => {
+      officeIDControl.setValue('123 ');
+      expect(officeIDControl.valid).toBeFalsy();
+      expect(officeIDControl.hasError('pattern')).toBeTruthy();
+    });
+  });
+
+  describe('The email field', () => {
+    let emailControl: AbstractControl;
+
+    beforeEach(() => {
+      emailControl = addOwnerComponent.addOwnerForm.controls[`email`];
+    });
+
+    it('should not allow empty values', () => {
+      emailControl.setValue('');
+      expect(emailControl.valid).toBeFalsy();
+      expect(emailControl.hasError('required')).toBeTruthy();
+    });
+
+    it('should accept legal emails', () => {
+      emailControl.setValue('conniestewart@ohmnet.com');
+      expect(emailControl.valid).toBeTruthy();
+    });
+
+    it('should fail without @', () => {
+      emailControl.setValue('conniestewart');
+      expect(emailControl.valid).toBeFalsy();
+      expect(emailControl.hasError('email')).toBeTruthy();
+    });
+  });
+
+  describe('The building field', () => {
+    let buildingControl: AbstractControl;
+
+    beforeEach(() => {
+      buildingControl = addOwnerComponent.addOwnerForm.controls[`building`];
+    });
+
+    it('should not allow empty building fields', () => {
+      buildingControl.setValue('');
+      expect(buildingControl.valid).toBeFalsy();
+    });
+
+    it('should be fine with "Chris Smith"', () => {
+      buildingControl.setValue('Chris Smith');
+      expect(buildingControl.valid).toBeTruthy();
+    });
+
+    it('should fail on single character building names', () => {
+      buildingControl.setValue('x');
+      expect(buildingControl.valid).toBeFalsy();
+      // Annoyingly, Angular uses lowercase 'l' here
+      // when it's an upper case 'L' in `Validators.minLength(2)`.
+      expect(buildingControl.hasError('minlength')).toBeTruthy();
+    });
+
+    // In the real world, you'd want to be pretty careful about
+    // setting upper limits on things like building lengths just
+    // because there are people with really long buildings.
+    it('should fail on really long building names', () => {
+      buildingControl.setValue('x'.repeat(200));
+      expect(buildingControl.valid).toBeFalsy();
+      // Annoyingly, Angular uses lowercase 'l' here
+      // when it's an upper case 'L' in `Validators.maxLength(2)`.
+      expect(buildingControl.hasError('maxlength')).toBeTruthy();
+    });
+
+    it('should not allow a building name to contain a symbol', () => {
+      buildingControl.setValue('bad@email.com');
+      expect(buildingControl.valid).toBeFalsy();
+      expect(buildingControl.hasError('pattern')).toBeTruthy();
+    });
+
+    it('should not allow digits in the building name', () => {
+      buildingControl.setValue('Bad2Th3B0ne');
+      expect(buildingControl.valid).toBeFalsy();
+    });
+  });
+
+    // describe('The age field', () => {
   //   let ageControl: AbstractControl;
 
   //   beforeEach(() => {
@@ -173,31 +296,6 @@ describe('AddOwnerComponent', () => {
   //     expect(companyControl.valid).toBeTruthy();
   //   });
   // });
-
-  describe('The email field', () => {
-    let emailControl: AbstractControl;
-
-    beforeEach(() => {
-      emailControl = addOwnerComponent.addOwnerForm.controls[`email`];
-    });
-
-    it('should not allow empty values', () => {
-      emailControl.setValue('');
-      expect(emailControl.valid).toBeFalsy();
-      expect(emailControl.hasError('required')).toBeTruthy();
-    });
-
-    it('should accept legal emails', () => {
-      emailControl.setValue('conniestewart@ohmnet.com');
-      expect(emailControl.valid).toBeTruthy();
-    });
-
-    it('should fail without @', () => {
-      emailControl.setValue('conniestewart');
-      expect(emailControl.valid).toBeFalsy();
-      expect(emailControl.hasError('email')).toBeTruthy();
-    });
-  });
 
   // describe('The role field', () => {
   //   let roleControl: AbstractControl;

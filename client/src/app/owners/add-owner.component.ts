@@ -30,11 +30,10 @@ export class AddOwnerComponent implements OnInit {
     ],
 
     officeID: [
-      // {type: 'required', message: 'Name is required'},
-      // {type: 'minlength', message: 'Name must be at least 2 characters long'},
-      // {type: 'maxlength', message: 'Name cannot be more than 100 characters long'},
-      // {type: 'pattern', message: 'Name must contain only numbers and letters'}, // need to change this to just numbers
-      // {type: 'existingName', message: 'Name has already been taken'} // probably don't care if multiple people have the same office number
+      // {type: 'required', message: 'Building is required'},
+      // {type: 'minlength', message: 'Building must be at least 2 characters long'},
+      // {type: 'maxlength', message: 'Building cannot be more than 100 characters long'},
+      // {type: 'pattern', message: 'Building must contain only letters'}, // need to change this to just numbers
     ],
 
     email: [
@@ -43,10 +42,10 @@ export class AddOwnerComponent implements OnInit {
     ],
 
     building: [
-      // {type: 'required', message: 'Name is required'}, // should owners be required to specify the building?
-      // {type: 'minlength', message: 'Name must be at least 2 characters long'},
-      // {type: 'maxlength', message: 'Name cannot be more than 100 characters long'},
-      // {type: 'pattern', message: 'Name must contain only numbers and letters'},
+      {type: 'required', message: 'Name is required'}, // should owners be required to specify the building?
+      {type: 'minlength', message: 'Name must be at least 2 characters long'},
+      {type: 'maxlength', message: 'Name cannot be more than 100 characters long'},
+      {type: 'pattern', message: 'Name must contain only numbers and letters'},
     ],
   };
 
@@ -72,10 +71,20 @@ export class AddOwnerComponent implements OnInit {
           }
         },
       ])),
-      // empty validators for now, just want to see if the form actually gets created
       officeID: new FormControl('', Validators.compose([
+         Validators.required,
+         Validators.maxLength(30),
+         Validators.pattern('^[0-9]+$') // only numbers allowed
       ])),
       building: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(100),
+        Validators.pattern('^[A-Za-z\\s]+[A-Za-z\\s]+$(//s.+)?'), // only allow letters
+      ])),
+      email: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.email,
       ])),
 
       // // Since this is for a company, we need workers to be old enough to work, and probably not older than 200.
@@ -89,13 +98,6 @@ export class AddOwnerComponent implements OnInit {
       // // We don't care much about what is in the company field, so we just add it here as part of the form
       // // without any particular validation.
       // company: new FormControl(),
-
-      // We don't need a special validator just for our app here, but there is a default one for email.
-      // We will require the email, though.
-      email: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.email,
-      ])),
 
       // role: new FormControl('viewer', Validators.compose([
       //   Validators.required,
