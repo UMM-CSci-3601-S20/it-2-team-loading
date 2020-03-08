@@ -1,11 +1,10 @@
-import {browser, by, element, Key, ElementFinder} from 'protractor';
+import { browser, by, element, Key, ElementFinder } from 'protractor';
 
 export interface TestOwner {
   name: string;
-  age: string;
-  company?: string;
-  email?: string;
-  role: 'admin' | 'editor' | 'viewer';
+  officeID: string;
+  building: string;
+  email: string;
 }
 
 export class AddOwnerPage {
@@ -41,14 +40,9 @@ export class AddOwnerPage {
 
   async addOwner(newOwner: TestOwner) {
     await this.typeInput('nameField', newOwner.name);
-    await this.typeInput('ageField', newOwner.age);
-    if (newOwner.company) {
-      await this.typeInput('companyField', newOwner.company);
-    }
-    if (newOwner.email) {
-      await this.typeInput('emailField', newOwner.email);
-    }
-    await this.selectMatSelectValue('roleField', newOwner.role);
+    await this.typeInput('officeIDField', newOwner.officeID);
+    await this.typeInput('buildingField', newOwner.building);
+    await this.typeInput('emailField', newOwner.email);
     return this.clickAddOwner();
   }
 }

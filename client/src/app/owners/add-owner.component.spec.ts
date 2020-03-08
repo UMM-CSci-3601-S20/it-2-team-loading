@@ -1,16 +1,17 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { FormsModule, NgForm, ReactiveFormsModule, FormGroup, AbstractControl } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockOwnerService } from 'src/testing/owner.service.mock';
 import { AddOwnerComponent } from './add-owner.component';
 import { OwnerService } from './owner.service';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 describe('AddOwnerComponent', () => {
   let addOwnerComponent: AddOwnerComponent;
@@ -248,86 +249,88 @@ describe('AddOwnerComponent', () => {
     });
   });
 
-    // describe('The age field', () => {
-  //   let ageControl: AbstractControl;
 
-  //   beforeEach(() => {
-  //     ageControl = addOwnerComponent.addOwnerForm.controls[`age`];
-  //   });
-
-  //   it('should not allow empty names', () => {
-  //     ageControl.setValue('');
-  //     expect(ageControl.valid).toBeFalsy();
-  //   });
-
-  //   it('should be fine with "27"', () => {
-  //     ageControl.setValue('27');
-  //     expect(ageControl.valid).toBeTruthy();
-  //   });
-
-  //   it('should fail on ages that are too low', () => {
-  //     ageControl.setValue('14');
-  //     expect(ageControl.valid).toBeFalsy();
-  //     expect(ageControl.hasError('min')).toBeTruthy();
-  //   });
-
-  //   // In the real world, you'd want to be pretty careful about
-  //   // setting upper limits on things like ages.
-  //   it('should fail on ages that are too high', () => {
-  //     ageControl.setValue(201);
-  //     expect(ageControl.valid).toBeFalsy();
-  //     // I have no idea why I have to use a lower case 'l' here
-  //     // when it's an upper case 'L' in `Validators.maxLength(2)`.
-  //     // But I apparently do.
-  //     expect(ageControl.hasError('max')).toBeTruthy();
-  //   });
-
-  //   it('should not allow an age to contain non-digits', () => {
-  //     ageControl.setValue('123x567');
-  //     expect(ageControl.valid).toBeFalsy();
-  //     expect(ageControl.hasError('pattern')).toBeTruthy();
-  //   });
-  // });
-
-  // describe('The company field', () => {
-  //   it('should allow empty values', () => {
-  //     const companyControl = addOwnerForm.controls[`company`];
-  //     companyControl.setValue('');
-  //     expect(companyControl.valid).toBeTruthy();
-  //   });
-  // });
-
-  // describe('The role field', () => {
-  //   let roleControl: AbstractControl;
-
-  //   beforeEach(() => {
-  //     roleControl = addOwnerForm.controls[`role`];
-  //   });
-
-  //   it('should not allow empty values', () => {
-  //     roleControl.setValue('');
-  //     expect(roleControl.valid).toBeFalsy();
-  //     expect(roleControl.hasError('required')).toBeTruthy();
-  //   });
-
-  //   it('should allow "admin"', () => {
-  //     roleControl.setValue('admin');
-  //     expect(roleControl.valid).toBeTruthy();
-  //   });
-
-  //   it('should allow "editor"', () => {
-  //     roleControl.setValue('editor');
-  //     expect(roleControl.valid).toBeTruthy();
-  //   });
-
-  //   it('should allow "viewer"', () => {
-  //     roleControl.setValue('viewer');
-  //     expect(roleControl.valid).toBeTruthy();
-  //   });
-
-  //   it('should not allow "Supreme Overlord"', () => {
-  //     roleControl.setValue('Supreme Overlord');
-  //     expect(roleControl.valid).toBeFalsy();
-  //   });
-  // });
 });
+
+    // describe('The age field', () => {
+    //   let ageControl: AbstractControl;
+
+    //   beforeEach(() => {
+    //     ageControl = addOwnerComponent.addOwnerForm.controls[`age`];
+    //   });
+
+    //   it('should not allow empty names', () => {
+    //     ageControl.setValue('');
+    //     expect(ageControl.valid).toBeFalsy();
+    //   });
+
+    //   it('should be fine with "27"', () => {
+    //     ageControl.setValue('27');
+    //     expect(ageControl.valid).toBeTruthy();
+    //   });
+
+    //   it('should fail on ages that are too low', () => {
+    //     ageControl.setValue('14');
+    //     expect(ageControl.valid).toBeFalsy();
+    //     expect(ageControl.hasError('min')).toBeTruthy();
+    //   });
+
+    //   // In the real world, you'd want to be pretty careful about
+    //   // setting upper limits on things like ages.
+    //   it('should fail on ages that are too high', () => {
+    //     ageControl.setValue(201);
+    //     expect(ageControl.valid).toBeFalsy();
+    //     // I have no idea why I have to use a lower case 'l' here
+    //     // when it's an upper case 'L' in `Validators.maxLength(2)`.
+    //     // But I apparently do.
+    //     expect(ageControl.hasError('max')).toBeTruthy();
+    //   });
+
+    //   it('should not allow an age to contain non-digits', () => {
+    //     ageControl.setValue('123x567');
+    //     expect(ageControl.valid).toBeFalsy();
+    //     expect(ageControl.hasError('pattern')).toBeTruthy();
+    //   });
+    // });
+
+    // describe('The company field', () => {
+    //   it('should allow empty values', () => {
+    //     const companyControl = addOwnerForm.controls[`company`];
+    //     companyControl.setValue('');
+    //     expect(companyControl.valid).toBeTruthy();
+    //   });
+    // });
+
+    // describe('The role field', () => {
+    //   let roleControl: AbstractControl;
+
+    //   beforeEach(() => {
+    //     roleControl = addOwnerForm.controls[`role`];
+    //   });
+
+    //   it('should not allow empty values', () => {
+    //     roleControl.setValue('');
+    //     expect(roleControl.valid).toBeFalsy();
+    //     expect(roleControl.hasError('required')).toBeTruthy();
+    //   });
+
+    //   it('should allow "admin"', () => {
+    //     roleControl.setValue('admin');
+    //     expect(roleControl.valid).toBeTruthy();
+    //   });
+
+    //   it('should allow "editor"', () => {
+    //     roleControl.setValue('editor');
+    //     expect(roleControl.valid).toBeTruthy();
+    //   });
+
+    //   it('should allow "viewer"', () => {
+    //     roleControl.setValue('viewer');
+    //     expect(roleControl.valid).toBeTruthy();
+    //   });
+
+    //   it('should not allow "Supreme Overlord"', () => {
+    //     roleControl.setValue('Supreme Overlord');
+    //     expect(roleControl.valid).toBeFalsy();
+    //   });
+    // });
