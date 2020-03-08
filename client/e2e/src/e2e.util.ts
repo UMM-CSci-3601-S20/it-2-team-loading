@@ -14,4 +14,26 @@
   public static randomBoolean(): boolean {
     return Boolean(Math.round(Math.random()));
   }
+
+  public static randomLetters(length: number): string {
+    let text = '';
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
+    for (let i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+
+    return text;
+  }
+
+  public static randomNums(length: number): string {
+    let text = '';
+    const possible = '0123456789';
+
+    for (let i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+
+    return text;
+  }
 }

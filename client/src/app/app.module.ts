@@ -35,6 +35,7 @@ import { PostListComponent } from './posts/post-list.component';
 import { OwnerCardComponent } from './owners/owner-card.component';
 import { OwnerProfileComponent } from './owners/owner-profile.component';
 import { AddOwnerComponent } from './owners/add-owner.component';
+import { PostListComponent } from './posts/post-list.component';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -60,6 +61,7 @@ const MATERIAL_MODULES: any[] = [
     AppComponent,
     HomeComponent,
     AddPostComponent,
+    PostListComponent,
     OwnerListComponent,
     OwnerCardComponent,
     OwnerProfileComponent,

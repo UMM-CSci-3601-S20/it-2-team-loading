@@ -25,5 +25,14 @@
     "officeID": "2065",
     "email": "rdenton@morris.umn.edu",
     "building": "Science"
+  },
+  {
+    "_id": {
+      "$oid": "588935f57546a2daea44de7f"
+    },
+    "name": "Emily Bruce",
+    "officeID": "118",
+    "email": "bruce088@morris.umn.edu",
+    "building": "Camden"
   }
 ]

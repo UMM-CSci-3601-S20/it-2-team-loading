@@ -3,46 +3,26 @@
 
     <mat-card class="search-card">
       <mat-card-header>
-        <mat-card-title class="post-list-title">Owners</mat-card-title>
+      <mat-card-title class="post-list-title">Posts</mat-card-title>
       </mat-card-header>
       <mat-card-content fxLayout="column" >
-
         <div fxLayout="row wrap" fxLayoutGap="10px">
-          <!-- Examples of filtering in Angular
-        </div>
-
-       <div fxLayout="row wrap" fxLayoutGap="10px">
-          <!-- Examples of filtering on the server -->
-        <!--</div>
-        <br>
-        <div fxLayout="row wrap" fxLayoutGap="10px">
-          <label>View type: </label>
-          <mat-radio-group aria-label="View type" [(ngModel)]="viewType" id="view-type-radio">
-            <mat-radio-button value="list">List</mat-radio-button>
-          </mat-radio-group>
-        </div>
-
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div>
 
 <div fxLayout="row">
-  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredOwners; else postsError" >-->
-
-      <!-- List view -->
-      <!--<mat-card *ngSwitchCase="'list'">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredPosts; else postsError" >
         <mat-card-content>
           <mat-nav-list class="post-nav-list">
-            <h3 mat-subheader>Owners</h3>
-            <a mat-list-item *ngFor="let post of this.filteredOwners" [routerLink]="['/posts', post._id]" class="post-list-item">
+            <h3 mat-subheader>Posts</h3>
+            <a mat-list-item *ngFor="let post of this.filteredPosts" [routerLink]="['/posts', post._id]" class="post-list-item">
+              <!--
               <img matListAvatar [src]="post.avatar" *ngIf="this.post.avatar">
-              <h3 matLine class="post-list-note"> {{post.note}} </h3>
+              <h3 matLine class="post-list-name"> {{post.Note}} </h3> -->
             </a>
           </mat-nav-list>
         </mat-card-content>
-      </mat-card>
-  </div>-->
+    </div>
+  </div>
+
 
   <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
  <!-- <ng-template #postsError>
@@ -56,8 +36,6 @@
       </mat-error>
     </div>
   </ng-template>
-
-</div>
 
 <button mat-fab class="add-post-fab" matTooltip="Add Note" matTooltipPosition="left" routerLink="/posts/new">
     <mat-icon class="md-24" aria-label="Add Note">add</mat-icon>

@@ -32,14 +32,14 @@ import static org.junit.jupiter.api.Assertions.*;
  * they test that code, and perhaps our understanding of it.
  * <p>
  * To test "our" code we'd want the tests to confirm that
- * the behavior of methods in things like the UserController
+ * the behavior of methods in things like the OwnerController
  * do the "right" thing.
  * <p>
  * Created by mcphee on 20/2/17.
  */
 public class MongoSpec {
 
-  private MongoCollection<Document> userDocuments;
+  private MongoCollection<Document> ownerDocuments;
 
   static MongoClient mongoClient;
   static MongoDatabase db;
@@ -65,165 +65,162 @@ public class MongoSpec {
 
   @BeforeEach
   public void clearAndPopulateDB() {
-    userDocuments = db.getCollection("users");
-    userDocuments.drop();
-    List<Document> testUsers = new ArrayList<>();
-    testUsers.add(Document.parse("{\n" +
-      "                    name: \"Chris\",\n" +
-      "                    age: 25,\n" +
-      "                    company: \"UMM\",\n" +
-      "                    email: \"chris@this.that\"\n" +
+    ownerDocuments = db.getCollection("owners");
+    ownerDocuments.drop();
+    List<Document> testOwners = new ArrayList<>();
+    testOwners.add(Document.parse("{\n" +
+      "                    name: \"Rachael Johnson\",\n" +
+      "                    officeID: \"1310\",\n" +
+      "                    building: \"Science\",\n" +
+      "                    email: \"rmjohns@morris.umn.edu\"\n" +
       "                }"));
-    testUsers.add(Document.parse("{\n" +
-      "                    name: \"Pat\",\n" +
-      "                    age: 37,\n" +
-      "                    company: \"IBM\",\n" +
-      "                    email: \"pat@something.com\"\n" +
+    testOwners.add(Document.parse("{\n" +
+      "                    name: \"Robert Denton\",\n" +
+      "                    officeID: \"1523\",\n" +
+      "                    building: \"Science\",\n" +
+      "                    email: \"rdenton@morris.umn.edu\"\n" +
       "                }"));
-    testUsers.add(Document.parse("{\n" +
-      "                    name: \"Jamie\",\n" +
-      "                    age: 37,\n" +
-      "                    company: \"Frogs, Inc.\",\n" +
-      "                    email: \"jamie@frogs.com\"\n" +
+    testOwners.add(Document.parse("{\n" +
+      "                    name: \"Emily Bruce\",\n" +
+      "                    officeID: \"1600\",\n" +
+      "                    building: \"Camden\",\n" +
+      "                    email: \"bruce088@morris.umn.edu\"\n" +
       "                }"));
-    userDocuments.insertMany(testUsers);
+    ownerDocuments.insertMany(testOwners);
   }
 
   private List<Document> intoList(MongoIterable<Document> documents) {
-    List<Document> users = new ArrayList<>();
-    documents.into(users);
-    return users;
+    List<Document> owners = new ArrayList<>();
+    documents.into(owners);
+    return owners;
   }
 
-  private int countUsers(FindIterable<Document> documents) {
-    List<Document> users = intoList(documents);
-    return users.size();
-  }
-
-  @Test
-  public void shouldBeThreeUsers() {
-    FindIterable<Document> documents = userDocuments.find();
-    int numberOfUsers = countUsers(documents);
-    assertEquals(3, numberOfUsers, "Should be 3 total users");
+  private int countOwners(FindIterable<Document> documents) {
+    List<Document> owners = intoList(documents);
+    return owners.size();
   }
 
   @Test
-  public void shouldBeOneChris() {
-    FindIterable<Document> documents = userDocuments.find(eq("name", "Chris"));
-    int numberOfUsers = countUsers(documents);
-    assertEquals(1, numberOfUsers, "Should be 1 Chris");
+  public void shouldBeThreeOwners() {
+    FindIterable<Document> documents = ownerDocuments.find();
+    int numberOfOwners = countOwners(documents);
+    assertEquals(3, numberOfOwners, "Should be 3 total owners");
   }
 
   @Test
-  public void shouldBeTwoOver25() {
-    FindIterable<Document> documents = userDocuments.find(gt("age", 25));
-    int numberOfUsers = countUsers(documents);
-    assertEquals(2, numberOfUsers, "Should be 2 over 25");
+  public void shouldBeOneRachaelJohnson() {
+    FindIterable<Document> documents = ownerDocuments.find(eq("name", "Rachael Johnson"));
+    int numberOfOwners = countOwners(documents);
+    assertEquals(1, numberOfOwners, "Should be 1 Rachael Johnson");
   }
 
   @Test
-  public void over25SortedByName() {
+  public void shouldBeOneRobertDenton() {
+    FindIterable<Document> documents = ownerDocuments.find(eq("name", "Robert Denton"));
+    int numberOfOwners = countOwners(documents);
+    assertEquals(1, numberOfOwners, "Should be 1 Robert Denton");
+  }
+
+  @Test
+  public void shouldBeTwoInScienceBuilding() {
+    FindIterable<Document> documents = ownerDocuments.find(eq("building", "Science"));
+    int numberOfOwners = countOwners(documents);
+    assertEquals(2, numberOfOwners, "Should be 2 in the Science building");
+  }
+
+
+  @Test
+  public void shouldGetEmilyBruceFromOfficeIDAndBuilding() {
     FindIterable<Document> documents
-      = userDocuments.find(gt("age", 25))
-      .sort(Sorts.ascending("name"));
-    List<Document> docs = intoList(documents);
-    assertEquals(2, docs.size(), "Should be 2");
-    assertEquals("Jamie", docs.get(0).get("name"), "First should be Jamie");
-    assertEquals("Pat", docs.get(1).get("name"), "Second should be Pat");
-  }
-
-  @Test
-  public void over25AndIbmers() {
-    FindIterable<Document> documents
-      = userDocuments.find(and(gt("age", 25),
-      eq("company", "IBM")));
+      = ownerDocuments.find(and(eq("officeID", "1600"),
+      eq("building", "Camden")));
     List<Document> docs = intoList(documents);
     assertEquals(1, docs.size(), "Should be 1");
-    assertEquals("Pat", docs.get(0).get("name"), "First should be Pat");
+    assertEquals("1600", docs.get(0).get("officeID"), "First should be 1600");
+    assertEquals("Camden", docs.get(0).get("building"), "First should be Camden");
   }
 
   @Test
   public void justNameAndEmail() {
     FindIterable<Document> documents
-      = userDocuments.find().projection(fields(include("name", "email")));
+      = ownerDocuments.find().projection(fields(include("name", "email")));
     List<Document> docs = intoList(documents);
     assertEquals(3, docs.size(), "Should be 3");
-    assertEquals("Chris", docs.get(0).get("name"), "First should be Chris");
+    assertEquals("Rachael Johnson", docs.get(0).get("name"), "First should be Rachael Johnson");
     assertNotNull(docs.get(0).get("email"), "First should have email");
-    assertNull(docs.get(0).get("company"), "First shouldn't have 'company'");
+    assertNull(docs.get(0).get("building"), "First shouldn't have 'building'");
     assertNotNull(docs.get(0).get("_id"), "First should have '_id'");
   }
 
   @Test
-  public void justNameAndEmailNoId() {
+  public void justBuildingAndEmail() {
     FindIterable<Document> documents
-      = userDocuments.find()
-      .projection(fields(include("name", "email"), excludeId()));
+      = ownerDocuments.find()
+      .projection(fields(include("building", "email"), exclude("_id")));
     List<Document> docs = intoList(documents);
     assertEquals(3, docs.size(), "Should be 3");
-    assertEquals("Chris", docs.get(0).get("name"), "First should be Chris");
-    assertNotNull(docs.get(0).get("email"), "First should have email");
-    assertNull(docs.get(0).get("company"), "First shouldn't have 'company'");
+    assertEquals("Science", docs.get(0).get("building"), "First should be Science");
+    assertNotNull(docs.get(0).get("email"), "First should have rmjohns@morris.umn.edu");
+    assertNull(docs.get(0).get("name"), "First shouldn't have 'Rachael Johnson'");
     assertNull(docs.get(0).get("_id"), "First should not have '_id'");
   }
 
-  @Test
-  public void justNameAndEmailNoIdSortedByCompany() {
-    FindIterable<Document> documents
-      = userDocuments.find()
-      .sort(Sorts.ascending("company"))
-      .projection(fields(include("name", "email"), excludeId()));
-    List<Document> docs = intoList(documents);
-    assertEquals(3, docs.size(), "Should be 3");
-    assertEquals("Jamie", docs.get(0).get("name"), "First should be Jamie");
-    assertNotNull(docs.get(0).get("email"), "First should have email");
-    assertNull(docs.get(0).get("company"), "First shouldn't have 'company'");
-    assertNull(docs.get(0).get("_id"), "First should not have '_id'");
-  }
+  // @Test
+  // public void justNameAndEmailNoIdSortedByCompany() {
+  //   FindIterable<Document> documents
+  //     = ownerDocuments.find()
+  //     .sort(Sorts.ascending("building"))
+  //     .projection(fields(include("name", "email"), excludeId()));
+  //   List<Document> docs = intoList(documents);
+  //   assertEquals(3, docs.size(), "Should be 3");
+  //   assertEquals("Jamie", docs.get(0).get("name"), "First should be Jamie");
+  //   assertNotNull(docs.get(0).get("email"), "First should have email");
+  //   assertNull(docs.get(0).get("building"), "First shouldn't have 'building'");
+  //   assertNull(docs.get(0).get("_id"), "First should not have '_id'");
+  // }
 
   @Test
-  public void ageCounts() {
+  public void officeIDCounts() {
     AggregateIterable<Document> documents
-      = userDocuments.aggregate(
+      = ownerDocuments.aggregate(
       Arrays.asList(
         /*
-         * Groups data by the "age" field, and then counts
-         * the number of documents with each given age.
+         * Groups data by the "officeID" field, and then counts
+         * the number of documents with each given officeID.
          * This creates a new "constructed document" that
-         * has "age" as it's "_id", and the count as the
-         * "ageCount" field.
+         * has "officeID" as it's "_id", and the count as the
+         * "officeIDCount" field.
          */
-        Aggregates.group("$age",
-          Accumulators.sum("ageCount", 1)),
+        Aggregates.group("$officeID",
+          Accumulators.sum("officeIDCount", 1)),
         Aggregates.sort(Sorts.ascending("_id"))
       )
     );
     List<Document> docs = intoList(documents);
-    assertEquals(2, docs.size(), "Should be two distinct ages");
-    assertEquals(docs.get(0).get("_id"), 25);
-    assertEquals(docs.get(0).get("ageCount"), 1);
-    assertEquals(docs.get(1).get("_id"), 37);
-    assertEquals(docs.get(1).get("ageCount"), 2);
+    assertEquals(3, docs.size(), "Should be two distinct officeIDs");
+    assertEquals(docs.get(0).get("_id"), "1310");
+    assertEquals(docs.get(0).get("officeIDCount"), 1);
+    assertEquals(docs.get(1).get("_id"), "1523");
+    assertEquals(docs.get(1).get("officeIDCount"), 1);
   }
 
-  @Test
-  public void averageAge() {
-    AggregateIterable<Document> documents
-      = userDocuments.aggregate(
-      Arrays.asList(
-        Aggregates.group("$company",
-          Accumulators.avg("averageAge", "$age")),
-        Aggregates.sort(Sorts.ascending("_id"))
-      ));
-    List<Document> docs = intoList(documents);
-    assertEquals(3, docs.size(), "Should be three companies");
+  // @Test
+  // public void officeID() {
+  //   AggregateIterable<Document> documents
+  //     = ownerDocuments.aggregate(
+  //     Arrays.asList(
+  //       Aggregates.group("$building",
+  //         Accumulators.avg("officeID", "$officeID")),
+  //       Aggregates.sort(Sorts.ascending("_id"))
+  //     ));
+  //   List<Document> docs = intoList(documents);
+  //   assertEquals(3, docs.size(), "Should be three companies");
 
-    assertEquals("Frogs, Inc.", docs.get(0).get("_id"));
-    assertEquals(37.0, docs.get(0).get("averageAge"));
-    assertEquals("IBM", docs.get(1).get("_id"));
-    assertEquals(37.0, docs.get(1).get("averageAge"));
-    assertEquals("UMM", docs.get(2).get("_id"));
-    assertEquals(25.0, docs.get(2).get("averageAge"));
-  }
-
+  //   assertEquals("Frogs, Inc.", docs.get(0).get("_id"));
+  //   assertEquals(37.0, docs.get(0).get("officeID"));
+  //   assertEquals("IBM", docs.get(1).get("_id"));
+  //   assertEquals(37.0, docs.get(1).get("officeID"));
+  //   assertEquals("UMM", docs.get(2).get("_id"));
+  //   assertEquals(25.0, docs.get(2).get("officeID"));
+  // }
 }
