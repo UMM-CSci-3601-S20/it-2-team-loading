@@ -16,7 +16,7 @@
             <a mat-list-item *ngFor="let post of this.filteredPosts" [routerLink]="['/posts', post._id]" class="post-list-item">
               <!--
               <img matListAvatar [src]="post.avatar" *ngIf="this.post.avatar">
-              <h3 matLine class="post-list-name"> {{post.Note}} </h3> -->
+              <h3 matLine class="post-list-name"> {{post.Note}} </h3>
             </a>
           </mat-nav-list>
         </mat-card-content>
