@@ -88,16 +88,15 @@ public class OwnerController {
     List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
 
     if (ctx.queryParamMap().containsKey("officeID")) {
-        String officeID = ctx.queryParam("officeID", String.class).get();
-        filters.add(eq("officeID", officeID));
+        filters.add(regex("officeID", ctx.queryParam("officeID")));
     }
 
-    if (ctx.queryParamMap().containsKey("email")) {
-      filters.add(regex("email", ctx.queryParam("email"), "i"));
-    }
+    if (ctx.queryParamMap().containsKey("name")) {
+      filters.add(regex("name", ctx.queryParam("name"), "i"));
+  }
 
     if (ctx.queryParamMap().containsKey("building")) {
-      filters.add(eq("building", ctx.queryParam("building")));
+      filters.add(regex("building", ctx.queryParam("building"), "i"));
     }
 
     String sortBy = ctx.queryParam("sortby", "name"); //Sort by sort query param, default is name
@@ -116,9 +115,9 @@ public class OwnerController {
   public void addNewOwner(Context ctx) {
     Owner newOwner = ctx.bodyValidator(Owner.class)
       .check((owner) -> owner.name != null && owner.name.length() > 0) //Verify that the owner has a name that is not blank
-      .check((owner) -> owner.email.matches(emailRegex)) // Verify that the provided email is a valid email
       .check((owner) -> owner.officeID != null && owner.officeID.length() > 0 ) // Verify that the provided string is not null and length is  is > 0
       .check((owner) -> owner.building != null && owner.building.length() > 0 ) // Verify that the provided string is not null and length is  is > 0
+      .check((owner) -> owner.email.matches(emailRegex)) // Verify that the provided email is a valid email
       .get();
 
     // Generate owner avatar (you won't need this part for todos)
@@ -135,19 +134,19 @@ public class OwnerController {
     ctx.json(ImmutableMap.of("id", newOwner._id));
   }
 
-  /**
-   * Utility function to generate the md5 hash for a given string
-   *
-   * @param str the string to generate a md5 for
-   */
-  public String md5(String str) throws NoSuchAlgorithmException {
-    MessageDigest md = MessageDigest.getInstance("MD5");
-    byte[] hashInBytes = md.digest(str.toLowerCase().getBytes(StandardCharsets.UTF_8));
+  // /**
+  //  * Utility function to generate the md5 hash for a given string
+  //  *
+  //  * @param str the string to generate a md5 for
+  //  */
+  // public String md5(String str) throws NoSuchAlgorithmException {
+  //   MessageDigest md = MessageDigest.getInstance("MD5");
+  //   byte[] hashInBytes = md.digest(str.toLowerCase().getBytes(StandardCharsets.UTF_8));
 
-    String result = "";
-    for (byte b : hashInBytes) {
-      result += String.format("%02x", b);
-    }
-    return result;
-  }
+  //   String result = "";
+  //   for (byte b : hashInBytes) {
+  //     result += String.format("%02x", b);
+  //   }
+  //   return result;
+  // }
 }

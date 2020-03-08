@@ -19,22 +19,20 @@ export class AddOwnerComponent implements OnInit {
   constructor(private fb: FormBuilder, private ownerService: OwnerService, private snackBar: MatSnackBar, private router: Router) {
   }
 
-  // not sure if this name is magical and making it be found or if I'm missing something,
-  // but this is where the red text that shows up (when there is invalid input) comes from
+  // currently all fields are required... unsure of how we want to handle this going forward
   add_owner_validation_messages = {
     name: [
       {type: 'required', message: 'Name is required'},
       {type: 'minlength', message: 'Name must be at least 2 characters long'},
-      {type: 'maxlength', message: 'Name cannot be more than 50 characters long'},
+      {type: 'maxlength', message: 'Name cannot be more than 100 characters long'},
       {type: 'pattern', message: 'Name must contain only numbers and letters'},
       {type: 'existingName', message: 'Name has already been taken'}
     ],
 
     officeID: [
-      {type: 'pattern', message: 'Age must be a number'},
-      {type: 'min', message: 'Age must be at least 15'},
-      {type: 'max', message: 'Age may not be greater than 200'},
-      {type: 'required', message: 'Age is required'}
+      {type: 'required', message: 'officeID is required'},
+      {type: 'maxlength', message: 'OfficeID cannot be more than 30 numbers long'},
+      {type: 'pattern', message: 'OfficeID must contain only numbers'}, // need to change this to just numbers
     ],
 
     email: [
@@ -43,9 +41,11 @@ export class AddOwnerComponent implements OnInit {
     ],
 
     building: [
-      { type: 'required', message: 'Role is required' },
-      { type: 'pattern', message: 'Role must be Admin, Editor, or Viewer' },
-    ]
+      {type: 'required', message: 'Name is required'}, // should owners be required to specify the building?
+      {type: 'minlength', message: 'Name must be at least 2 characters long'},
+      {type: 'maxlength', message: 'Name cannot be more than 100 characters long'},
+      {type: 'pattern', message: 'Name must contain only numbers and letters'},
+    ],
   };
 
   createForms() {
@@ -60,8 +60,8 @@ export class AddOwnerComponent implements OnInit {
         // an upper limit like this because people can sometimes have
         // very long names. This demonstrates that it's possible, though,
         // to have maximum length limits.
-        Validators.maxLength(50),
-        Validators.pattern('^[A-Za-z0-9\\s]+[A-Za-z0-9\\s]+$(\\.0-9+)?'),
+        Validators.maxLength(100),
+        Validators.pattern('^[A-Za-z\\s]+[A-Za-z\\s]+$(\\.+)?'),
         (fc) => {
           if (fc.value.toLowerCase() === 'abc123' || fc.value.toLowerCase() === '123abc') {
             return ({existingName: true});
@@ -70,30 +70,38 @@ export class AddOwnerComponent implements OnInit {
           }
         },
       ])),
-
-      // Since this is for a company, we need workers to be old enough to work, and probably not older than 200.
-      age: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.pattern('^[0-9]+[0-9]?'),
-        Validators.min(15),
-        Validators.max(200),
+      officeID: new FormControl('', Validators.compose([
+         Validators.required,
+         Validators.maxLength(30),
+         Validators.pattern('^[0-9]+$') // only numbers allowed
       ])),
-
-      // We don't care much about what is in the company field, so we just add it here as part of the form
-      // without any particular validation.
-      company: new FormControl(),
-
-      // We don't need a special validator just for our app here, but there is a default one for email.
-      // We will require the email, though.
+      building: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(100),
+        Validators.pattern('^[A-Za-z\\s]+[A-Za-z\\s]+$(//s.+)?'), // only allow letters
+      ])),
       email: new FormControl('', Validators.compose([
         Validators.required,
         Validators.email,
       ])),
 
-      role: new FormControl('viewer', Validators.compose([
-        Validators.required,
-        Validators.pattern('^(admin|editor|viewer)$'),
-      ])),
+      // // Since this is for a company, we need workers to be old enough to work, and probably not older than 200.
+      // age: new FormControl('', Validators.compose([
+      //   Validators.required,
+      //   Validators.pattern('^[0-9]+[0-9]?'),
+      //   Validators.min(15),
+      //   Validators.max(200),
+      // ])),
+
+      // // We don't care much about what is in the company field, so we just add it here as part of the form
+      // // without any particular validation.
+      // company: new FormControl(),
+
+      // role: new FormControl('viewer', Validators.compose([
+      //   Validators.required,
+      //   Validators.pattern('^(admin|editor|viewer)$'),
+      // ])),
     });
 
   }
@@ -102,7 +110,7 @@ export class AddOwnerComponent implements OnInit {
     this.createForms();
   }
 
-
+  // don't know how to test this in the add-owner.component.spec... maybe e2e tests will get this?
   submitForm() {
     this.ownerService.addOwner(this.addOwnerForm.value).subscribe(newID => {
       this.snackBar.open('Added Owner ' + this.addOwnerForm.value.name, null, {
