@@ -201,19 +201,19 @@ describe('Owner service: ', () => {
   // });
 
 
-  /*
-    it('addOwner() calls api/owners/new', () => {
 
-      ownerService.addOwner(testOwners[1]).subscribe(
-        id => expect(id).toBe('testid')
-      );
+  it('addOwner() calls api/owners/new', () => {
 
-      const req = httpTestingController.expectOne(ownerService.ownerUrl + '/new');
+    ownerService.addOwner(testOwners[1]).subscribe(
+      id => expect(id).toBe('testid')
+    );
 
-      expect(req.request.method).toEqual('POST');
-      expect(req.request.body).toEqual(testOwners[1]);
+    const req = httpTestingController.expectOne(ownerService.ownerUrl + '/new');
 
-      req.flush({id: 'testid'});
-    });
-    */
+    expect(req.request.method).toEqual('POST');
+    expect(req.request.body).toEqual(testOwners[1]);
+
+    req.flush({ id: 'testid' });
+  });
+
 });
