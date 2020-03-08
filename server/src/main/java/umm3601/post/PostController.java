@@ -116,6 +116,7 @@ public class PostController {
     postCollection.insertOne(newPost);
     ctx.status(201);
     ctx.json(ImmutableMap.of("id", newPost._id));
+
   }
 
   /**

@@ -61,6 +61,7 @@ export class AddPostComponent implements OnInit {
       this.snackBar.open('Posted', null, {
         duration: 2000,
       });
+      this.router.navigate(['/post/' + newID]);
     }, err => {
       this.snackBar.open('Failed to post', null, {
         duration: 2000,
