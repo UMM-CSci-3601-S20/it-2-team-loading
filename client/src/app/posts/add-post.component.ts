@@ -8,7 +8,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-post.component.html',
-  styleUrls: ['./add-post.component.scss']
+  styleUrls: []
 })
 export class AddPostComponent implements OnInit {
 
@@ -27,9 +27,9 @@ export class AddPostComponent implements OnInit {
       { type: 'minlength', message: 'Message is too short' },
       { type: 'maxlength', message: 'Message is too long' }
     ],
-    /*owner: [
+    owner: [
       { type: 'required', message: 'Owner is required' },
-    ]*/
+    ]
   };
 
   createForms() {
@@ -39,9 +39,9 @@ export class AddPostComponent implements OnInit {
         Validators.minLength(2),
         Validators.maxLength(550)
       ])),
-      /*owner: new FormControl('', Validators.compose([
+      owner: new FormControl('', Validators.compose([
         Validators.required,
-      ]))*/
+      ]))
     });
   }
 
@@ -50,11 +50,18 @@ export class AddPostComponent implements OnInit {
   }
 
   submitForm() {
-    this.postService.addPost(this.addPostForm.value).subscribe(newID => {
-      this.snackBar.open('Posted ' + this.addPostForm.value.message, null, {
+    const formResults = this.addPostForm.value;
+    const newPost: Post = {
+      _id: undefined,
+      owner: formResults.owner,
+      message: formResults.message,
+    };
+
+    this.postService.addPost(newPost).subscribe( (newID) => {
+      this.snackBar.open('Posted', null, {
         duration: 2000,
       });
-      /*this.router.navigate(['/'])*/
+      this.router.navigate(['/post/' + newID]);
     }, err => {
       this.snackBar.open('Failed to post', null, {
         duration: 2000,

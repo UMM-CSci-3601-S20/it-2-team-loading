@@ -11,10 +11,14 @@ import com.mongodb.client.MongoDatabase;
 import io.javalin.Javalin;
 
 import umm3601.owner.OwnerController;
+import umm3601.post.PostController;
 
 public class Server {
 
   static String appName = "CSCI 3601 Announce It!";
+
+  public static final String OWNER_DATA_FILE = "/owners.json";
+  public static final String POST_DATA_FILE = "/posts.json";
 
   private static MongoDatabase database;
 
@@ -39,6 +43,8 @@ public class Server {
     OwnerController ownerController = new OwnerController(database);
     //OwnerRequestHandler ownerRequestHandler = new OwnerRequestHandler(ownerController);
 
+    PostController postController = new PostController(database);
+
     Javalin server = Javalin.create().start(4567);
 
     // Simple example route
@@ -57,6 +63,17 @@ public class Server {
 
     // Add new owner
     server.post("api/owners/new", ownerController::addNewOwner);
+
+    //Get specific post
+    server.get("api/posts/:id", postController::getPost);
+
+    server.delete("api/posts/:id", postController::deletePost);
+
+    //List posts with filters
+    server.get("api/posts", postController::getPosts);
+
+    //Add new post
+    server.post("api/posts/new", postController::addNewPost);
 
 
 
