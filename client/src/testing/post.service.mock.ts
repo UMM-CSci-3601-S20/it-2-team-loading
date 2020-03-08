@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { Post } from '../app/posts/post';
 import { PostService } from '../app/posts/post.service';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
-import { Owner } from '../app/owners/owner';
+// import { Owner } from '../app/owners/owner';
 
 
 /**
@@ -12,7 +12,7 @@ import { Owner } from '../app/owners/owner';
  */
 @Injectable()
 export class MockPostService extends PostService {
-  static aladdin: Owner = {
+  /*static aladdin: Owner = {
       _id: 'aladdin_id',
       name: 'Aladdin',
       officeID: '902',
@@ -32,23 +32,22 @@ export class MockPostService extends PostService {
       officeID: '10000',
       email: 'youtalkin@tome.com',
       building: 'the lamp'
-  };
-
+  };*/
   static testPosts: Post[] = [
     {
       _id: 'one_id',
       message: 'Spirate pur, Spirate',
-      owner: MockPostService.aladdin
+      owner: 'Aladdin'
     },
     {
       _id: 'two_id',
       message: 'In te spera verunt',
-      owner: MockPostService.belle
+      owner: 'Belle'
     },
     {
       _id: 'three_id',
       message: 'patre nostris',
-      owner: MockPostService.genie
+      owner: 'Genie'
     }
   ];
 
@@ -56,7 +55,7 @@ export class MockPostService extends PostService {
     super(null);
   }
 
-  getPosts(filters: { message?: string, owner?: Owner }): Observable<Post[]> {
+  getPosts(filters: { message?: string, owner?: string }): Observable<Post[]> {
     // Just return the test posts regardless of what filters are passed in
     return of(MockPostService.testPosts);
   }
