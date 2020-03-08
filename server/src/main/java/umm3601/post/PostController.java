@@ -32,7 +32,7 @@ public class PostController {
 
   JacksonCodecRegistry jacksonCodecRegistry = JacksonCodecRegistry.withDefaultObjectMapper();
 
-  private final MongoCollection<Post> PostCollection;
+  private final MongoCollection<Post> postCollection;
 
   /**
    * Construct a controller for posts.
@@ -41,7 +41,7 @@ public class PostController {
    */
   public PostController(MongoDatabase database) {
     jacksonCodecRegistry.addCodecForClass(Post.class);
-    PostCollection = database.getCollection("posts").withDocumentClass(Post.class)
+    postCollection = database.getCollection("posts").withDocumentClass(Post.class)
         .withCodecRegistry(jacksonCodecRegistry);
   }
 
@@ -55,7 +55,7 @@ public class PostController {
     Post post;
 
     try {
-      post = PostCollection.find(eq("_id", new ObjectId(id))).first();
+      post = postCollection.find(eq("_id", new ObjectId(id))).first();
     } catch(IllegalArgumentException e) {
       throw new BadRequestResponse("The requested post id wasn't a legal Mongo Object ID.");
     }
@@ -73,7 +73,7 @@ public class PostController {
    */
   public void deletePost(Context ctx) {
     String id = ctx.pathParam("id");
-    PostCollection.deleteOne(eq("_id", new ObjectId(id)));
+    postCollection.deleteOne(eq("_id", new ObjectId(id)));
   }
 
   /**
@@ -98,7 +98,7 @@ public class PostController {
     /*String sortBy = ctx.queryParam("sortby", ""); //Sort by sort query param, default is name
     String sortOrder = ctx.queryParam("sortorder", "asc");*/
 
-    /*ctx.json(PostCollection.find(filters.isEmpty() ? new Document() : and(filters))
+    /*ctx.json(postCollection.find(filters.isEmpty() ? new Document() : and(filters))
       .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy))
       .into(new ArrayList<>()));
   }*/
@@ -110,20 +110,10 @@ public class PostController {
    */
   public void addNewPost(Context ctx) {
     Post newPost = ctx.bodyValidator(Post.class)
-      .check((post) -> post.owner != null) //Verify that the owner has a name that is not blank
-      .check((post) -> post.message != null && post.message.length() > 0 ) // Verify that the provided string is not null and length is  is > 0
+      .check((pst) -> pst.owner != null) //Verify that the owner has a name that is not blank
+      .check((pst) -> pst.message != null) // Verify that the provided string is not null and length is  is > 0
       .get();
-
-    // Generate owner avatar (you won't need this part for todos)
-    /*
-    try {
-      newOwner.avatar = "https://gravatar.com/avatar/" + md5(newOwner.email) + "?d=identicon";  // generate unique md5 code for identicon
-    } catch (NoSuchAlgorithmException ignored) {
-      newOwner.avatar = "https://gravatar.com/avatar/?d=mp";                           // set to mystery person
-    }
-    */
-
-    PostCollection.insertOne(newPost);
+    postCollection.insertOne(newPost);
     ctx.status(201);
     ctx.json(ImmutableMap.of("id", newPost._id));
   }

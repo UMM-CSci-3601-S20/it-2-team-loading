@@ -17,6 +17,9 @@ public class Server {
 
   static String appName = "CSCI 3601 Announce It!";
 
+  public static final String OWNER_DATA_FILE = "/owners.json";
+  public static final String POST_DATA_FILE = "/posts.json";
+
   private static MongoDatabase database;
 
   public static void main(String[] args) {

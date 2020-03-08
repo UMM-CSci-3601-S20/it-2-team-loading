@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Post } from './post';
 import { map } from 'rxjs/operators';
-import { Owner } from '../owners/owner';
+// import { Owner } from '../owners/owner';
 
 @Injectable()
 export class PostService {
@@ -13,14 +13,14 @@ export class PostService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getPosts(filters?: { message?: string, owner?: Owner }): Observable<Post[]> {
+  getPosts(filters?: { message?: string, owner?: string }): Observable<Post[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
       if (filters.message) {
         httpParams = httpParams.set('message', filters.message);
       }
       if (filters.owner) {
-        httpParams = httpParams.set('owner', filters.owner.toString());
+        httpParams = httpParams.set('owner', filters.owner);
       }
     }
     return this.httpClient.get<Post[]>(this.postUrl, {
@@ -32,7 +32,7 @@ export class PostService {
     return this.httpClient.get<Post>(this.postUrl + '/' + id);
   }
 
-  filterPosts(posts: Post[], filters: { message?: string, owner?: Owner }): Post[] {
+  filterPosts(posts: Post[], filters: { message?: string, owner?: string }): Post[] {
 
     let filteredPosts = posts;
 
