@@ -5,34 +5,32 @@
       <mat-card-header>
         <mat-card-title class="owner-list-title">Owners</mat-card-title>
       </mat-card-header>
-      <mat-card-content fxLayout="column" >
+      <mat-card-content fxLayout="column">
 
         <div fxLayout="row wrap" fxLayoutGap="10px">
           <!-- Everything is set to be filtered via angular for now. Probably want to change to database filtering -->
 
           <mat-form-field class="input-field">
             <mat-label>Name</mat-label>
-            <input matInput id="owner-name-input" placeholder="Filter by name"
-            [(ngModel)]="ownerName" (input)="updateFilter()">
-            <mat-hint>Filtered in Angular</mat-hint>
+            <input matInput id="owner-name-input" placeholder="Filter by name" [(ngModel)]="ownerName"
+              (input)="getOwnersFromServer()">
           </mat-form-field>
 
           <mat-form-field class="input-field">
             <mat-label>Building</mat-label>
-            <input matInput id="owner-building-input" placeholder="Filter by building"
-            [(ngModel)]="ownerBuilding" (input)="updateFilter()">
-            <mat-hint>Filtered in Angular</mat-hint>
+            <input matInput id="owner-building-input" placeholder="Filter by building" [(ngModel)]="ownerBuilding"
+              (input)="getOwnersFromServer()">
           </mat-form-field>
 
           <mat-form-field class="input-field">
             <mat-label>Office ID number</mat-label>
             <input matInput id="owner-officeID-input" placeholder="Filter by Office ID number"
-            [(ngModel)]="ownerOfficeID" (input)="updateFilter()">
+              [(ngModel)]="ownerOfficeID" (input)="getOwnersFromServer()">
           </mat-form-field>
         </div>
-          <!-- Keeping these commented for now, seem like they might be useful for formatting options later -->
+        <!-- Keeping these commented for now, seem like they might be useful for formatting options later -->
 
-          <!-- <mat-form-field class="input-field">
+        <!-- <mat-form-field class="input-field">
             <mat-label></mat-label>
             <input matInput id="owner-age-input" type="number" placeholder="Filter by age"
             min="0" max="200" [(ngModel)]="ownerAge" (input)="getOwnersFromServer()">
@@ -66,14 +64,15 @@
 </div>
 
 <div fxLayout="row">
-  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredOwners; else ownersError" >
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredOwners; else ownersError">
 
-      <!-- Card grid view -->
-      <div fxLayout="row wrap" fxLayoutGap="10px" class="owner-cards-container">
-        <app-owner-card simple="true" *ngFor="let owner of filteredOwners" class="owner-card" [owner]="owner" fxFlex="1 1 280px"></app-owner-card>
-      </div>
-<!--also keeping this for later in case we want multiple views-->
-      <!-- List view
+    <!-- Card grid view -->
+    <div fxLayout="row wrap" fxLayoutGap="10px" class="owner-cards-container">
+      <app-owner-card simple="true" *ngFor="let owner of filteredOwners" class="owner-card" [owner]="owner"
+        fxFlex="1 1 280px"></app-owner-card>
+    </div>
+    <!--also keeping this for later in case we want multiple views-->
+    <!-- List view
       <mat-card *ngSwitchCase="'list'">
         <mat-card-content>
           <mat-nav-list class="owner-nav-list">
@@ -87,22 +86,22 @@
         </mat-card-content>
       </mat-card> -->
 
-    </div>
   </div>
+</div>
 
-  <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
-  <ng-template #ownersError>
-    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="owner-error">
-      <mat-error>
-        There was a problem loading the owners. Possibly the server is down or perhaps there are network
-        issues.
-      </mat-error>
-      <mat-error>
-        Please wait a bit and try again or start the server.
-      </mat-error>
-    </div>
-  </ng-template>
+<!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
+<ng-template #ownersError>
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="owner-error">
+    <mat-error>
+      There was a problem loading the owners. Possibly the server is down or perhaps there are network
+      issues.
+    </mat-error>
+    <mat-error>
+      Please wait a bit and try again or start the server.
+    </mat-error>
+  </div>
+</ng-template>
 
 <button mat-fab class="add-owner-fab" matTooltip="Add Owner" matTooltipPosition="left" routerLink="/owners/new">
-    <mat-icon class="md-24" aria-label="Add Owner">add</mat-icon>
+  <mat-icon class="md-24" aria-label="Add Owner">add</mat-icon>
 </button>
