@@ -15,14 +15,14 @@ export class PostService {
 
   getPosts(filters?: { message?: string, owner?: string }): Observable<Post[]> {
     let httpParams: HttpParams = new HttpParams();
-    // if (filters) {
+    if (filters) {
     //   if (filters.message) {
     //     httpParams = httpParams.set('message', filters.message);
     //   }
-    //   if (filters.owner) {
-    //     httpParams = httpParams.set('owner', filters.owner);
-    //   }
-    // }
+      if (filters.owner) {
+        httpParams = httpParams.set('owner', filters.owner);
+      }
+    }
     return this.httpClient.get<Post[]>(this.postUrl, {
       params: httpParams,
     });

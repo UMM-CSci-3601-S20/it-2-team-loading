@@ -6,12 +6,12 @@ import { ActivatedRouteStub } from '../../testing/activated-route-stub';
 import { MockOwnerService } from '../../testing/owner.service.mock';
 import { Owner } from './owner';
 import { OwnerCardComponent } from './owner-card.component';
-import { OwnerProfileComponent } from './owner-profile.component';
+import { OwnerDoorBoardComponent } from './owner-doorboard.component';
 import { OwnerService } from './owner.service';
 
-describe('OwnerProfileComponent', () => {
-  let component: OwnerProfileComponent;
-  let fixture: ComponentFixture<OwnerProfileComponent>;
+describe('OwnerDoorBoardComponent', () => {
+  let component: OwnerDoorBoardComponent;
+  let fixture: ComponentFixture<OwnerDoorBoardComponent>;
   const activatedRoute: ActivatedRouteStub = new ActivatedRouteStub();
 
   beforeEach(async(() => {
@@ -20,7 +20,7 @@ describe('OwnerProfileComponent', () => {
         RouterTestingModule,
         MatCardModule
       ],
-      declarations: [OwnerProfileComponent, OwnerCardComponent],
+      declarations: [OwnerDoorBoardComponent, OwnerCardComponent],
       providers: [
         { provide: OwnerService, useValue: new MockOwnerService() },
         { provide: ActivatedRoute, useValue: activatedRoute }
@@ -30,7 +30,7 @@ describe('OwnerProfileComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OwnerProfileComponent);
+    fixture = TestBed.createComponent(OwnerDoorBoardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -39,10 +39,10 @@ describe('OwnerProfileComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate to a specific owner profile', () => {
+  it('should navigate to a specific owner doorboard', () => {
     const expectedOwner: Owner = MockOwnerService.testOwners[0];
     // Setting this should cause anyone subscribing to the paramMap
-    // to update. Our `OwnerProfileComponent` subscribes to that, so
+    // to update. Our `OwnerDoorBoardComponent` subscribes to that, so
     // it should update right away.
     activatedRoute.setParamMap({ id: expectedOwner._id });
 
@@ -53,13 +53,13 @@ describe('OwnerProfileComponent', () => {
   it('should navigate to correct owner when the id parameter changes', () => {
     let expectedOwner: Owner = MockOwnerService.testOwners[0];
     // Setting this should cause anyone subscribing to the paramMap
-    // to update. Our `OwnerProfileComponent` subscribes to that, so
+    // to update. Our `OwnerDoorBoardComponent` subscribes to that, so
     // it should update right away.
     activatedRoute.setParamMap({ id: expectedOwner._id });
 
     expect(component.id).toEqual(expectedOwner._id);
 
-    // Changing the paramMap should update the displayed owner profile.
+    // Changing the paramMap should update the displayed owner doorboard.
     expectedOwner = MockOwnerService.testOwners[1];
     activatedRoute.setParamMap({ id: expectedOwner._id });
 

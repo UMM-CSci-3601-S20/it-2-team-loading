@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AddPostComponent } from './posts/add-post.component';
 import { OwnerListComponent } from './owners/owner-list.component';
-import { OwnerProfileComponent } from './owners/owner-profile.component';
+import { OwnerDoorBoardComponent } from './owners/owner-doorboard.component';
 import { AddOwnerComponent } from './owners/add-owner.component';
 import { PostListComponent } from './posts/post-list.component';
 
@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'posts', component: PostListComponent}, // probably going to be a temporary route
   {path: 'owners', component: OwnerListComponent},
   {path: 'owners/new', component: AddOwnerComponent},
-  {path: 'owners/:id', component: OwnerProfileComponent}
+  {path: 'owners/:id', component: OwnerDoorBoardComponent}
 ];
 
 @NgModule({

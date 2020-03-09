@@ -6,6 +6,11 @@
     </mat-card-header>
     <mat-card-content fxLayout="column">
       <div fxLayout="row-wrap" fxLayoutGap="10px">
+        <mat-form-field class="input-field">
+          <mat-label>Owner Name</mat-label>
+          <input matInput id="owner-name-input" placeholder="Filter by name" [(ngModel)]="postOwner"
+            (input)="getPostsFromServer()">
+        </mat-form-field>
 
         <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredPosts; else postsError">
           <mat-card-content>

@@ -15,6 +15,8 @@ export class PostListComponent implements OnInit, OnDestroy  {
   public serverFilteredPosts: Post[];
   public filteredPosts: Post[];
 
+  public postOwner: string;
+
   public postNote: string;
   getPostsSub: Subscription;
 
@@ -32,6 +34,7 @@ export class PostListComponent implements OnInit, OnDestroy  {
   getPostsFromServer(): void {
     this.unsub();
     this.getPostsSub = this.postService.getPosts({
+      owner: this.postOwner
     }).subscribe(returnedPosts => {
       this.serverFilteredPosts = returnedPosts;
       this.updateFilter();

@@ -33,7 +33,7 @@ import { AddPostComponent } from './posts/add-post.component';
 import { PostService } from './posts/post.service';
 import { PostListComponent } from './posts/post-list.component';
 import { OwnerCardComponent } from './owners/owner-card.component';
-import { OwnerProfileComponent } from './owners/owner-profile.component';
+import { OwnerDoorBoardComponent } from './owners/owner-doorboard.component';
 import { AddOwnerComponent } from './owners/add-owner.component';
 
 const MATERIAL_MODULES: any[] = [
@@ -63,7 +63,7 @@ const MATERIAL_MODULES: any[] = [
     PostListComponent,
     OwnerListComponent,
     OwnerCardComponent,
-    OwnerProfileComponent,
+    OwnerDoorBoardComponent,
     AddOwnerComponent,
     PostListComponent,
   ],
