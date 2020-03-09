@@ -10,3 +10,10 @@
     <button mat-button *ngIf="this.simple" [routerLink]="['/owners', this.owner._id]">VIEW DOORBOARD</button>
   </mat-card-actions>
 </mat-card>
+
+<!--If we end up having posts, loop through them and display their messages-->
+<mat-nav-list class="post-list" *ngIf="this.owner">
+  <a mat-list-item *ngFor="let post of this.posts" class="post-list-item">
+    <h3>{{post.message}}</h3>
+  </a>
+</mat-nav-list>

@@ -1,31 +1,36 @@
 <div fxLayout="row">
   <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
-  <mat-card class="search-card">
-    <mat-card-header>
-      <mat-card-title class="post-list-title">Posts</mat-card-title>
-    </mat-card-header>
-    <mat-card-content fxLayout="column">
-      <div fxLayout="row-wrap" fxLayoutGap="10px">
-        <mat-form-field class="input-field">
-          <mat-label>Owner Name</mat-label>
-          <input matInput id="owner-name-input" placeholder="Filter by name" [(ngModel)]="postOwner"
-            (input)="getPostsFromServer()">
-        </mat-form-field>
+    <mat-card class="search-card">
+      <mat-card-header>
+        <mat-card-title class="post-list-title">Posts</mat-card-title>
+      </mat-card-header>
+      <mat-card-content fxLayout="column">
 
-        <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredPosts; else postsError">
-          <mat-card-content>
-            <mat-nav-list class="post-nav-list">
-              <a mat-list-item *ngFor="let post of this.filteredPosts" [routerLink]="['/posts', post._id]"
-                class="post-list-item">
-                <p matLine class="post-list-message"> {{post.message}} </p>
-              </a>
-            </mat-nav-list>
-          </mat-card-content>
+        <div *ngIf="this.simple">
+          <mat-form-field class="input-field">
+            <mat-label>Owner Name</mat-label>
+            <input matInput id="post-owner-input" placeholder="Filter by name" [(ngModel)]="postOwner"
+              (input)="getPostsFromServer()">
+          </mat-form-field>
         </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</div>
+
+        <div fxLayout="row-wrap" fxLayoutGap="10px">
+
+          <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredPosts; else postsError">
+            <mat-card-content>
+              <mat-nav-list class="post-nav-list">
+                <a mat-list-item *ngFor="let post of this.serverFilteredPosts" [routerLink]="['/posts', post._id]"
+                  class="post-list-item">
+                  <h3>{{post.owner}}</h3>
+                  <p matLine class="post-list-message"> {{post.message}} </p>
+                </a>
+              </mat-nav-list>
+            </mat-card-content>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
 <ng-template #postsError>
   <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="post-error">

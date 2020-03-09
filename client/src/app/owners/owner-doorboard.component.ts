@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Owner } from './owner';
 import { OwnerService } from './owner.service';
@@ -12,26 +12,21 @@ import { Post } from '.././posts/post';
   styleUrls: ['./owner-doorboard.component.scss']
 })
 export class OwnerDoorBoardComponent implements OnInit, OnDestroy {
-
-  constructor(private route: ActivatedRoute, private ownerService: OwnerService, ) { }
-
+  constructor(private route: ActivatedRoute, private ownerService: OwnerService) { }
   owner: Owner;
   id: string;
   getOwnerSub: Subscription;
-  getPostsSub: Subscription;
-  postService: PostService;
   ngOnInit(): void {
     // We subscribe to the parameter map here so we'll be notified whenever
     // that changes (i.e., when the URL changes) so this component will update
     // to display the newly requested owner.
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
-      this.owner.name = pmap.get('name');
       if (this.getOwnerSub) {
         this.getOwnerSub.unsubscribe();
       }
       this.getOwnerSub = this.ownerService.getOwnerById(this.id).subscribe(owner => this.owner = owner);
-      this.getPostsSub = this.postService.getPosts({ owner: this.owner.name }).subscribe();
+      // this.getPostsSub = this.postService.getPosts({ owner: this.owner.name }).subscribe(posts => this.posts = posts);
     });
   }
 

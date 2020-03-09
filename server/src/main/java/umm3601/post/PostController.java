@@ -86,7 +86,7 @@ public class PostController {
     List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
 
     if (ctx.queryParamMap().containsKey("owner")) {
-      filters.add(eq("owner", ctx.queryParam("owner")));
+      filters.add(regex("owner", ctx.queryParam("owner"), "i"));
     }
 
     // if (ctx.queryParamMap().containsKey("message")) {
