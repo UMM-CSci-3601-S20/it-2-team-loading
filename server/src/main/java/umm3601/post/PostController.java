@@ -56,7 +56,7 @@ public class PostController {
 
     try {
       post = postCollection.find(eq("_id", new ObjectId(id))).first();
-    } catch(IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
       throw new BadRequestResponse("The requested post id wasn't a legal Mongo Object ID.");
     }
     if (post == null) {
@@ -85,23 +85,20 @@ public class PostController {
 
     List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
 
-    if (ctx.queryParamMap().containsKey("owner")) {
-        filters.add(eq("owner", ctx.queryParam("owner")));
-    }
+    // if (ctx.queryParamMap().containsKey("owner")) {
+    //   filters.add(eq("owner", ctx.queryParam("owner")));
+    // }
 
-    if (ctx.queryParamMap().containsKey("message")) {
-      filters.add(regex("message", ctx.queryParam("message"), "i"));
-    }
+    // if (ctx.queryParamMap().containsKey("message")) {
+    //   filters.add(regex("message", ctx.queryParam("message"), "i"));
+    // }
 
-    }
+    // String sortBy = ctx.queryParam("sortby", "message"); // Sort by sort query param, default is name
+    // String sortOrder = ctx.queryParam("sortorder", "asc");
 
-    /*String sortBy = ctx.queryParam("sortby", ""); //Sort by sort query param, default is name
-    String sortOrder = ctx.queryParam("sortorder", "asc");*/
-
-    /*ctx.json(postCollection.find(filters.isEmpty() ? new Document() : and(filters))
-      .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy))
-      .into(new ArrayList<>()));
-  }*/
+    ctx.json(postCollection.find(filters.isEmpty() ? new Document() : and(filters))
+    .into(new ArrayList<>()));
+  }
 
   /**
    * Get a JSON response with a list of all the owners.
@@ -109,10 +106,9 @@ public class PostController {
    * @param ctx a Javalin HTTP context
    */
   public void addNewPost(Context ctx) {
-    Post newPost = ctx.bodyValidator(Post.class)
-      .check((pst) -> pst.owner != null) //Verify that the owner has a name that is not blank
-      .check((pst) -> pst.message != null) // Verify that the provided string is not null and length is  is > 0
-      .get();
+    Post newPost = ctx.bodyValidator(Post.class).check((pst) -> pst.owner != null) // Verify that the owner has a name // that is not blank
+    .check((pst) -> pst.message != null) // Verify that the provided string is not null and length is is > 0
+    .get();
     postCollection.insertOne(newPost);
     ctx.status(201);
     ctx.json(ImmutableMap.of("id", newPost._id));

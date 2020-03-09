@@ -15,14 +15,14 @@ export class PostService {
 
   getPosts(filters?: { message?: string, owner?: string }): Observable<Post[]> {
     let httpParams: HttpParams = new HttpParams();
-    if (filters) {
-      if (filters.message) {
-        httpParams = httpParams.set('message', filters.message);
-      }
-      if (filters.owner) {
-        httpParams = httpParams.set('owner', filters.owner);
-      }
-    }
+    // if (filters) {
+    //   if (filters.message) {
+    //     httpParams = httpParams.set('message', filters.message);
+    //   }
+    //   if (filters.owner) {
+    //     httpParams = httpParams.set('owner', filters.owner);
+    //   }
+    // }
     return this.httpClient.get<Post[]>(this.postUrl, {
       params: httpParams,
     });
@@ -37,13 +37,13 @@ export class PostService {
     let filteredPosts = posts;
 
     // Filter by message
-    if (filters.message) {
-      filters.message = filters.message.toLowerCase();
+    // if (filters.message) {
+    //   filters.message = filters.message.toLowerCase();
 
-      filteredPosts = filteredPosts.filter(post => {
-        return post.message.toLowerCase().indexOf(filters.message) !== -1;
-      });
-    }
+    //   filteredPosts = filteredPosts.filter(post => {
+    //     return post.message.toLowerCase().indexOf(filters.message) !== -1;
+    //   });
+    // }
 
     return filteredPosts;
   }
