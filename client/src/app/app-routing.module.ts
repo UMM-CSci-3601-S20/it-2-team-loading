@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'posts', component: PostListComponent}, // probably going to be a temporary route
   {path: 'owners', component: OwnerListComponent},
   {path: 'owners/new', component: AddOwnerComponent},
-  {path: 'owners/:id', component: OwnerDoorBoardComponent}
+  {path: 'owner/:id/posts', component: OwnerDoorBoardComponent}
 ];
 
 @NgModule({

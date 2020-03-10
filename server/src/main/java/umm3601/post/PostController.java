@@ -89,13 +89,16 @@ public class PostController {
       filters.add(regex("owner", ctx.queryParam("owner"), "i"));
     }
 
-    // if (ctx.queryParamMap().containsKey("message")) {
-    //   filters.add(regex("message", ctx.queryParam("message"), "i"));
-    // }
+    ctx.json(postCollection.find(filters.isEmpty() ? new Document() : and(filters))
+    .into(new ArrayList<>()));
+  }
 
-    // String sortBy = ctx.queryParam("sortby", "message"); // Sort by sort query param, default is name
-    // String sortOrder = ctx.queryParam("sortorder", "asc");
+  public void getOwnerPosts(Context ctx) {
+    List<Bson> filters = new ArrayList<Bson>();
 
+    if (ctx.queryParamMap().containsKey("owner_id")) {
+      filters.add(eq("owner_id", ctx.queryParam("owner_id")));
+    }
     ctx.json(postCollection.find(filters.isEmpty() ? new Document() : and(filters))
     .into(new ArrayList<>()));
   }
