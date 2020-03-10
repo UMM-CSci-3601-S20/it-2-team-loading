@@ -10,7 +10,7 @@ import { PostListComponent } from './posts/post-list.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'posts/new', component: AddPostComponent},
+  {path: 'owner/:id/posts/new', component: AddPostComponent},
   {path: 'posts', component: PostListComponent}, // probably going to be a temporary route
   {path: 'owners', component: OwnerListComponent},
   {path: 'owners/new', component: AddOwnerComponent},

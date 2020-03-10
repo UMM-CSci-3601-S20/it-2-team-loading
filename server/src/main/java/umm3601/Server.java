@@ -54,7 +54,7 @@ public class Server {
     server.get("api", ctx -> ctx.result(appName));
 
     // Get specific owner
-    //server.get("api/owners/:id", ownerController::getOwner);
+    // this is wrong, need to fix this later
     server.get("api/owners/:id", postController::getPosts);
 
 
@@ -75,7 +75,8 @@ public class Server {
     server.get("api/posts", postController::getPosts);
 
     //Add new post
-    server.post("api/posts/new", postController::addNewPost);
+    //From the owner's doorboard
+    server.post("api/owner/:id/posts/new", postController::addNewPost);
 
 
 
