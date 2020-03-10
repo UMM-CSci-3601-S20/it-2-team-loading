@@ -9,11 +9,12 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class PostService {
   readonly postUrl: string = environment.API_URL + 'posts';
+  readonly ownerUrl: string = environment.API_URL + 'owner';
 
   constructor(private httpClient: HttpClient) {
   }
 
-  getPosts(filters?: { message?: string, owner?: string }): Observable<Post[]> {
+  getPosts(filters?: { message?: string, owner?: string, owner_id?: string }): Observable<Post[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
     //   if (filters.message) {
@@ -22,17 +23,20 @@ export class PostService {
       if (filters.owner) {
         httpParams = httpParams.set('owner', filters.owner);
       }
+      if (filters.owner_id){
+        httpParams = httpParams.set('owner_id', filters.owner_id);
+      }
     }
     return this.httpClient.get<Post[]>(this.postUrl, {
       params: httpParams,
     });
   }
-
-  getPostById(id: string): Observable<Post> {
-    return this.httpClient.get<Post>(this.postUrl + '/' + id);
+  // this will get passed the owner id and display all the messages from that owner
+  getOwnerPosts(id: string): Observable<Post[]> {
+    return this.httpClient.get<Post[]>(this.ownerUrl + '/' + id + '/' + 'posts');
   }
 
-  filterPosts(posts: Post[], filters: { message?: string, owner?: string }): Post[] {
+  filterPosts(posts: Post[], filters: { message?: string, owner_id?: string }): Post[] {
 
     let filteredPosts = posts;
 

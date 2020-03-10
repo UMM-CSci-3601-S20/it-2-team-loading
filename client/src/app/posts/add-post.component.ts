@@ -52,6 +52,7 @@ export class AddPostComponent implements OnInit {
   submitForm() {
     const formResults = this.addPostForm.value;
     const newPost: Post = {
+      owner_id: null, // this needs to be the owner's id in the future
       _id: undefined,
       owner: formResults.owner,
       message: formResults.message,
