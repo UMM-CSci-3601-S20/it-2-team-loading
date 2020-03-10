@@ -89,6 +89,10 @@ public class PostController {
       filters.add(regex("owner", ctx.queryParam("owner"), "i"));
     }
 
+    if (ctx.queryParamMap().containsKey("owner_id")) {
+      filters.add(eq("owner_id", ctx.queryParam("owner_id")));
+    }
+
     ctx.json(postCollection.find(filters.isEmpty() ? new Document() : and(filters))
     .into(new ArrayList<>()));
   }

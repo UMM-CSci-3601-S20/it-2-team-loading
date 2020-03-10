@@ -22,10 +22,7 @@ export class OwnerDoorBoardComponent implements OnInit, OnDestroy {
     // to display the newly requested owner.
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
-      if (this.getPostsSub) {
-        this.getPostsSub.unsubscribe();
-      }
-      this.getPostsSub = this.postService.getOwnerPosts(this.id).subscribe(posts => this.posts = posts);
+      this.getPostsSub = this.postService.getOwnerPosts({ owner_id: this.id }).subscribe(posts => this.posts = posts);
       // this.getPostsSub = this.postService.getPosts({ owner: this.owner.name }).subscribe(posts => this.posts = posts);
     });
   }
