@@ -55,7 +55,7 @@ public class Server {
 
     // Get specific owner
     // this is wrong, need to fix this later
-    server.get("api/owners/:id", postController::getPosts);
+    server.get("api/owners/:id", ownerController::getOwner);
 
 
     server.delete("api/owners/:id", ownerController::deleteOwner);
