@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Owner } from './owner';
 import { OwnerService } from './owner.service';
@@ -14,7 +14,8 @@ import { Post } from '.././posts/post';
 
 // This class has access to the owner of the doorboard, and all the posts that said owner has made
 export class OwnerDoorBoardComponent implements OnInit, OnDestroy {
-  constructor(private route: ActivatedRoute, private postService: PostService, private ownerService: OwnerService) { }
+  constructor(private route: ActivatedRoute, private postService: PostService,
+              private ownerService: OwnerService) { }
   posts: Post[];
   owner: Owner;
   id: string;
