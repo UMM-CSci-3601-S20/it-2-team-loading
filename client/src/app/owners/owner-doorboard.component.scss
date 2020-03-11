@@ -11,13 +11,11 @@
   align-content: center;
   padding-top: 2rem;
   overflow-wrap: break-word;
-  max-width: inherit;
 }
 .list-of-owner-posts{
   align-items: center;
   align-content: center;
   overflow-wrap: break-word;
-  max-width: inherit;
 }
 h3{
   font-size: 1.8em;
@@ -29,7 +27,6 @@ h3{
   background-color: rgba(29, 149, 179, 0.637);
   text-align: left;
   overflow-wrap: break-word;
-  max-width: inherit;
 }
 .owner-card{
   background-color: rgba(231, 217, 23, 0.815)
@@ -45,7 +42,7 @@ h3{
 .add-post-button{
 
   justify-self: right;
-  background-color: rgba(29, 149, 179, 0.637);
+  background-color: rgba(255, 255, 255, 0.918);
 
 }
 .message-content{

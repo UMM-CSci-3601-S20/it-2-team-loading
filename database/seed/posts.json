@@ -4,28 +4,29 @@
       "$oid": "588935f57546a2daea44de7c"
     },
     "owner_id": "588935f57546a2daea44de7c",
-    "message": "1310"
+    "message": "I'm going to be a few minutes late to my office hours today. I got caught in traffic this morning."
   },
   {
     "_id": {
       "$oid": "588935f57546a2daea44de7d"
     },
     "owner_id": "588935f57546a2daea44de7c",
-    "message": "ur grounded"
+    "message": "Never mind, it seems like traffic is worse than I expected. Office hours will be moved up a half hour."
   },
   {
     "_id": {
       "$oid": "588935f57346a2daea44de7f"
     },
     "owner_id": "588935f57546a2daea44de7e",
-    "message": "campfire time"
+    "message": "Office hours are canceled today!"
   },
   {
     "_id": {
       "$oid": "588935f57446a2daea44de7d"
     },
-    "owner_id": "588935f57546a2daea44de7f",
-    "message": "hello there"
+    "owner_id": "78f1d3bfa098879fe7a01373",
+    "message": "Just getting into the building now, sorry for the delay!"
   }
+
 
 ]

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Owner } from './owner';
 import { OwnerService } from './owner.service';
@@ -11,6 +11,7 @@ import { Post } from '.././posts/post';
   templateUrl: './owner-doorboard.component.html',
   styleUrls: ['./owner-doorboard.component.scss']
 })
+
 
 // This class has access to the owner of the doorboard, and all the posts that said owner has made
 export class OwnerDoorBoardComponent implements OnInit, OnDestroy {
@@ -27,14 +28,18 @@ export class OwnerDoorBoardComponent implements OnInit, OnDestroy {
     // to display the newly requested owner.
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
-      this.getPostsSub = this.postService.getOwnerPosts({ owner_id: this.id }).subscribe(posts => this.posts = posts);
       this.getOwnerSub = this.ownerService.getOwnerById(this.id).subscribe(owner => this.owner = owner);
+      this.getPostsSub = this.postService.getOwnerPosts({ owner_id: this.id }).subscribe(posts => this.posts = posts.reverse());
+
     });
   }
 
   ngOnDestroy(): void {
     if (this.getPostsSub) {
       this.getPostsSub.unsubscribe();
+    }
+    if (this.getOwnerSub) {
+      this.getOwnerSub.unsubscribe();
     }
   }
 
