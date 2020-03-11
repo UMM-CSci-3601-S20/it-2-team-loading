@@ -113,8 +113,10 @@ public class PostController {
    * @param ctx a Javalin HTTP context
    */
   public void addNewPost(Context ctx) {
-    Post newPost = ctx.bodyValidator(Post.class).check((pst) -> pst.owner != null) // Verify that the owner has a name // that is not blank
-    .check((pst) -> pst.message != null) // Verify that the provided string is not null and length is is > 0
+    Post newPost = ctx.bodyValidator(Post.class)
+    .check((pst) -> pst.owner != null) // Verify that the owner has a name // that is not blank
+    .check((pst) -> pst.message != null) // post should have a message
+    .check((pst) -> pst.owner_id != null) // post should have an owner_id
     .get();
     postCollection.insertOne(newPost);
     ctx.status(201);

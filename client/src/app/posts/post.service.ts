@@ -66,8 +66,6 @@ export class PostService {
 
   addPost(newPost: Post): Observable<string> {
     // Send post request to add a new user with the user data as the body.
-    console.log(this.httpClient.post<{id: string}>
-      (this.ownerUrl + '/' + this.httpClient.get('owner_id') + '/new', newPost).pipe(map(res => res.id)).toString());
     return this.httpClient.post<{id: string}>
     (this.ownerUrl + '/' + this.httpClient.get('owner_id') + '/new', newPost).pipe(map(res => res.id));
   }
