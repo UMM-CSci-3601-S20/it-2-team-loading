@@ -85,10 +85,6 @@ public class PostController {
 
     List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
 
-    if (ctx.queryParamMap().containsKey("owner")) {
-      filters.add(regex("owner", ctx.queryParam("owner"), "i"));
-    }
-
     if (ctx.queryParamMap().containsKey("owner_id")) {
       filters.add(eq("owner_id", ctx.queryParam("owner_id")));
     }
@@ -114,7 +110,6 @@ public class PostController {
    */
   public void addNewPost(Context ctx) {
     Post newPost = ctx.bodyValidator(Post.class)
-    .check((pst) -> pst.owner != null) // Verify that the owner has a name // that is not blank
     .check((pst) -> pst.message != null) // post should have a message
     .check((pst) -> pst.owner_id != null) // post should have an owner_id
     .get();

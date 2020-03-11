@@ -30,9 +30,9 @@ export class AddPostComponent implements OnInit {
       { type: 'minlength', message: 'Message is too short' },
       { type: 'maxlength', message: 'Message is too long' }
     ],
-    owner: [
-      { type: 'required', message: 'Owner is required' },
-    ]
+    // owner: [
+    //   { type: 'required', message: 'Owner is required' },
+    // ]
   };
 
   createForms() {
@@ -42,9 +42,9 @@ export class AddPostComponent implements OnInit {
         Validators.minLength(2),
         Validators.maxLength(550)
       ])),
-      owner: new FormControl('', Validators.compose([
-        Validators.required,
-      ]))
+      // owner: new FormControl('', Validators.compose([
+      //   Validators.required,
+      // ]))
     });
   }
 
@@ -61,7 +61,7 @@ export class AddPostComponent implements OnInit {
     const newPost: Post = {
       owner_id: this.id,
       _id: undefined,
-      owner: formResults.owner,
+      //owner: formResults.owner,
       message: formResults.message,
     };
 

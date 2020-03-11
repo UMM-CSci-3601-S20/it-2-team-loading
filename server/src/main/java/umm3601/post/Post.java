@@ -11,5 +11,4 @@ public class Post {
 
   public String owner_id;
   public String message;
-  public String  owner;
 }

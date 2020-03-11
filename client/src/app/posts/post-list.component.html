@@ -21,7 +21,7 @@
               <mat-nav-list class="post-nav-list">
                 <a mat-list-item *ngFor="let post of this.serverFilteredPosts" [routerLink]="['/posts', post._id]"
                   class="post-list-item">
-                  <h3>{{post.owner}}</h3>
+                  <!-- <h3>{{post.owner}}</h3> -->
                   <p matLine class="post-list-message"> {{post.message}} </p>
                 </a>
               </mat-nav-list>
