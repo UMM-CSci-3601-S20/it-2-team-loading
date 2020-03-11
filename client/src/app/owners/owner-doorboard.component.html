@@ -1,7 +1,6 @@
 <div fxLayout="row">
   <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
-    <!-- <app-owner-card [owner]="this.owner"></app-owner-card> -->
-    <h3>DoorBoard</h3>
+    <h3>{{this.owner.name}}</h3>
     <mat-nav-list class="list-of-owner-posts">
       <a mat-list-item *ngFor="let post of posts" class="owner-post">
         <h3>{{post.message}}</h3>
