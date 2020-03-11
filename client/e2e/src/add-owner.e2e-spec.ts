@@ -38,17 +38,11 @@ describe('Add owner', () => {
 
     await page.addOwner(owner);
 
-    // Wait until the URL does not contain 'owners/new'
-    await browser.wait(EC.not(EC.urlContains('owners/new')), 10000);
+    // Wait until the URL does not contain '/new'
+    await browser.wait(EC.not(EC.urlContains('/new')), 10000);
 
     const url = await page.getUrl();
-    expect(RegExp('.*\/owners\/[0-9a-fA-F]{24}$', 'i').test(url)).toBe(true);
-    expect(url.endsWith('/owners/new')).toBe(false);
-
-    expect(element(by.className('owner-card-name')).getText()).toEqual(owner.name);
-    expect(element(by.className('owner-card-officeID')).getText()).toEqual(owner.officeID);
-    expect(element(by.className('owner-card-email')).getText()).toEqual(owner.email);
-    expect(element(by.className('owner-card-building')).getText()).toEqual(owner.building);
+    expect(url.endsWith('/new')).toBe(false);
   });
 
 });
