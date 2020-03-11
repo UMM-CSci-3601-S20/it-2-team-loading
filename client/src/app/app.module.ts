@@ -36,6 +36,9 @@ import { OwnerCardComponent } from './owners/owner-card.component';
 import { OwnerDoorBoardComponent } from './owners/owner-doorboard.component';
 import { AddOwnerComponent } from './owners/add-owner.component';
 
+// we could import this to reverse the order of the posts in future (so most recent posts are at the top)
+// import {NgPipesModule} from 'ngx-pipes';
+
 const MATERIAL_MODULES: any[] = [
   MatListModule,
   MatButtonModule,
