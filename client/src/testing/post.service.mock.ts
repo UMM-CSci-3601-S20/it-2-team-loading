@@ -12,27 +12,6 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
  */
 @Injectable()
 export class MockPostService extends PostService {
-  /*static aladdin: Owner = {
-      _id: 'aladdin_id',
-      name: 'Aladdin',
-      officeID: '902',
-      email: 'orphan@33.com',
-      building: 'taj mahal'
-  };
-  static belle: Owner = {
-      _id: 'belle_id',
-      name: 'Belle',
-      officeID: '1740',
-      email: 'fatface@mfbook.com',
-      building: 'beast castle'
-  };
-  static genie: Owner = {
-      _id: 'genie_id',
-      name: 'Genie',
-      officeID: '10000',
-      email: 'youtalkin@tome.com',
-      building: 'the lamp'
-  };*/
   static testPosts: Post[] = [
     {
       _id: 'one_id',

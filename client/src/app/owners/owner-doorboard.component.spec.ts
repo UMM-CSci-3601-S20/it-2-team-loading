@@ -10,7 +10,7 @@ import { OwnerDoorBoardComponent } from './owner-doorboard.component';
 import { OwnerService } from './owner.service';
 
 describe('OwnerDoorBoardComponent', () => {
-  let component: OwnerDoorBoardComponent;
+  let doorBoardComponent: OwnerDoorBoardComponent;
   let fixture: ComponentFixture<OwnerDoorBoardComponent>;
   const activatedRoute: ActivatedRouteStub = new ActivatedRouteStub();
 
@@ -31,12 +31,12 @@ describe('OwnerDoorBoardComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(OwnerDoorBoardComponent);
-    component = fixture.componentInstance;
+    doorBoardComponent = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create the component', () => {
-    expect(component).toBeTruthy();
+    expect(doorBoardComponent).toBeTruthy();
   });
 
   it('should navigate to a specific owner doorboard', () => {
@@ -46,8 +46,8 @@ describe('OwnerDoorBoardComponent', () => {
     // it should update right away.
     activatedRoute.setParamMap({ id: expectedOwner._id });
 
-    expect(component.id).toEqual(expectedOwner._id);
-    expect(component.owner).toEqual(expectedOwner);
+    expect(doorBoardComponent.id).toEqual(expectedOwner._id);
+    expect(doorBoardComponent.owner).toEqual(expectedOwner);
   });
 
   it('should navigate to correct owner when the id parameter changes', () => {
@@ -57,13 +57,13 @@ describe('OwnerDoorBoardComponent', () => {
     // it should update right away.
     activatedRoute.setParamMap({ id: expectedOwner._id });
 
-    expect(component.id).toEqual(expectedOwner._id);
+    expect(doorBoardComponent.id).toEqual(expectedOwner._id);
 
     // Changing the paramMap should update the displayed owner doorboard.
     expectedOwner = MockOwnerService.testOwners[1];
     activatedRoute.setParamMap({ id: expectedOwner._id });
 
-    expect(component.id).toEqual(expectedOwner._id);
+    expect(doorBoardComponent.id).toEqual(expectedOwner._id);
   });
 
   it('should have `null` for the owner for a bad ID', () => {
@@ -72,7 +72,7 @@ describe('OwnerDoorBoardComponent', () => {
     // If the given ID doesn't map to a owner, we expect the service
     // to return `null`, so we would expect the component's owner
     // to also be `null`.
-    expect(component.id).toEqual('badID');
-    expect(component.owner).toBeNull();
+    expect(doorBoardComponent.id).toEqual('badID');
+    expect(doorBoardComponent.owner).toBeNull();
   });
 });
