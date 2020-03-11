@@ -3,7 +3,6 @@ import { Owner } from './owner';
 import { PostService } from '../posts/post.service';
 import { Post } from '../posts/post';
 import { Subscription } from 'rxjs';
-import { PostListComponent } from '.././posts/post-list.component';
 
 @Component({
   selector: 'app-owner-card',

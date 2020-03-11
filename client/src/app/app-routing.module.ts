@@ -5,13 +5,11 @@ import { AddPostComponent } from './posts/add-post.component';
 import { OwnerListComponent } from './owners/owner-list.component';
 import { OwnerDoorBoardComponent } from './owners/owner-doorboard.component';
 import { AddOwnerComponent } from './owners/add-owner.component';
-import { PostListComponent } from './posts/post-list.component';
 
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'owner/:id/posts/new', component: AddPostComponent},
-  {path: 'posts', component: PostListComponent}, // probably going to be a temporary route
   {path: 'owners', component: OwnerListComponent},
   {path: 'owners/new', component: AddOwnerComponent},
   {path: 'owner/:id/posts', component: OwnerDoorBoardComponent}

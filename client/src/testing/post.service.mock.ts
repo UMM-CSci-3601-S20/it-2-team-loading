@@ -34,10 +34,10 @@ export class MockPostService extends PostService {
     super(null);
   }
 
-  getPosts(filters: { message?: string, owner?: string }): Observable<Post[]> {
-    // Just return the test posts regardless of what filters are passed in
-    return of(MockPostService.testPosts);
-  }
+  // getPosts(filters: { message?: string, owner?: string }): Observable<Post[]> {
+  //   // Just return the test posts regardless of what filters are passed in
+  //   return of(MockPostService.testPosts);
+  // }
 
   getPostById(id: string): Observable<Post> {
     // If the specified ID is for the first test post,

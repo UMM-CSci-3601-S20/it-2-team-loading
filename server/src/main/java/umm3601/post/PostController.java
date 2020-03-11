@@ -66,33 +66,6 @@ public class PostController {
     }
   }
 
-  /**
-   * Delete the post specified by the `id` parameter in the request.
-   *
-   * @param ctx a Javalin HTTP context
-   */
-  public void deletePost(Context ctx) {
-    String id = ctx.pathParam("id");
-    postCollection.deleteOne(eq("_id", new ObjectId(id)));
-  }
-
-  /**
-   * Get a JSON response with a list of all the posts.
-   *
-   * @param ctx a Javalin HTTP context
-   */
-  public void getPosts(Context ctx) {
-
-    List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
-
-    if (ctx.queryParamMap().containsKey("owner_id")) {
-      filters.add(eq("owner_id", ctx.queryParam("owner_id")));
-    }
-
-    ctx.json(postCollection.find(filters.isEmpty() ? new Document() : and(filters))
-    .into(new ArrayList<>()));
-  }
-
   public void getOwnerPosts(Context ctx) {
     List<Bson> filters = new ArrayList<Bson>();
 

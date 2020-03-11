@@ -69,11 +69,6 @@ public class Server {
     //Get all posts from an owner
     server.get("api/owner/:id/posts", postController::getOwnerPosts);
 
-    server.delete("api/posts/:id", postController::deletePost);
-
-    //List posts with filters
-    server.get("api/posts", postController::getPosts);
-
     //Add new post
     //From the owner's doorboard
     server.post("api/owner/:id/posts/new", postController::addNewPost);
