@@ -37,17 +37,17 @@ export class MockPostService extends PostService {
     {
       _id: 'one_id',
       message: 'Spirate pur, Spirate',
-      owner: 'Aladdin'
+      owner_id: 'Aladdin'
     },
     {
       _id: 'two_id',
       message: 'In te spera verunt',
-      owner: 'Belle'
+      owner_id: 'Belle'
     },
     {
       _id: 'three_id',
       message: 'patre nostris',
-      owner: 'Genie'
+      owner_id: 'Genie'
     }
   ];
 
