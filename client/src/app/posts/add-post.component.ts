@@ -65,7 +65,7 @@ export class AddPostComponent implements OnInit {
       message: formResults.message,
     };
 
-    this.postService.addPost(newPost).subscribe(() => {
+    this.postService.addPost(this.id, newPost).subscribe(() => {
       this.snackBar.open('Posted', null, {
         duration: 2000,
       });
