@@ -35,18 +35,12 @@ export class PostListComponent implements OnInit, OnDestroy  {
   getPostsFromServer(): void {
     this.unsub();
     this.getPostsSub = this.postService.getPosts({
-      owner: this.postOwner // this is currently just the owner name, will want to use unique ID in future
+      owner: this.postOwner
     }).subscribe(returnedPosts => {
       this.serverFilteredPosts = returnedPosts;
-      this.updateFilter();
     }, err => {
       console.log(err);
     });
-  }
-
-  public updateFilter(): void {
-    this.filteredPosts = this.postService.filterPosts(
-      this.serverFilteredPosts, {});
   }
 
   /**
