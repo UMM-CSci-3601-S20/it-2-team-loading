@@ -66,7 +66,6 @@ const MATERIAL_MODULES: any[] = [
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
@@ -74,6 +73,7 @@ const MATERIAL_MODULES: any[] = [
     HttpClientModule,
     MATERIAL_MODULES,
     LayoutModule,
+    AppRoutingModule
   ],
   providers: [
     PostService,
