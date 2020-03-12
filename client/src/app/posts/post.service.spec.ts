@@ -3,6 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed } from '@angular/core/testing';
 import { Post } from './post';
 import { PostService } from './post.service';
+import { request } from 'http';
 
 describe('Post service: ', () => {
   const testPosts: Post[] = [
@@ -50,12 +51,16 @@ describe('Post service: ', () => {
 
   it('getOwnerPosts() calls api/posts', () => {
     postService.getOwnerPosts({ owner_id: '588935f57546a2daea44de7c' }).subscribe(
-      posts => expect(posts).toBe(testPosts)
+      posts => expect(posts).toEqual(testPosts)
     );
     // not sure about this test
     const req = httpTestingController.expectOne(
       (request) => request.url.startsWith(postService.postUrl) && request.params.has('owner_id')
     );
+
+    expect(req.request.method).toEqual('GET');
+    expect(req.request.params.get('owner_id')).toEqual('588935f57546a2daea44de7c');
+    req.flush(testPosts);
   });
 
   it('addPost() calls api/owner/:id/posts/new', () => {
