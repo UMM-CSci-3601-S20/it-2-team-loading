@@ -3,9 +3,6 @@
   padding-bottom: 2rem;
   overflow-wrap: break-word;
 }
-.owner-card{
-
-}
 .list-of-posts{
   display: inline-block;
   align-content: center;
@@ -24,25 +21,25 @@ h3{
 .post-card{
   display: inline-block;
   align-content: left;
-  background-color: rgba(29, 149, 179, 0.637);
+  background-color: rgb(255, 237, 223);
   text-align: left;
   overflow-wrap: break-word;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .owner-card{
-  background-color: rgba(231, 217, 23, 0.815)
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 // entire container/post-it note
 .doorboard-background{
   display: inline-block;
   justify-content: center;
-  background-color: rgba(235, 204, 27, 0.863);
   align-items: center;
   overflow-wrap: break-word;
 }
 .add-post-button{
 
   justify-self: right;
-  background-color: rgba(255, 255, 255, 0.918);
+  background-color: rgb(218, 247, 166);
 
 }
 .message-content{
