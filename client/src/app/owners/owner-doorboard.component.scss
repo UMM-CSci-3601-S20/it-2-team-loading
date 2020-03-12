@@ -3,10 +3,14 @@
   padding-bottom: 2rem;
   overflow-wrap: break-word;
 }
+.add-button-container{
+  padding-top: 1rem;
+  padding-bottom: 3rem;
+}
+
 .list-of-posts{
   display: inline-block;
   align-content: center;
-  padding-top: 2rem;
   overflow-wrap: break-word;
 }
 .list-of-owner-posts{
@@ -37,12 +41,10 @@ h3{
   overflow-wrap: break-word;
 }
 .add-post-button{
-
-  justify-self: right;
   background-color: rgb(218, 247, 166);
-
 }
 .message-content{
   overflow-wrap: break-word;
 }
+
 
