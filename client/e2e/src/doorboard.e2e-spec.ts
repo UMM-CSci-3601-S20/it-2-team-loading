@@ -14,9 +14,5 @@ describe('Owner Doorboard', () => {
     expect(page.getPageTitle()).toEqual('Rachael Johnson');
   });
 
-  it('Should have the correct first post', async () => {
-    page.getOwnerListItems().first();
-    expect(element(by.className('post-card')).getText()).toEqual(
-    'Never mind, it seems like traffic is worse than I expected. Office hours will be moved up a half hour.');
-    });
-  });
+});
+

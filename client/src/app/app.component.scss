@@ -1,6 +1,6 @@
 .sidenav-container {
   height: 100%;
-  background-color:	rgb(90, 44, 11);
+  background-color:	rgb(82, 178, 207);
 }
 
 .sidenav {
@@ -9,16 +9,21 @@
 
 .sidenav .mat-toolbar {
   background: inherit;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
   z-index: 1;
+  background-color: rgb(255, 237, 223);
 }
 
 .app-title {
   padding-left: 20px;
+  background-color: rgb(255, 237, 223);
+  color: rgb(23, 10, 28);
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 
@@ -27,4 +32,8 @@
   @media (max-width: 599px) {
     margin: 16px;
   }
+}
+
+.sidenav-button {
+  color: rgb(23, 10, 28);
 }
