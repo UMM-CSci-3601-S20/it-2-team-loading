@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed } from '@angular/core/testing';
 import { Post } from './post';
 import { PostService } from './post.service';
-import { IterableDiffers } from '@angular/core';
+import { MockPostService } from 'src/testing/post.service.mock';
 
 describe('Post service: ', () => {
   const testPosts: Post[] = [
@@ -39,9 +39,9 @@ describe('Post service: ', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule]
     });
+
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
-
     postService = new PostService(httpClient);
   });
 
@@ -57,5 +57,18 @@ describe('Post service: ', () => {
     const req = httpTestingController.expectOne(
       (request) => request.url.startsWith(postService.postUrl) && request.params.has('owner_id')
     );
+  });
+  it('addPost() calls api/owner/:id/posts/new', () => {
+    // addPost takes in an owner_id and a Post type and returns
+    postService.addPost('588935f57546a2daea44de7c', testPosts[1]).subscribe(
+      id => expect(id).toBe('588935f57546a2daea44de7c')
+    );
+
+    const req = httpTestingController.expectOne(postService.ownerUrl + '/' + '588935f57546a2daea44de7c' + '/posts/new');
+
+    expect(req.request.method).toEqual('POST');
+    expect(req.request.body).toEqual(testPosts[1]);
+
+    req.flush({ id: '588935f57546a2daea44de7c' });
   });
 });

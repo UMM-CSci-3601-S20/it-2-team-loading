@@ -31,4 +31,7 @@ export class MockPostService extends PostService {
     super(null);
   }
 
+  getOwnerPosts(filters?: { owner_id?: string}): Observable<Post[]> {
+  return of(MockPostService.testPosts);
+  }
 }

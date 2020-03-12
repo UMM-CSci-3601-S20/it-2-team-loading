@@ -50,8 +50,8 @@ export class MockOwnerService extends OwnerService {
   constructor() {
     super(null);
   }
-  // no filters here yet, don't know what we want to have the database filter for us
-  getOwners(filters: {  }): Observable<Owner[]> {
+
+  getOwners(filters: { name?: string, officeID?: string, building?: string }): Observable<Owner[]> {
     // Just return the test owners regardless of what filters are passed in
     return of(MockOwnerService.testOwners);
   }

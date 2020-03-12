@@ -61,7 +61,6 @@ export class AddPostComponent implements OnInit {
     const newPost: Post = {
       owner_id: this.id,
       _id: undefined,
-      //owner: formResults.owner,
       message: formResults.message,
     };
 
