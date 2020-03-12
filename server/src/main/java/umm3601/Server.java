@@ -54,7 +54,6 @@ public class Server {
     server.get("api", ctx -> ctx.result(appName));
 
     // Get specific owner
-    // this is wrong, need to fix this later
     server.get("api/owners/:id", ownerController::getOwner);
 
 

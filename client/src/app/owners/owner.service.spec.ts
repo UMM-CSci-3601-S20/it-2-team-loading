@@ -3,7 +3,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed } from '@angular/core/testing';
 import { Owner } from './owner';
 import { OwnerService } from './owner.service';
-import { empty } from 'rxjs';
 
 describe('Owner service: ', () => {
   // A small collection of test owners
@@ -80,6 +79,19 @@ describe('Owner service: ', () => {
     // triggers the subscribe above, which leads to that check
     // actually being performed.
     req.flush(testOwners);
+  });
+
+  it('getOwnerById() calls api/owners/:id', () => {
+    const targetOwner: Owner = testOwners[1];
+    const targetId: string = targetOwner._id;
+    ownerService.getOwnerById(targetId).subscribe(
+      owner => expect(owner).toBe(targetOwner)
+    );
+
+    const expectedUrl: string = ownerService.ownerUrl + '/' + targetId;
+    const req = httpTestingController.expectOne(expectedUrl);
+    expect(req.request.method).toEqual('GET');
+    req.flush(targetOwner);
   });
 
   it('getOwners() calls api/owners with filter parameter \'name\'', () => {
@@ -166,7 +178,7 @@ describe('Owner service: ', () => {
 
   it('getOwnerById() calls api/owners/id', () => {
     // grab an owner from our test array
-    const targetOwner: Owner = testOwners[1];
+    const targetOwner: Owner = testOwners[0];
     // pull the id from that owner
     const targetId: string = targetOwner._id;
     // get that owner from the server and check that you got the right one
@@ -180,27 +192,6 @@ describe('Owner service: ', () => {
     expect(req.request.method).toEqual('GET');
     req.flush(targetOwner);
   });
-
-  // it('filterOwners() filters by name', () => {
-  //   expect(testOwners.length).toBe(3);
-  //   const ownerName = 'a';
-  //   expect(ownerService.filterOwners(testOwners, { name: ownerName }).length).toBe(2);
-  // });
-
-  // it('filterOwners() filters by company', () => {
-  //   expect(testOwners.length).toBe(3);
-  //   const ownerCompany = 'UMM';
-  //   expect(ownerService.filterOwners(testOwners, { company: ownerCompany }).length).toBe(1);
-  // });
-
-  // it('filterOwners() filters by name and company', () => {
-  //   expect(testOwners.length).toBe(3);
-  //   const ownerCompany = 'UMM';
-  //   const ownerName = 'chris';
-  //   expect(ownerService.filterOwners(testOwners, { name: ownerName, company: ownerCompany }).length).toBe(1);
-  // });
-
-
 
   it('addOwner() calls api/owners/new', () => {
 
