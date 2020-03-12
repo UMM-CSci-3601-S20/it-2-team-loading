@@ -120,34 +120,4 @@ describe('AddPostComponent', () => {
       expect(nameControl.hasError('existingName')).toBeTruthy();
     });*/
   });
-
-
-  describe('The owner field', () => {
-    let ownerControl: AbstractControl;
-
-    beforeEach(() => {
-      ownerControl = addPostForm.controls[`owner`];
-    });
-
-    it('should not allow empty values', () => {
-      ownerControl.setValue('');
-      expect(ownerControl.valid).toBeFalsy();
-      expect(ownerControl.hasError('required')).toBeTruthy();
-    });
-
-    it('should allow "admin"', () => {
-      ownerControl.setValue('admin');
-      expect(ownerControl.valid).toBeTruthy();
-    });
-
-    it('should allow "editor"', () => {
-      ownerControl.setValue('editor');
-      expect(ownerControl.valid).toBeTruthy();
-    });
-
-    it('should allow "viewer"', () => {
-      ownerControl.setValue('viewer');
-      expect(ownerControl.valid).toBeTruthy();
-    });
-  });
 });

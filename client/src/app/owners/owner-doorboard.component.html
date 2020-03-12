@@ -1,0 +1,26 @@
+<div class="doorboard-background" fxFill>
+  <div>
+    <!--Seems to be throwing error: "cannot read name of undefined once or twice while the page is loading, probably want to refactor this at some point-->
+    <mat-card class="owner-card">
+      <h3>{{this.owner.name}}</h3>
+    </mat-card>
+
+    <!--This is where we add our new notes. The owner ID is automatically set for each new note to match the id of the owner-->
+    <button mat-raised-button class="add-post-button" matTooltip="Add Note" matTooltipPosition="below"
+      routerLink="/owner/{{this.id}}/posts/new">Add New Note
+    </button>
+
+    <!--This is where we are looping through the posts that belong to each owner-->
+    <mat-list fxLayout="row wrap" class="list-of-owner-posts">
+      <mat-list-item *ngFor="let post of posts ; first as last " class="owner-post">
+        <!--Each message is its own mat-card-->
+        <div fxFlex="column" class="list-of-posts">
+          <mat-card fxLayout="row wrap" class="post-card">
+            <p class="message-content">{{post.message}}</p>
+          </mat-card>
+        </div>
+      </mat-list-item>
+    </mat-list>
+
+  </div>
+</div>

@@ -1,0 +1,51 @@
+.owner-post{
+  font-size: 1.5em;
+  padding-bottom: 2rem;
+  overflow-wrap: break-word;
+}
+.owner-card{
+
+}
+.list-of-posts{
+  display: inline-block;
+  align-content: center;
+  padding-top: 2rem;
+  overflow-wrap: break-word;
+}
+.list-of-owner-posts{
+  align-items: center;
+  align-content: center;
+  overflow-wrap: break-word;
+}
+h3{
+  font-size: 1.8em;
+  text-align: center;
+}
+.post-card{
+  display: inline-block;
+  align-content: left;
+  background-color: rgba(29, 149, 179, 0.637);
+  text-align: left;
+  overflow-wrap: break-word;
+}
+.owner-card{
+  background-color: rgba(231, 217, 23, 0.815)
+}
+// entire container/post-it note
+.doorboard-background{
+  display: inline-block;
+  justify-content: center;
+  background-color: rgba(235, 204, 27, 0.863);
+  align-items: center;
+  overflow-wrap: break-word;
+}
+.add-post-button{
+
+  justify-self: right;
+  background-color: rgba(255, 255, 255, 0.918);
+
+}
+.message-content{
+  overflow-wrap: break-word;
+}
+

@@ -7,6 +7,6 @@
   </mat-card-header>
   <mat-card-actions>
     <!--Need to change this router link later so that the person get's directed to the owner's doorboard-->
-    <button mat-button *ngIf="this.simple" [routerLink]="['/owners', this.owner._id]">VIEW DOORBOARD</button>
+    <button mat-button *ngIf="this.simple" [routerLink]="['/owner', this.owner._id, 'posts']">VIEW DOORBOARD</button>
   </mat-card-actions>
 </mat-card>

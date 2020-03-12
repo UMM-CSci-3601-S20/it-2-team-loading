@@ -54,7 +54,9 @@ public class Server {
     server.get("api", ctx -> ctx.result(appName));
 
     // Get specific owner
+    // this is wrong, need to fix this later
     server.get("api/owners/:id", ownerController::getOwner);
+
 
     server.delete("api/owners/:id", ownerController::deleteOwner);
 
@@ -64,16 +66,17 @@ public class Server {
     // Add new owner
     server.post("api/owners/new", ownerController::addNewOwner);
 
-    //Get specific post
-    server.get("api/posts/:id", postController::getPost);
+    //Get all posts from an owner
+    // server.get("api/owner/:id/posts", postController::getOwnerPosts);
 
     server.delete("api/posts/:id", postController::deletePost);
 
     //List posts with filters
-    server.get("api/posts", postController::getPosts);
+    server.get("api/posts", postController::getOwnerPosts);
 
     //Add new post
-    server.post("api/posts/new", postController::addNewPost);
+    //From the owner's doorboard
+    server.post("api/owner/:id/posts/new", postController::addNewPost);
 
 
 

@@ -116,7 +116,7 @@ export class AddOwnerComponent implements OnInit {
       this.snackBar.open('Added Owner ' + this.addOwnerForm.value.name, null, {
         duration: 2000,
       });
-      this.router.navigate(['/owners/', newID]);
+      this.router.navigate(['/owners']);
     }, err => {
       this.snackBar.open('Failed to add the owner', null, {
         duration: 2000,

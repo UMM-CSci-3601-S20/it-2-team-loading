@@ -81,20 +81,13 @@ public class PostController {
    *
    * @param ctx a Javalin HTTP context
    */
-  public void getPosts(Context ctx) {
+  public void getOwnerPosts(Context ctx) {
 
     List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
 
-    // if (ctx.queryParamMap().containsKey("owner")) {
-    //   filters.add(eq("owner", ctx.queryParam("owner")));
-    // }
-
-    // if (ctx.queryParamMap().containsKey("message")) {
-    //   filters.add(regex("message", ctx.queryParam("message"), "i"));
-    // }
-
-    // String sortBy = ctx.queryParam("sortby", "message"); // Sort by sort query param, default is name
-    // String sortOrder = ctx.queryParam("sortorder", "asc");
+    if (ctx.queryParamMap().containsKey("owner_id")) {
+      filters.add(eq("owner_id", ctx.queryParam("owner_id")));
+    }
 
     ctx.json(postCollection.find(filters.isEmpty() ? new Document() : and(filters))
     .into(new ArrayList<>()));
@@ -106,8 +99,9 @@ public class PostController {
    * @param ctx a Javalin HTTP context
    */
   public void addNewPost(Context ctx) {
-    Post newPost = ctx.bodyValidator(Post.class).check((pst) -> pst.owner != null) // Verify that the owner has a name // that is not blank
-    .check((pst) -> pst.message != null) // Verify that the provided string is not null and length is is > 0
+    Post newPost = ctx.bodyValidator(Post.class)
+    .check((pst) -> pst.message != null) // post should have a message
+    .check((pst) -> pst.owner_id != null) // post should have an owner_id
     .get();
     postCollection.insertOne(newPost);
     ctx.status(201);
