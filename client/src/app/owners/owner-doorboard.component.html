@@ -1,7 +1,7 @@
 <div class="doorboard-background" fxFill>
   <div>
     <!--Seems to be throwing error: "cannot read name of undefined once or twice while the page is loading, probably want to refactor this at some point-->
-    <mat-card class="owner-card">
+    <mat-card class="owner-card" *ngIf="owner">
       <h3>{{this.owner.name}}</h3>
     </mat-card>
 
