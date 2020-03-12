@@ -1,6 +1,7 @@
 import {browser, by, element, Key, ElementFinder} from 'protractor';
 
 export class DoorBoard {
+  // navigates to Rachel Johnson's doorboard
   navigateTo() {
     return browser.get('/owner/588935f57546a2daea44de7c/posts');
   }

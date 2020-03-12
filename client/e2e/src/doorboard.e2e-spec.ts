@@ -11,10 +11,10 @@ describe('Owner Doorboard', () => {
   });
 
   it('Should have the correct title', () => {
-    expect(page.getPageTitle()).toEqual('Rachael Johnson');
+    expect(page.getPageTitle()).toEqual('Rachel Johnson');
   });
 
-  it('Should have the correct first post', async() => {
+  it('Should have the correct first post', async () => {
     page.getOwnerListItems().first();
     expect(element(by.className('post-card')).getText()).toEqual(
       'I\'m going to be a few minutes late to my office hours today. I got caught in traffic this morning.');

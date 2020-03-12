@@ -33,7 +33,6 @@ export class MockPostService extends PostService {
   }
   // should be tested in the doorboard component spec
   getOwnerPosts(filters: { owner_id?: string }): Observable<Post[]> {
-    // Just return the test posts regardless of what filters are passed in
     return of(MockPostService.testPosts);
   }
 
