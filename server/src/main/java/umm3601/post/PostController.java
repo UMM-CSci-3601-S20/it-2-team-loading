@@ -81,7 +81,7 @@ public class PostController {
    *
    * @param ctx a Javalin HTTP context
    */
-  public void getPosts(Context ctx) {
+  public void getOwnerPosts(Context ctx) {
 
     List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
 
@@ -89,16 +89,6 @@ public class PostController {
       filters.add(eq("owner_id", ctx.queryParam("owner_id")));
     }
 
-    ctx.json(postCollection.find(filters.isEmpty() ? new Document() : and(filters))
-    .into(new ArrayList<>()));
-  }
-
-  public void getOwnerPosts(Context ctx) {
-    List<Bson> filters = new ArrayList<Bson>();
-
-    if (ctx.queryParamMap().containsKey("owner_id")) {
-      filters.add(eq("owner_id", ctx.queryParam("owner_id")));
-    }
     ctx.json(postCollection.find(filters.isEmpty() ? new Document() : and(filters))
     .into(new ArrayList<>()));
   }

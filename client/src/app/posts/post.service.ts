@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Post } from './post';
 import { map } from 'rxjs/operators';
-// import { Owner } from '../owners/owner';
 
 @Injectable()
 export class PostService {
@@ -14,20 +13,6 @@ export class PostService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getPosts(filters?: { message?: string, owner?: string, owner_id?: string }): Observable<Post[]> {
-    let httpParams: HttpParams = new HttpParams();
-    if (filters) {
-      if (filters.owner) {
-        httpParams = httpParams.set('owner', filters.owner);
-      }
-      if (filters.owner_id){
-        httpParams = httpParams.set('owner_id', filters.owner_id);
-      }
-    }
-    return this.httpClient.get<Post[]>(this.postUrl, {
-      params: httpParams,
-    });
-  }
   // this will get passed the owner id and display all the messages from that owner
   // maybe this needs to be formatted like getPosts where we return with params:httpParams?
   // currently this doesn't filter anything. It just displays all the posts.
