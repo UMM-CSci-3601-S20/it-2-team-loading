@@ -48,7 +48,7 @@ describe('Post service: ', () => {
     httpTestingController.verify();
   });
 
-  it('getOwnerPosts() calls api/owner/:id/posts', () => {
+  it('getOwnerPosts() calls api/posts', () => {
     postService.getOwnerPosts({ owner_id: '588935f57546a2daea44de7c' }).subscribe(
       posts => expect(posts).toBe(testPosts)
     );
@@ -56,5 +56,19 @@ describe('Post service: ', () => {
     const req = httpTestingController.expectOne(
       (request) => request.url.startsWith(postService.postUrl) && request.params.has('owner_id')
     );
+  });
+
+  it('addPost() calls api/owner/:id/posts/new', () => {
+    // addPost takes in an owner_id and a Post type and returns
+    postService.addPost('588935f57546a2daea44de7c', testPosts[1]).subscribe(
+      id => expect(id).toBe('588935f57546a2daea44de7c')
+    );
+
+    const req = httpTestingController.expectOne(postService.ownerUrl + '/' + '588935f57546a2daea44de7c' + '/posts/new');
+
+    expect(req.request.method).toEqual('POST');
+    expect(req.request.body).toEqual(testPosts[1]);
+
+    req.flush({ id: '588935f57546a2daea44de7c' });
   });
 });

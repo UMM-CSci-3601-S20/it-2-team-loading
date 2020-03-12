@@ -181,26 +181,6 @@ describe('Owner service: ', () => {
     req.flush(targetOwner);
   });
 
-  // it('filterOwners() filters by name', () => {
-  //   expect(testOwners.length).toBe(3);
-  //   const ownerName = 'a';
-  //   expect(ownerService.filterOwners(testOwners, { name: ownerName }).length).toBe(2);
-  // });
-
-  // it('filterOwners() filters by company', () => {
-  //   expect(testOwners.length).toBe(3);
-  //   const ownerCompany = 'UMM';
-  //   expect(ownerService.filterOwners(testOwners, { company: ownerCompany }).length).toBe(1);
-  // });
-
-  // it('filterOwners() filters by name and company', () => {
-  //   expect(testOwners.length).toBe(3);
-  //   const ownerCompany = 'UMM';
-  //   const ownerName = 'chris';
-  //   expect(ownerService.filterOwners(testOwners, { name: ownerName, company: ownerCompany }).length).toBe(1);
-  // });
-
-
 
   it('addOwner() calls api/owners/new', () => {
 
