@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Post } from '../app/posts/post';
 import { PostService } from '../app/posts/post.service';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
-// import { Owner } from '../app/owners/owner';
 
 
 /**
@@ -33,21 +31,10 @@ export class MockPostService extends PostService {
   constructor() {
     super(null);
   }
-
-  getPosts(filters: { message?: string, owner?: string }): Observable<Post[]> {
+  // should be tested in the doorboard component spec
+  getOwnerPosts(filters: { owner_id?: string }): Observable<Post[]> {
     // Just return the test posts regardless of what filters are passed in
     return of(MockPostService.testPosts);
-  }
-
-  getPostById(id: string): Observable<Post> {
-    // If the specified ID is for the first test post,
-    // return that post, otherwise return `null` so
-    // we can test illegal post requests.
-    if (id === MockPostService.testPosts[0]._id) {
-      return of(MockPostService.testPosts[0]);
-    } else {
-      return of(null);
-    }
   }
 
 }

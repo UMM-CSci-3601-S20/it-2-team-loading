@@ -48,7 +48,7 @@ describe('Post service: ', () => {
     httpTestingController.verify();
   });
 
-  it('getOwnerPosts() calls api/owner/:id/posts', () => {
+  it('getOwnerPosts() calls api/posts', () => {
     postService.getOwnerPosts({ owner_id: '588935f57546a2daea44de7c' }).subscribe(
       posts => expect(posts).toBe(testPosts)
     );
