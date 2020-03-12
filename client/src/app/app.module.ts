@@ -31,13 +31,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AddPostComponent } from './posts/add-post.component';
 import { PostService } from './posts/post.service';
-import { PostListComponent } from './posts/post-list.component';
 import { OwnerCardComponent } from './owners/owner-card.component';
 import { OwnerDoorBoardComponent } from './owners/owner-doorboard.component';
 import { AddOwnerComponent } from './owners/add-owner.component';
-
-// we could import this to reverse the order of the posts in future (so most recent posts are at the top)
-// import {NgPipesModule} from 'ngx-pipes';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -63,12 +59,10 @@ const MATERIAL_MODULES: any[] = [
     AppComponent,
     HomeComponent,
     AddPostComponent,
-    PostListComponent,
     OwnerListComponent,
     OwnerCardComponent,
     OwnerDoorBoardComponent,
     AddOwnerComponent,
-    PostListComponent,
   ],
   imports: [
     BrowserModule,

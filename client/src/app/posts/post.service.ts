@@ -17,9 +17,6 @@ export class PostService {
   getPosts(filters?: { message?: string, owner?: string, owner_id?: string }): Observable<Post[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
-    //   if (filters.message) {
-    //     httpParams = httpParams.set('message', filters.message);
-    //   }
       if (filters.owner) {
         httpParams = httpParams.set('owner', filters.owner);
       }
@@ -35,9 +32,6 @@ export class PostService {
   // maybe this needs to be formatted like getPosts where we return with params:httpParams?
   // currently this doesn't filter anything. It just displays all the posts.
 
-
-
-
   getOwnerPosts(filters?: { owner_id?: string}): Observable<Post[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters.owner_id) {
@@ -46,22 +40,6 @@ export class PostService {
     return this.httpClient.get<Post[]>(this.postUrl, {
       params: httpParams,
     });
-  }
-
-  filterPosts(posts: Post[], filters: { message?: string, owner_id?: string }): Post[] {
-
-    let filteredPosts = posts;
-
-    // Filter by message
-    // if (filters.message) {
-    //   filters.message = filters.message.toLowerCase();
-
-    //   filteredPosts = filteredPosts.filter(post => {
-    //     return post.message.toLowerCase().indexOf(filters.message) !== -1;
-    //   });
-    // }
-
-    return filteredPosts;
   }
 
   addPost(id: string, newPost: Post): Observable<string> {
