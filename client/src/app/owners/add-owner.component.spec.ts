@@ -102,17 +102,6 @@ describe('AddOwnerComponent', () => {
       expect(nameControl.hasError('maxlength')).toBeTruthy();
     });
 
-    it('should not allow a name to contain a symbol', () => {
-      nameControl.setValue('bad@email.com');
-      expect(nameControl.valid).toBeFalsy();
-      expect(nameControl.hasError('pattern')).toBeTruthy();
-    });
-
-    it('should not allow digits in the name', () => {
-      nameControl.setValue('Bad2Th3B0ne');
-      expect(nameControl.valid).toBeFalsy();
-    });
-
     it('should fail if we provide an "existing" name', () => {
       // We're assuming that "abc123" and "123abc" already
       // exist so we disallow them.

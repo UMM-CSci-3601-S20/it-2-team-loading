@@ -39,7 +39,7 @@ describe('OwnerDoorBoardComponent', () => {
     doorBoardComponent = fixture.componentInstance;
     fixture.detectChanges();
   }));
-  /*
+
   it('should create the component', () => {
     expect(doorBoardComponent).toBeTruthy();
   });
@@ -80,5 +80,5 @@ describe('OwnerDoorBoardComponent', () => {
     expect(doorBoardComponent.id).toEqual('badID');
     expect(doorBoardComponent.owner).toBeNull();
   });
-  */
+
 });
