@@ -6,18 +6,18 @@
     </mat-card>
     <div class="add-button-container">
       <!--This is where we add our new notes. The owner ID is automatically set for each new note to match the id of the owner-->
-      <button mat-raised-button class="add-post-button" matTooltip="Add Note" matTooltipPosition="below"
-        routerLink="/owner/{{this.id}}/posts/new">Add New Note
+      <button mat-raised-button class="add-note-button" matTooltip="Add Note" matTooltipPosition="below"
+        routerLink="/owner/{{this.id}}/notes/new">Add New Note
       </button>
     </div>
-    <div class="post-list-container">
-    <!--This is where we are looping through the posts that belong to each owner-->
-    <mat-list fxLayout="row wrap" class="list-of-owner-posts">
-      <mat-list-item *ngFor="let post of posts ; first as last " class="owner-post">
+    <div class="note-list-container">
+    <!--This is where we are looping through the notes that belong to each owner-->
+    <mat-list fxLayout="row wrap" class="list-of-owner-notes">
+      <mat-list-item *ngFor="let note of notes; first as last " class="owner-note">
         <!--Each message is its own mat-card-->
-        <div fxFlex="column" class="list-of-posts">
-          <mat-card fxLayout="row wrap" class="post-card">
-            <p class="message-content">{{post.message}}</p>
+        <div fxFlex="column" class="list-of-notes">
+          <mat-card fxLayout="row wrap" class="note-card">
+            <p class="message-content">{{note.message}}</p>
           </mat-card>
         </div>
       </mat-list-item>

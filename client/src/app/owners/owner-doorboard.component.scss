@@ -1,4 +1,4 @@
-.owner-post{
+.owner-note{
   font-size: 1.5em;
   padding-bottom: 2rem;
   overflow-wrap: break-word;
@@ -8,12 +8,12 @@
   padding-bottom: 3rem;
 }
 
-.list-of-posts{
+.list-of-notes{
   display: inline-block;
   align-content: center;
   overflow-wrap: break-word;
 }
-.list-of-owner-posts{
+.list-of-owner-notes{
   align-items: center;
   align-content: center;
   overflow-wrap: break-word;
@@ -22,7 +22,7 @@ h3{
   font-size: 1.8em;
   text-align: center;
 }
-.post-card{
+.note-card{
   display: inline-block;
   align-content: left;
   background-color: rgb(255, 237, 223);
@@ -33,14 +33,14 @@ h3{
 .owner-card{
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-// entire container/post-it note
+// entire container/note-it note
 .doorboard-background{
   display: inline-block;
   justify-content: center;
   align-items: center;
   overflow-wrap: break-word;
 }
-.add-post-button{
+.add-note-button{
   background-color: rgb(218, 247, 166);
 }
 .message-content{
