@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Owner } from './owner';
 import { OwnerService } from './owner.service';
 import { Subscription } from 'rxjs';
-import { PostService } from '.././posts/post.service';
-import { Post } from '.././posts/post';
+import { NoteService } from '../notes/note.service';
+import { Note } from '../notes/note';
 
 @Component({
   selector: 'app-owner-doorboard',
@@ -13,14 +13,14 @@ import { Post } from '.././posts/post';
 })
 
 
-// This class has access to the owner of the doorboard, and all the posts that said owner has made
+// This class has access to the owner of the doorboard, and all the notes that said owner has made
 export class OwnerDoorBoardComponent implements OnInit, OnDestroy {
-  constructor(private route: ActivatedRoute, private postService: PostService,
+  constructor(private route: ActivatedRoute, private noteService: NoteService,
               private ownerService: OwnerService) { }
-  posts: Post[];
+  notes: Note[];
   owner: Owner;
   id: string;
-  getPostsSub: Subscription;
+  getNotesSub: Subscription;
   getOwnerSub: Subscription;
   ngOnInit(): void {
     // We subscribe to the parameter map here so we'll be notified whenever
@@ -29,14 +29,14 @@ export class OwnerDoorBoardComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
       this.getOwnerSub = this.ownerService.getOwnerById(this.id).subscribe(owner => this.owner = owner);
-      this.getPostsSub = this.postService.getOwnerPosts({ owner_id: this.id }).subscribe(posts => this.posts = posts.reverse());
+      this.getNotesSub = this.noteService.getOwnerNotes({ owner_id: this.id }).subscribe(notes => this.notes = notes.reverse());
 
     });
   }
 
   ngOnDestroy(): void {
-    if (this.getPostsSub) {
-      this.getPostsSub.unsubscribe();
+    if (this.getNotesSub) {
+      this.getNotesSub.unsubscribe();
     }
     if (this.getOwnerSub) {
       this.getOwnerSub.unsubscribe();

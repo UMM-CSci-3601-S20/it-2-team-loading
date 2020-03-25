@@ -1,10 +1,10 @@
-package umm3601.post;
+package umm3601.note;
 
 import org.mongojack.Id;
 import org.mongojack.ObjectId;
 //import umm3601.owner.Owner;
 
-public class Post {
+public class Note {
 
   @ObjectId @Id
   public String _id;

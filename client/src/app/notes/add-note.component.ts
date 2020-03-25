@@ -1,30 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from './post';
-import { PostService } from './post.service';
+import { Note } from './note';
+import { NoteService } from './note.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-add-post',
-  templateUrl: './add-post.component.html',
+  selector: 'app-add-note',
+  templateUrl: './add-note.component.html',
   styleUrls: []
 })
-export class AddPostComponent implements OnInit {
+export class AddNoteComponent implements OnInit {
 
-  addPostForm: FormGroup;
+  addNoteForm: FormGroup;
 
-  post: Post;
+  note: Note;
   id: string;
 
-  constructor(private fb: FormBuilder, private postService: PostService, private snackBar: MatSnackBar,
+  constructor(private fb: FormBuilder, private noteService: NoteService, private snackBar: MatSnackBar,
               private router: Router, private route: ActivatedRoute) {
   }
 
 
   // tslint:disable-next-line: variable-name
-  add_post_validation_messages = {
+  add_note_validation_messages = {
     message: [
       { type: 'required', message: 'Message is required' },
       { type: 'minlength', message: 'Message is too short' },
@@ -36,7 +36,7 @@ export class AddPostComponent implements OnInit {
   };
 
   createForms() {
-    this.addPostForm = this.fb.group({
+    this.addNoteForm = this.fb.group({
       message: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(2),
@@ -57,20 +57,20 @@ export class AddPostComponent implements OnInit {
   }
 
   submitForm() {
-    const formResults = this.addPostForm.value;
-    const newPost: Post = {
+    const formResults = this.addNoteForm.value;
+    const newNote: Note = {
       owner_id: this.id,
       _id: undefined,
       //owner: formResults.owner,
       message: formResults.message,
     };
 
-    this.postService.addPost(this.id, newPost).subscribe(() => {
+    this.noteService.addNote(this.id, newNote).subscribe(() => {
       this.snackBar.open('Posted', null, {
         duration: 2000,
       });
       // after submission, navigate back to the owner's doorboard
-      this.router.navigate(['/owner/' + this.id + '/posts']);
+      this.router.navigate(['/owner/' + this.id + '/notes']);
     }, err => {
       this.snackBar.open('Failed to post', null, {
         duration: 2000,

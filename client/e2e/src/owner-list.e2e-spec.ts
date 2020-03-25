@@ -79,7 +79,7 @@ describe('Owner list', () => {
 
     // When the view profile button on the first owner card is clicked, the URL should have a valid mongo ID
     const url = await page.getUrl();
-    expect(RegExp('/owner/[0-9a-fA-F]{24}/posts$', 'i').test(url)).toBe(true);
+    expect(RegExp('/owner/[0-9a-fA-F]{24}/notes$', 'i').test(url)).toBe(true);
 
   });
 

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { AddPostComponent } from './posts/add-post.component';
+import { AddNoteComponent } from './notes/add-note.component';
 import { OwnerListComponent } from './owners/owner-list.component';
 import { OwnerDoorBoardComponent } from './owners/owner-doorboard.component';
 import { AddOwnerComponent } from './owners/add-owner.component';
@@ -9,10 +9,10 @@ import { AddOwnerComponent } from './owners/add-owner.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'owner/:id/posts/new', component: AddPostComponent},
+  {path: 'owner/:id/notes/new', component: AddNoteComponent},
   {path: 'owners', component: OwnerListComponent},
   {path: 'owners/new', component: AddOwnerComponent},
-  {path: 'owner/:id/posts', component: OwnerDoorBoardComponent}
+  {path: 'owner/:id/notes', component: OwnerDoorBoardComponent}
 ];
 
 @NgModule({
