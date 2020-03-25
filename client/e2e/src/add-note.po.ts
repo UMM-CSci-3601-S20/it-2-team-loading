@@ -1,14 +1,14 @@
 import { browser, by, element, Key, ElementFinder } from 'protractor';
 
-export interface TestPost {
+export interface TestNote {
   owner_id: string;
   message: string;
   owner: string;
 }
 
-export class AddPostPage {
+export class AddNotePage {
   navigateTo() {
-    return browser.get('/owner/78f1d3bfa098879fe7a01373/posts/new');
+    return browser.get('/owner/78f1d3bfa098879fe7a01373/notes/new');
   }
 
   getUrl() {
@@ -16,7 +16,7 @@ export class AddPostPage {
   }
 
   getTitle() {
-    const title = element(by.className('add-post-title')).getText();
+    const title = element(by.className('add-note-title')).getText();
     return title;
   }
 
@@ -33,12 +33,12 @@ export class AddPostPage {
     });
   }
 
-  clickAddPost() {
-    return element(by.buttonText('ADD POST')).click();
+  clickAddNote() {
+    return element(by.buttonText('ADD NOTE')).click();
   }
 
-  async addPost(newPost: TestPost) {
-    await this.typeInput('messageField', newPost.message);
-    return this.clickAddPost();
+  async addNote(newNote: TestNote) {
+    await this.typeInput('messageField', newNote.message);
+    return this.clickAddNote();
   }
 }
