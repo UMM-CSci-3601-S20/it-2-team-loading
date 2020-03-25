@@ -58,11 +58,21 @@ export class AddNoteComponent implements OnInit {
 
   submitForm() {
     const formResults = this.addNoteForm.value;
+
+    const currentDate = new Date();
+    const newDate = new Date(currentDate.setHours(currentDate.getHours() + 5));
+    console.log('TIMES!!!!:\n'
+    + 'JSON: ' + newDate.toJSON() + '\n'
+    + 'ISO: ' + newDate.toISOString() + '\n'
+    + 'UTC: ' + newDate.toUTCString() + '\n'
+    + 'DATE: ' + newDate.toDateString() + '\n'
+    );
     const newNote: Note = {
       owner_id: this.id,
       _id: undefined,
       //owner: formResults.owner,
       message: formResults.message,
+      expiration: newDate.toJSON(),
     };
 
     this.noteService.addNote(this.id, newNote).subscribe(() => {
