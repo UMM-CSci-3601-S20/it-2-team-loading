@@ -71,7 +71,7 @@ describe('Note service: ', () => {
 
     const req = httpTestingController.expectOne(noteService.ownerUrl + '/' + '588935f57546a2daea44de7c' + '/notes/new');
 
-    expect(req.request.method).toEqual('NOTE');
+    expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual(testNotes[1]);
 
     req.flush({ id: '588935f57546a2daea44de7c' });
