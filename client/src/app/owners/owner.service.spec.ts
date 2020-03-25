@@ -190,7 +190,7 @@ describe('Owner service: ', () => {
 
     const req = httpTestingController.expectOne(ownerService.ownerUrl + '/new');
 
-    expect(req.request.method).toEqual('POST');
+    expect(req.request.method).toEqual('NOTE');
     expect(req.request.body).toEqual(testOwners[1]);
 
     req.flush({ id: 'testid' });

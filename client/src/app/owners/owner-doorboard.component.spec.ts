@@ -8,8 +8,8 @@ import { Owner } from './owner';
 import { OwnerCardComponent } from './owner-card.component';
 import { OwnerDoorBoardComponent } from './owner-doorboard.component';
 import { OwnerService } from './owner.service';
-import { PostService } from '../posts/post.service';
-import { MockPostService } from 'src/testing/post.service.mock';
+import { NoteService } from '../notes/note.service';
+import { MockNoteService } from 'src/testing/note.service.mock';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('OwnerDoorBoardComponent', () => {
@@ -27,7 +27,7 @@ describe('OwnerDoorBoardComponent', () => {
       declarations: [OwnerDoorBoardComponent, OwnerCardComponent],
       providers: [
         { provide: OwnerService, useValue: new MockOwnerService() },
-        { provide: PostService, useValue: new MockPostService() },
+        { provide: NoteService, useValue: new MockNoteService() },
         { provide: ActivatedRoute, useValue: activatedRoute }
       ]
     })

@@ -1,4 +1,4 @@
-package umm3601.post;
+package umm3601.note;
 
 import static com.mongodb.client.model.Filters.eq;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,12 +44,12 @@ import io.javalin.plugin.json.JavalinJson;
 *
 * @throws IOException
 */
-public class PostControllerSpec {
+public class NoteControllerSpec {
 
   MockHttpServletRequest mockReq = new MockHttpServletRequest();
   MockHttpServletResponse mockRes = new MockHttpServletResponse();
 
-  private PostController postController;
+  private NoteController noteController;
 
   private ObjectId samsId;
 
@@ -80,18 +80,18 @@ public class PostControllerSpec {
     mockRes.resetAll();
 
         // Setup database
-    MongoCollection<Document> postDocuments = db.getCollection("posts");
-    postDocuments.drop();
-    List<Document> testPosts = new ArrayList<>();
-    testPosts.add(Document.parse("{\n" +
+    MongoCollection<Document> noteDocuments = db.getCollection("notes");
+    noteDocuments.drop();
+    List<Document> testNotes = new ArrayList<>();
+    testNotes.add(Document.parse("{\n" +
       "                    message: \"I wanna say something,\",\n" +
       "                    owner_id: \"1310\",\n" +
       "                }"));
-    testPosts.add(Document.parse("{\n" +
+    testNotes.add(Document.parse("{\n" +
       "                    message: \"But we're leaving\",\n" +
       "                    owner_id: \"1523\",\n" +
       "                }"));
-    testPosts.add(Document.parse("{\n" +
+    testNotes.add(Document.parse("{\n" +
       "                    message: \"And it's over\",\n" +
       "                    owner_id: \"1600\",\n" +
       "                }"));
@@ -102,10 +102,10 @@ public class PostControllerSpec {
       .append("owner_id", "1300");
 
 
-    postDocuments.insertMany(testPosts);
-    postDocuments.insertOne(Document.parse(sam.toJson()));
+    noteDocuments.insertMany(testNotes);
+    noteDocuments.insertOne(Document.parse(sam.toJson()));
 
-    postController = new PostController(db);
+    noteController = new NoteController(db);
   }
 
   @AfterAll
@@ -115,36 +115,36 @@ public class PostControllerSpec {
   }
 
   @Test
-  public void GetPostsByOwner_id() throws IOException {
+  public void GetNotesByOwner_id() throws IOException {
 
     // Set the query string to test with
     mockReq.setQueryString("owner_id=1310");
 
     // Create our fake Javalin context
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/posts");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes");
 
-    postController.getOwnerPosts(ctx);
+    noteController.getOwnerNotes(ctx);
 
     String result = ctx.resultString();
-    Post[] resultPosts = JavalinJson.fromJson(result, Post[].class);
+    Note[] resultNotes = JavalinJson.fromJson(result, Note[].class);
 
-    assertEquals(1, resultPosts.length); // There should be one owner returned
-    for (Post post : resultPosts) {
-      assertEquals("1310", post.owner_id); // There should be one with that id
+    assertEquals(1, resultNotes.length); // There should be one owner returned
+    for (Note note : resultNotes) {
+      assertEquals("1310", note.owner_id); // There should be one with that id
     }
   }
 
   @Test
-  public void AddPost() throws IOException {
+  public void AddNote() throws IOException {
 
-    String testNewPost = "{\n\t\"message\": \"Alien\",\n\t\"owner_id\": \"coolguyid\"\n}";
+    String testNewNote = "{\n\t\"message\": \"Alien\",\n\t\"owner_id\": \"coolguyid\"\n}";
 
-    mockReq.setBodyContent(testNewPost);
+    mockReq.setBodyContent(testNewNote);
     mockReq.setMethod("POST");
 
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/owner:id/posts/new");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/owner:id/notes/new");
 
-    postController.addNewPost(ctx);
+    noteController.addNewNote(ctx);
 
     assertEquals(201, mockRes.getStatus());
 
@@ -153,46 +153,46 @@ public class PostControllerSpec {
     assertNotEquals("", id);
     System.out.println(id);
 
-    assertEquals(1, db.getCollection("posts").countDocuments(eq("_id", new ObjectId(id))));
+    assertEquals(1, db.getCollection("notes").countDocuments(eq("_id", new ObjectId(id))));
 
     //verify owner was added to the database and the correct ID
-    Document addedPost = db.getCollection("posts").find(eq("_id", new ObjectId(id))).first();
-    assertNotNull(addedPost);
-    assertEquals("Alien", addedPost.getString("message"));
+    Document addedNote = db.getCollection("notes").find(eq("_id", new ObjectId(id))).first();
+    assertNotNull(addedNote);
+    assertEquals("Alien", addedNote.getString("message"));
   }
 
   @Test
-  public void DeletePost() throws IOException {
+  public void DeleteNote() throws IOException {
 
     String testID = samsId.toHexString();
 
     // Sam exists in the database before we delete him
-    assertEquals(1, db.getCollection("posts").countDocuments(eq("_id", new ObjectId(testID))));
+    assertEquals(1, db.getCollection("notes").countDocuments(eq("_id", new ObjectId(testID))));
 
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/posts", ImmutableMap.of("id", testID));
-    postController.deletePost(ctx);
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes", ImmutableMap.of("id", testID));
+    noteController.deleteNote(ctx);
 
     assertEquals(200, mockRes.getStatus());
 
     // Owner is no longer in the database
-    assertEquals(0, db.getCollection("posts").countDocuments(eq("_id", new ObjectId(testID))));
+    assertEquals(0, db.getCollection("notes").countDocuments(eq("_id", new ObjectId(testID))));
   }
 
   @Test
-  public void getPost() throws IOException {
+  public void getNote() throws IOException {
 
     String testID = samsId.toHexString();
 
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/posts/:id", ImmutableMap.of("id", testID));
-    postController.getPost(ctx);
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", testID));
+    noteController.getNote(ctx);
 
     assertEquals(200, mockRes.getStatus());
 
     String result = ctx.resultString();
-    Post resultPost = JavalinJson.fromJson(result, Post.class);
+    Note resultNote = JavalinJson.fromJson(result, Note.class);
 
-    assertEquals(resultPost._id, samsId.toHexString());
-    assertEquals(resultPost.owner_id, "1300");
+    assertEquals(resultNote._id, samsId.toHexString());
+    assertEquals(resultNote.owner_id, "1300");
   }
 
 }

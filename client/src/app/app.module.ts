@@ -29,8 +29,8 @@ import { HomeComponent } from './home/home.component';
 import { OwnerService } from './owners/owner.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
-import { AddPostComponent } from './posts/add-post.component';
-import { PostService } from './posts/post.service';
+import { AddNoteComponent } from './notes/add-note.component';
+import { NoteService } from './notes/note.service';
 import { OwnerCardComponent } from './owners/owner-card.component';
 import { OwnerDoorBoardComponent } from './owners/owner-doorboard.component';
 import { AddOwnerComponent } from './owners/add-owner.component';
@@ -58,7 +58,7 @@ const MATERIAL_MODULES: any[] = [
   declarations: [
     AppComponent,
     HomeComponent,
-    AddPostComponent,
+    AddNoteComponent,
     OwnerListComponent,
     OwnerCardComponent,
     OwnerDoorBoardComponent,
@@ -76,7 +76,7 @@ const MATERIAL_MODULES: any[] = [
     AppRoutingModule
   ],
   providers: [
-    PostService,
+    NoteService,
     OwnerService
   ],
   bootstrap: [AppComponent]

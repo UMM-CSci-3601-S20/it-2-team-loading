@@ -1,9 +1,9 @@
 <div fxLayout="row">
   <div fxFlex fxFles.gt-sm="80" fxFlexOffset.gt-sm="10">
-    <form [formGroup]="addPostForm" (ngSubmit)="submitForm();">
-      <mat-card class="add-post-card">
+    <form [formGroup]="addNoteForm" (ngSubmit)="submitForm();">
+      <mat-card class="add-note-card">
         <mat-card-header>
-          <mat-card-title class="add-post-title">New Post</mat-card-title>
+          <mat-card-title class="add-note-title">New Note</mat-card-title>
         </mat-card-header>
           <mat-card-content fxLayout="column">
 
@@ -11,9 +11,9 @@
               <mat-label>Message</mat-label>
               <input matInput id="messageField" placeholder="Message" formControlName="message"
                     required>
-              <mat-error *ngFor="let validation of add_post_validation_messages.message">
+              <mat-error *ngFor="let validation of add_note_validation_messages.message">
                 <mat-error class="error-message" id="message-error"
-                      *ngIf="addPostForm.get('message').hasError(validation.type) && (addPostForm.get('message').dirty || addPostForm.get('message').touched)">
+                      *ngIf="addNoteForm.get('message').hasError(validation.type) && (addNoteForm.get('message').dirty || addNoteForm.get('message').touched)">
                     {{validation.message}}
                     </mat-error>
               </mat-error>
@@ -21,9 +21,9 @@
 
           </mat-card-content>
           <mat-card-actions align="end">
-            <button mat-button id="confirmAddPostButton" type="button" color="primary"
-                    [disabled]="!addPostForm.valid" type="submit">
-                    ADD POST
+            <button mat-button id="confirmAddNoteButton" type="button" color="primary"
+                    [disabled]="!addNoteForm.valid" type="submit">
+                    ADD NOTE
             </button>
           </mat-card-actions>
       </mat-card>

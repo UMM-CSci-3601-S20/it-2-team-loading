@@ -1,4 +1,4 @@
-package umm3601.post;
+package umm3601.note;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
@@ -26,62 +26,62 @@ import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
 
 /**
- * Controller that manages requests for info about posts.
+ * Controller that manages requests for info about s.
  */
-public class PostController {
+public class NoteController {
 
   JacksonCodecRegistry jacksonCodecRegistry = JacksonCodecRegistry.withDefaultObjectMapper();
 
-  private final MongoCollection<Post> postCollection;
+  private final MongoCollection<Note> noteCollection;
 
   /**
-   * Construct a controller for posts.
+   * Construct a controller for notes.
    *
-   * @param database the database containing post data
+   * @param database the database containing note data
    */
-  public PostController(MongoDatabase database) {
-    jacksonCodecRegistry.addCodecForClass(Post.class);
-    postCollection = database.getCollection("posts").withDocumentClass(Post.class)
+  public NoteController(MongoDatabase database) {
+    jacksonCodecRegistry.addCodecForClass(Note.class);
+    noteCollection = database.getCollection("notes").withDocumentClass(Note.class)
         .withCodecRegistry(jacksonCodecRegistry);
   }
 
   /**
-   * Get the single post specified by the `id` parameter in the request.
+   * Get the single note specified by the `id` parameter in the request.
    *
    * @param ctx a Javalin HTTP context
    */
-  public void getPost(Context ctx) {
+  public void getNote(Context ctx) {
     String id = ctx.pathParam("id");
-    Post post;
+    Note note;
 
     try {
-      post = postCollection.find(eq("_id", new ObjectId(id))).first();
+      note = noteCollection.find(eq("_id", new ObjectId(id))).first();
     } catch (IllegalArgumentException e) {
-      throw new BadRequestResponse("The requested post id wasn't a legal Mongo Object ID.");
+      throw new BadRequestResponse("The requested note id wasn't a legal Mongo Object ID.");
     }
-    if (post == null) {
-      throw new NotFoundResponse("The requested post was not found");
+    if (note == null) {
+      throw new NotFoundResponse("The requested note was not found");
     } else {
-      ctx.json(post);
+      ctx.json(note);
     }
   }
 
   /**
-   * Delete the post specified by the `id` parameter in the request.
+   * Delete the note specified by the `id` parameter in the request.
    *
    * @param ctx a Javalin HTTP context
    */
-  public void deletePost(Context ctx) {
+  public void deleteNote(Context ctx) {
     String id = ctx.pathParam("id");
-    postCollection.deleteOne(eq("_id", new ObjectId(id)));
+    noteCollection.deleteOne(eq("_id", new ObjectId(id)));
   }
 
   /**
-   * Get a JSON response with a list of all the posts.
+   * Get a JSON response with a list of all the notes.
    *
    * @param ctx a Javalin HTTP context
    */
-  public void getOwnerPosts(Context ctx) {
+  public void getOwnerNotes(Context ctx) {
 
     List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
 
@@ -89,7 +89,7 @@ public class PostController {
       filters.add(eq("owner_id", ctx.queryParam("owner_id")));
     }
 
-    ctx.json(postCollection.find(filters.isEmpty() ? new Document() : and(filters))
+    ctx.json(noteCollection.find(filters.isEmpty() ? new Document() : and(filters))
     .into(new ArrayList<>()));
   }
 
@@ -98,14 +98,14 @@ public class PostController {
    *
    * @param ctx a Javalin HTTP context
    */
-  public void addNewPost(Context ctx) {
-    Post newPost = ctx.bodyValidator(Post.class)
-    .check((pst) -> pst.message != null) // post should have a message
-    .check((pst) -> pst.owner_id != null) // post should have an owner_id
+  public void addNewNote(Context ctx) {
+    Note newNote = ctx.bodyValidator(Note.class)
+    .check((pst) -> pst.message != null) // note should have a message
+    .check((pst) -> pst.owner_id != null) // note should have an owner_id
     .get();
-    postCollection.insertOne(newPost);
+    noteCollection.insertOne(newNote);
     ctx.status(201);
-    ctx.json(ImmutableMap.of("id", newPost._id));
+    ctx.json(ImmutableMap.of("id", newNote._id));
 
   }
 
