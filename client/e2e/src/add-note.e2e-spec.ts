@@ -41,5 +41,4 @@ describe('Add note', () => {
 
 });
 
-// IDFK where to begin to try and navigate page to for this
-// Tried lots of things and nothing worked.
+/// Tried lots of things and nothing worked.
