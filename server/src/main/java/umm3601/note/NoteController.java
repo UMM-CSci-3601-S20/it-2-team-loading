@@ -103,6 +103,7 @@ public class NoteController {
     .check((pst) -> pst.message != null) // note should have a message
     .check((pst) -> pst.owner_id != null) // note should have an owner_id
     .get();
+    // To recognize a timestamp
     if(newNote.timestamp!=null){
       newNote.timestamp = true;
     }

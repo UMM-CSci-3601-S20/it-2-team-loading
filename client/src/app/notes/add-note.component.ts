@@ -63,6 +63,7 @@ export class AddNoteComponent implements OnInit {
       _id: undefined,
       //owner: formResults.owner,
       message: formResults.message,
+      timestamp: formResults.timestamp,
     };
 
     this.noteService.addNote(this.id, newNote).subscribe(() => {
