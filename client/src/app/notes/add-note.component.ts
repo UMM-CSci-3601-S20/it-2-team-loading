@@ -17,6 +17,7 @@ export class AddNoteComponent implements OnInit {
 
   note: Note;
   id: string;
+  timestamp: string;
 
   constructor(private fb: FormBuilder, private noteService: NoteService, private snackBar: MatSnackBar,
               private router: Router, private route: ActivatedRoute) {
@@ -50,6 +51,7 @@ export class AddNoteComponent implements OnInit {
 
   ngOnInit() {
     this.createForms();
+    this.timestamp = this.noteService.getTimestamp();
     // grabbing owner id from api
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
@@ -63,7 +65,7 @@ export class AddNoteComponent implements OnInit {
       _id: undefined,
       //owner: formResults.owner,
       message: formResults.message,
-      timestamp: formResults.timestamp,
+      timestamp: this.timestamp,
     };
 
     this.noteService.addNote(this.id, newNote).subscribe(() => {
