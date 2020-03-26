@@ -8,15 +8,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MockPostService } from 'src/testing/post.service.mock';
-import { AddPostComponent } from './add-post.component';
-import { PostService } from './post.service';
+import { MockNoteService } from 'src/testing/note.service.mock';
+import { AddNoteComponent } from './add-note.component';
+import { NoteService } from './note.service';
 
-describe('AddPostComponent', () => {
-  let addPostComponent: AddPostComponent;
-  let addPostForm: FormGroup;
+describe('AddNoteComponent', () => {
+  let addNoteComponent: AddNoteComponent;
+  let addNoteForm: FormGroup;
   let calledClose: boolean;
-  let fixture: ComponentFixture<AddPostComponent>;
+  let fixture: ComponentFixture<AddNoteComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -31,8 +31,8 @@ describe('AddPostComponent', () => {
         BrowserAnimationsModule,
         RouterTestingModule
       ],
-      declarations: [AddPostComponent],
-      providers: [{ provide: PostService, useValue: new MockPostService() }]
+      declarations: [AddNoteComponent],
+      providers: [{ provide: NoteService, useValue: new MockNoteService() }]
     }).compileComponents().catch(error => {
       expect(error).toBeNull();
     });
@@ -40,13 +40,13 @@ describe('AddPostComponent', () => {
 
   beforeEach(() => {
     calledClose = false;
-    fixture = TestBed.createComponent(AddPostComponent);
-    addPostComponent = fixture.componentInstance;
-    addPostComponent.ngOnInit();
+    fixture = TestBed.createComponent(AddNoteComponent);
+    addNoteComponent = fixture.componentInstance;
+    addNoteComponent.ngOnInit();
     fixture.detectChanges();
-    addPostForm = addPostComponent.addPostForm;
-    expect(addPostForm).toBeDefined();
-    expect(addPostForm.controls).toBeDefined();
+    addNoteForm = addNoteComponent.addNoteForm;
+    expect(addNoteForm).toBeDefined();
+    expect(addNoteForm.controls).toBeDefined();
   });
 
   // Not terribly important; if the component doesn't create
@@ -55,21 +55,21 @@ describe('AddPostComponent', () => {
   // our component definitions don't have errors that would
   // prevent them from being successfully constructed.
   it('should create the component and form', () => {
-    expect(addPostComponent).toBeTruthy();
-    expect(addPostForm).toBeTruthy();
+    expect(addNoteComponent).toBeTruthy();
+    expect(addNoteForm).toBeTruthy();
   });
 
   // Confirms that an initial, empty form is *not* valid, so
   // people can't submit an empty form.
   it('form should be invalid when empty', () => {
-    expect(addPostForm.valid).toBeFalsy();
+    expect(addNoteForm.valid).toBeFalsy();
   });
 
   describe('The message field', () => {
     let messageControl: AbstractControl;
 
     beforeEach(() => {
-      messageControl = addPostComponent.addPostForm.controls[`message`];
+      messageControl = addNoteComponent.addNoteForm.controls[`message`];
     });
 
     it('should not allow empty messages', () => {

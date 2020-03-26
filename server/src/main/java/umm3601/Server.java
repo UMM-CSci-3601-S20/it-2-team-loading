@@ -11,14 +11,14 @@ import com.mongodb.client.MongoDatabase;
 import io.javalin.Javalin;
 
 import umm3601.owner.OwnerController;
-import umm3601.post.PostController;
+import umm3601.note.NoteController;
 
 public class Server {
 
   static String appName = "CSCI 3601 Announce It!";
 
   public static final String OWNER_DATA_FILE = "/owners.json";
-  public static final String POST_DATA_FILE = "/posts.json";
+  public static final String POST_DATA_FILE = "/notes.json";
 
   private static MongoDatabase database;
 
@@ -43,7 +43,7 @@ public class Server {
     OwnerController ownerController = new OwnerController(database);
     //OwnerRequestHandler ownerRequestHandler = new OwnerRequestHandler(ownerController);
 
-    PostController postController = new PostController(database);
+    NoteController noteController = new NoteController(database);
 
     Javalin server = Javalin.create().start(4567);
 
@@ -66,17 +66,17 @@ public class Server {
     // Add new owner
     server.post("api/owners/new", ownerController::addNewOwner);
 
-    //Get all posts from an owner
-    // server.get("api/owner/:id/posts", postController::getOwnerPosts);
+    //Get all notes from an owner
+    // server.get("api/owner/:id/notes", noteController::getOwnerNotes);
 
-    server.delete("api/posts/:id", postController::deletePost);
+    server.delete("api/notes/:id", noteController::deleteNote);
 
-    //List posts with filters
-    server.get("api/posts", postController::getOwnerPosts);
+    //List notes with filters
+    server.get("api/notes", noteController::getOwnerNotes);
 
-    //Add new post
+    //Add new note
     //From the owner's doorboard
-    server.post("api/owner/:id/posts/new", postController::addNewPost);
+    server.post("api/owner/:id/notes/new", noteController::addNewNote);
 
 
 

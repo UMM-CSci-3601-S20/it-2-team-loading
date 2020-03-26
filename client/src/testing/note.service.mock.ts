@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Post } from '../app/posts/post';
-import { PostService } from '../app/posts/post.service';
+import { Note } from '../app/notes/note';
+import { NoteService } from '../app/notes/note.service';
 
 
 /**
- * A "mock" version of the `PostService` that can be used to test components
+ * A "mock" version of the `NoteService` that can be used to test components
  * without having to create an actual service.
  */
 @Injectable()
-export class MockPostService extends PostService {
-  static testPosts: Post[] = [
+export class MockNoteService extends NoteService {
+  static testNotes: Note[] = [
     {
       _id: 'one_id',
       message: 'Spirate pur, Spirate',
@@ -32,8 +32,8 @@ export class MockPostService extends PostService {
     super(null);
   }
   // should be tested in the doorboard component spec
-  getOwnerPosts(filters: { owner_id?: string }): Observable<Post[]> {
-    return of(MockPostService.testPosts);
+  getOwnerNotes(filters: { owner_id?: string }): Observable<Note[]> {
+    return of(MockNoteService.testNotes);
   }
 
 }
