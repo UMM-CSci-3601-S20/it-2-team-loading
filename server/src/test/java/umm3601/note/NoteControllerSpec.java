@@ -8,8 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,6 +29,7 @@ import com.mongodb.client.MongoDatabase;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,6 +55,7 @@ public class NoteControllerSpec {
   private NoteController noteController;
 
   private ObjectId samsId;
+
 
   static MongoClient mongoClient;
   static MongoDatabase db;
@@ -86,20 +90,27 @@ public class NoteControllerSpec {
     testNotes.add(Document.parse("{\n" +
       "                    message: \"I wanna say something,\",\n" +
       "                    owner_id: \"1310\",\n" +
+      "                    timestamp : \"2016-08-02 20:30:02\"" +
       "                }"));
     testNotes.add(Document.parse("{\n" +
       "                    message: \"But we're leaving\",\n" +
       "                    owner_id: \"1523\",\n" +
+      "                    timestamp : \"2016-08-02 20:30:02\"" +
       "                }"));
     testNotes.add(Document.parse("{\n" +
       "                    message: \"And it's over\",\n" +
       "                    owner_id: \"1600\",\n" +
+      "                    timestamp : \"2016-08-02 20:30:02\"" +
       "                }"));
 
     samsId = new ObjectId();
     BasicDBObject sam = new BasicDBObject("_id", samsId);
+    Date date = new Date();
+    Timestamp samTimestamp = new Timestamp(date.getTime());
+    System.out.println(samTimestamp);
     sam = sam.append("message", "Sam's message")
-      .append("owner_id", "1300");
+      .append("owner_id", "1300")
+      .append("timestamp", samTimestamp);
 
 
     noteDocuments.insertMany(testNotes);
@@ -112,6 +123,36 @@ public class NoteControllerSpec {
   public static void teardown() {
     db.drop();
     mongoClient.close();
+  }
+
+  @Test
+  public void TimestampNewNote() throws IOException {
+
+    String testNewNote = "{\n\t\"message\": \"Alien\",\n\t\"owner_id\": \"coolguyid\",\n\t\"initDate\": false\n}";
+
+    mockReq.setBodyContent(testNewNote);
+    mockReq.setMethod("POST");
+
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/owner:id/notes/new");
+
+    noteController.addNewNote(ctx);
+
+    assertEquals(201, mockRes.getStatus());
+
+    String result = ctx.resultString();
+    String id = jsonMapper.readValue(result, ObjectNode.class).get("id").asText();
+    assertNotEquals("", id);
+    System.out.println(id);
+
+    assertEquals(1, db.getCollection("notes").countDocuments(eq("_id", new ObjectId(id))));
+
+    //verify owner was added to the database and the correct ID
+    Document addedNote = db.getCollection("notes").find(eq("_id", new ObjectId(id))).first();
+    assertNotNull(addedNote);
+    assertEquals("Alien", addedNote.getString("message"));
+    assertEquals(true, addedNote.getBoolean("initDate"));
+
+
   }
 
   @Test
@@ -190,9 +231,13 @@ public class NoteControllerSpec {
 
     String result = ctx.resultString();
     Note resultNote = JavalinJson.fromJson(result, Note.class);
+    String resultTimeStamp = resultNote.timestamp.toString();
+    System.out.println(resultTimeStamp);
 
     assertEquals(resultNote._id, samsId.toHexString());
     assertEquals(resultNote.owner_id, "1300");
+    assertNotEquals(resultNote.timestamp, null);
+    assertEquals(resultNote.timestamp.toString(), resultTimeStamp);
   }
 
 }
