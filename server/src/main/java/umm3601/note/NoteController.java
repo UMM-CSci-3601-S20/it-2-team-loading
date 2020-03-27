@@ -99,12 +99,17 @@ public class NoteController {
    * @param ctx a Javalin HTTP context
    */
   public void addNewNote(Context ctx) {
+    System.out.println("METHOD IS CALLED!!");
     Note newNote = ctx.bodyValidator(Note.class)
     .check((pst) -> pst.message != null) // note should have a message
     .check((pst) -> pst.owner_id != null) // note should have an owner_id
+    .check((pst)-> pst.expireDate != null)
     .get();
+    System.out.println("INSERTING");
     noteCollection.insertOne(newNote);
+    System.out.println("INSERTED");
     ctx.status(201);
+    System.out.println("status");
     ctx.json(ImmutableMap.of("id", newNote._id));
 
   }
@@ -114,14 +119,14 @@ public class NoteController {
    *
    * @param str the string to generate a md5 for
    */
-  public String md5(String str) throws NoSuchAlgorithmException {
-    MessageDigest md = MessageDigest.getInstance("MD5");
-    byte[] hashInBytes = md.digest(str.toLowerCase().getBytes(StandardCharsets.UTF_8));
+  // public String md5(String str) throws NoSuchAlgorithmException {
+  //   MessageDigest md = MessageDigest.getInstance("MD5");
+  //   byte[] hashInBytes = md.digest(str.toLowerCase().getBytes(StandardCharsets.UTF_8));
 
-    String result = "";
-    for (byte b : hashInBytes) {
-      result += String.format("%02x", b);
-    }
-    return result;
-  }
+  //   String result = "";
+  //   for (byte b : hashInBytes) {
+  //     result += String.format("%02x", b);
+  //   }
+  //   return result;
+  // }
 }
