@@ -11,5 +11,5 @@ public class Note {
 
   public String owner_id;
   public String message;
-  public String expireDate;
+  public String expiration;
 }

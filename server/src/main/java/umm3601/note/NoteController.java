@@ -103,7 +103,6 @@ public class NoteController {
     Note newNote = ctx.bodyValidator(Note.class)
     .check((pst) -> pst.message != null) // note should have a message
     .check((pst) -> pst.owner_id != null) // note should have an owner_id
-    .check((pst)-> pst.expireDate != null)
     .get();
     System.out.println("INSERTING");
     noteCollection.insertOne(newNote);
