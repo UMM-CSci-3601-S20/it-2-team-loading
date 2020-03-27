@@ -86,14 +86,19 @@ public class NoteControllerSpec {
     testNotes.add(Document.parse("{\n" +
       "                    message: \"I wanna say something,\",\n" +
       "                    owner_id: \"1310\",\n" +
+      "                    expiration: \"2021-03-27T04:52:37.888Z\",\n" +
       "                }"));
     testNotes.add(Document.parse("{\n" +
       "                    message: \"But we're leaving\",\n" +
       "                    owner_id: \"1523\",\n" +
+      "                    expiration: \"2021-03-27T04:52:37.888Z\",\n" +
+
       "                }"));
     testNotes.add(Document.parse("{\n" +
       "                    message: \"And it's over\",\n" +
       "                    owner_id: \"1600\",\n" +
+      "                    expiration: \"2021-03-27T04:52:37.888Z\",\n" +
+
       "                }"));
 
     samsId = new ObjectId();
@@ -137,7 +142,7 @@ public class NoteControllerSpec {
   @Test
   public void AddNote() throws IOException {
 
-    String testNewNote = "{\n\t\"message\": \"Alien\",\n\t\"owner_id\": \"coolguyid\"\n}";
+    String testNewNote = "{\n\t\"message\": \"Alien\",\n\t\"owner_id\": \"coolguyid\",\n\t\"expiration\": \"2021-03-27T04:52:37.888Z\"\n}";
 
     mockReq.setBodyContent(testNewNote);
     mockReq.setMethod("POST");
