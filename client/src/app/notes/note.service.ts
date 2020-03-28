@@ -35,13 +35,12 @@ export class NoteService {
 
   getTimestamp(): string {
     // Create a date object with the current time
-    let now: Date = new Date();
+    const now: Date = new Date();
     // Create an array with the current month, day and time
-    let date: Array<String> = [ String(now.getMonth() + 1), String(now.getDay()), String(now.getFullYear()) ];
+    const date: Array<string> = [ String(now.getMonth() + 1), String(now.getDay()), String(now.getFullYear()) ];
     // Create an array with the current hour, minute and second
-    let time: Array<String> = [ String(now.getHours()), String(now.getMinutes()), String(now.getSeconds())];
+    const time: Array<string> = [ String(now.getHours()), String(now.getMinutes()), String(now.getSeconds())];
     // Return the formatted string
-    return date.join("/"),
-           time.join(":")
+    return date.join('/') + time.join(':');
   }
 }

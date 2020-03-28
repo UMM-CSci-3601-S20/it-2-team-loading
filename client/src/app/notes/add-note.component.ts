@@ -63,7 +63,6 @@ export class AddNoteComponent implements OnInit {
     const newNote: Note = {
       owner_id: this.id,
       _id: undefined,
-      //owner: formResults.owner,
       message: formResults.message,
       timestamp: this.timestamp,
     };
