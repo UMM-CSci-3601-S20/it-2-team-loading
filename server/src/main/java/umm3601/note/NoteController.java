@@ -4,6 +4,7 @@ import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.regex;
 
+import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -11,12 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.sound.sampled.SourceDataLine;
+
 import com.google.common.collect.ImmutableMap;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Sorts;
 
 import org.bson.Document;
+import org.bson.codecs.jsr310.LocalDateTimeCodec;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.mongojack.JacksonCodecRegistry;
@@ -24,6 +28,8 @@ import org.mongojack.JacksonCodecRegistry;
 import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
+
+import java.time.Instant;
 
 /**
  * Controller that manages requests for info about s.
@@ -33,6 +39,7 @@ public class NoteController {
   JacksonCodecRegistry jacksonCodecRegistry = JacksonCodecRegistry.withDefaultObjectMapper();
 
   private final MongoCollection<Note> noteCollection;
+  private long currentDateTime;
 
   /**
    * Construct a controller for notes.
@@ -43,6 +50,7 @@ public class NoteController {
     jacksonCodecRegistry.addCodecForClass(Note.class);
     noteCollection = database.getCollection("notes").withDocumentClass(Note.class)
         .withCodecRegistry(jacksonCodecRegistry);
+    currentDateTime = Instant.now().toEpochMilli();
   }
 
   /**
@@ -76,6 +84,14 @@ public class NoteController {
     noteCollection.deleteOne(eq("_id", new ObjectId(id)));
   }
 
+  private boolean checkExpire(long expireTime){{
+    if(currentDateTime >= expireTime){
+      return false;
+    }
+    return true;
+  }
+
+  }
   /**
    * Get a JSON response with a list of all the notes.
    *
@@ -84,14 +100,24 @@ public class NoteController {
   public void getOwnerNotes(Context ctx) {
 
     List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
-
+    System.out.println("Date in milleseconds" + currentDateTime);
     if (ctx.queryParamMap().containsKey("owner_id")) {
       filters.add(eq("owner_id", ctx.queryParam("owner_id")));
+     List<Note> notes = noteCollection.find(and(filters)).into(new ArrayList<>());
+     //for(int i = 0; i < notes.size(); i++){
+
+     //}
+      System.out.println(notes.get(notes.size()-1).expiration);
+    long seconds =  Instant.parse(notes.get((notes.size()-1)).expiration).toEpochMilli();
+    System.out.println("milleseconds named seconds... " + seconds);
+    System.out.println("current: " + currentDateTime);
+     // updateNotes(filters);
     }
 
     ctx.json(noteCollection.find(filters.isEmpty() ? new Document() : and(filters))
     .into(new ArrayList<>()));
   }
+
 
   /**
    * Get a JSON response with a list of all the owners.
@@ -113,19 +139,5 @@ public class NoteController {
 
   }
 
-  /**
-   * Utility function to generate the md5 hash for a given string
-   *
-   * @param str the string to generate a md5 for
-   */
-  // public String md5(String str) throws NoSuchAlgorithmException {
-  //   MessageDigest md = MessageDigest.getInstance("MD5");
-  //   byte[] hashInBytes = md.digest(str.toLowerCase().getBytes(StandardCharsets.UTF_8));
 
-  //   String result = "";
-  //   for (byte b : hashInBytes) {
-  //     result += String.format("%02x", b);
-  //   }
-  //   return result;
-  // }
 }
