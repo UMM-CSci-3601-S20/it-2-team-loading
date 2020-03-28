@@ -12,5 +12,5 @@ public class Note {
   public String _id;
   public String owner_id;
   public String message;
-  public Boolean timestamp;
+  public String timestamp;
 }

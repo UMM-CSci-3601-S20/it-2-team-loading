@@ -4,21 +4,24 @@
       "$oid": "588935f57546a2daea44de7c"
     },
     "owner_id": "588935f57546a2daea44de7c",
-    "message": "I'm going to be a few minutes late to my office hours today. I got caught in traffic this morning."
+    "message": "I'm going to be a few minutes late to my office hours today. I got caught in traffic this morning.",
+    "timestamp": "new Date()"
   },
   {
     "_id": {
       "$oid": "588935f57346a2daea44de7f"
     },
     "owner_id": "588935f57546a2daea44de7e",
-    "message": "Office hours are canceled today!"
+    "message": "Office hours are canceled today!",
+    "timestamp": "new Date()"
   },
   {
     "_id": {
       "$oid": "588935f57446a2daea44de7d"
     },
     "owner_id": "78f1d3bfa098879fe7a01373",
-    "message": "Just getting into the building now, sorry for the delay!"
+    "message": "Just getting into the building now, sorry for the delay!",
+    "timestamp": "new Date()"
   }
 
 

@@ -102,11 +102,8 @@ public class NoteController {
     Note newNote = ctx.bodyValidator(Note.class)
     .check((pst) -> pst.message != null) // note should have a message
     .check((pst) -> pst.owner_id != null) // note should have an owner_id
+    .check((pst) -> pst.timestamp != null)
     .get();
-    // To recognize a timestamp
-    // if(newNote.timestamp!=null){
-    //   newNote.timestamp = true;
-    // }
     noteCollection.insertOne(newNote);
     ctx.status(201);
     ctx.json(ImmutableMap.of("id", newNote._id));

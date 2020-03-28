@@ -95,27 +95,27 @@ public class NoteControllerSpec {
     MongoCollection<Document> noteDocuments = db.getCollection("notes");
     noteDocuments.drop();
     List<Document> testNotes = new ArrayList<>();
-    // testNotes.add(Document.parse("{\n" +
-    //   "                    message: \"I wanna say something,\",\n" +
-    //   "                    owner_id: \"1310\",\n" +
-    //   "                    timestamp : \"2020-03-26 00:47:34.386\",\n" +
-    //   "                }"));
-    // testNotes.add(Document.parse("{\n" +
-    //   "                    message: \"But we're leaving\",\n" +
-    //   "                    owner_id: \"1523\",\n" +
-    //   "                    timestamp : \"2020-03-26 00:47:34.386\",\n" +
-    //   "                }"));
-    // testNotes.add(Document.parse("{\n" +
-    //   "                    message: \"And it's over\",\n" +
-    //   "                    owner_id: \"1600\",\n" +
-    //   "                    timestamp : \"2020-03-26 00:47:34.386\",\n" +
-    //   "                }"));
+    testNotes.add(Document.parse("{\n" +
+      "                    message: \"I wanna say something,\",\n" +
+      "                    owner_id: \"1310\",\n" +
+      "                    timestamp : \"2020-03-26 00:47:34.386\",\n" +
+      "                }"));
+    testNotes.add(Document.parse("{\n" +
+      "                    message: \"But we're leaving\",\n" +
+      "                    owner_id: \"1523\",\n" +
+      "                    timestamp : \"2020-03-26 00:47:34.386\",\n" +
+      "                }"));
+    testNotes.add(Document.parse("{\n" +
+      "                    message: \"And it's over\",\n" +
+      "                    owner_id: \"1600\",\n" +
+      "                    timestamp : \"2020-03-26 00:47:34.386\",\n" +
+      "                }"));
 
     samsId = new ObjectId();
     BasicDBObject sam = new BasicDBObject("_id", samsId);
     sam = sam.append("message", "Sam's message")
       .append("owner_id", "1300")
-      .append("timestamp", true);
+      .append("timestamp", "new Date");
 
 
     // noteDocuments.insertMany(testNotes);
@@ -160,7 +160,7 @@ public class NoteControllerSpec {
   public void AddNote() throws IOException {
 
     String testNewNote = "{\n\t\"message\": \"Alien\",\n\t\"owner_id\": \"coolguyid\",\n"
-     + "\t\"timestamp\": "+true+"\n}";
+     + "\t\"timestamp\": \"new Date\"\n}";
     System.out.println(testNewNote);
 
     mockReq.setBodyContent(testNewNote);
@@ -185,7 +185,7 @@ public class NoteControllerSpec {
     System.out.println(addedNote.toString());
     assertNotNull(addedNote);
     assertEquals("Alien", addedNote.getString("message"));
-    assertEquals(true,addedNote.getBoolean("timestamp"));
+    assertEquals("new Date",addedNote.getString("timestamp"));
   }
 
   @Test
