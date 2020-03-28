@@ -41,6 +41,6 @@ export class NoteService {
     // Create an array with the current hour, minute and second
     const time: Array<string> = [ String(now.getHours()), String(now.getMinutes()), String(now.getSeconds())];
     // Return the formatted string
-    return date.join('/') + time.join(':');
+    return date.join('-') + ' ' + time.join(':');
   }
 }
