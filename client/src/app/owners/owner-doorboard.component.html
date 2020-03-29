@@ -17,8 +17,8 @@
         <!--Each message is its own mat-card-->
         <div fxFlex="column" class="list-of-notes">
           <mat-card fxLayout="row wrap" class="note-card">
-            <p class="message-content">{{note.message}}</p>
-            <p class="timestamp">{{note.timestamp}}</p>
+            <p class="timestamp">{{note.timestamp}}<br/>
+            {{note.message}}</p>
           </mat-card>
         </div>
       </mat-list-item>
