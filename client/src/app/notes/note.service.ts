@@ -1,14 +1,14 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, ObservableInput } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Note } from './note';
-import { map } from 'rxjs/operators';
-
+import { map, catchError } from 'rxjs/operators';
 @Injectable()
 export class NoteService {
   readonly noteUrl: string = environment.API_URL + 'notes';
   readonly ownerUrl: string = environment.API_URL + 'owner';
+  handleError: (err: any, caught: Observable<void>) => ObservableInput<any>;
 
   constructor(private httpClient: HttpClient) {
   }
@@ -31,5 +31,9 @@ export class NoteService {
     // Send post request to add a new user with the user data as the body.
     return this.httpClient.post<{id: string}>
     (this.ownerUrl + '/' + id  + '/notes/new', newNote).pipe(map(res => res.id));
+  }
+
+  deleteNote(id: string): Observable<void> {
+    return this.httpClient.delete<void>('${this.baseUrl}/${id}');
   }
 }
