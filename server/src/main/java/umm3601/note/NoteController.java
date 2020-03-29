@@ -84,21 +84,15 @@ public class NoteController {
     noteCollection.deleteOne(eq("_id", new ObjectId(id)));
   }
 
-  private boolean checkExpire(long expireTime){{
-    if(currentDateTime >= expireTime){
-      return false;
-    }
-    return true;
-  }
 
-  }
+
   /**
    * Get a JSON response with a list of all the notes.
    *
    * @param ctx a Javalin HTTP context
    */
   public void getOwnerNotes(Context ctx) {
-
+    //UpdateNotes
     List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
     System.out.println("Date in milleseconds" + currentDateTime);
     if (ctx.queryParamMap().containsKey("owner_id")) {
@@ -111,13 +105,31 @@ public class NoteController {
     long seconds =  Instant.parse(notes.get((notes.size()-1)).expiration).toEpochMilli();
     System.out.println("milleseconds named seconds... " + seconds);
     System.out.println("current: " + currentDateTime);
+    for(int i = 0; i < notes.size(); i++){
+      if(notes.get(i).expiration != null){
+      long testExpire = Instant.parse(notes.get(i).expiration).toEpochMilli();
+
+      if(checkIfExpired(testExpire) ){
+       String removeID = notes.get(i)._id;
+        System.out.println(notes.get(i).message + " is expired");
+        noteCollection.deleteOne(eq("_id",new ObjectId(removeID)));
+      }
+
+  }
+    }
      // updateNotes(filters);
     }
 
     ctx.json(noteCollection.find(filters.isEmpty() ? new Document() : and(filters))
     .into(new ArrayList<>()));
   }
-
+  private boolean checkIfExpired(Long expiredDate){
+    if(expiredDate != null){
+    if(currentDateTime >= expiredDate){
+      return true;
+    }}
+    return false;
+  }
 
   /**
    * Get a JSON response with a list of all the owners.
