@@ -18,6 +18,11 @@
         <div fxFlex="column" class="list-of-notes">
           <mat-card fxLayout="row wrap" class="note-card">
             <p class="message-content">{{note.message}}</p>
+            <!--<span *ngIf="confirmDelete"></span>
+            <span>Are you sure you want to delete?</span>
+            <button class="btn-danger" (click)="deleteNote()">Yes</button>
+            <button class="btn-primary" (click)="confirmDelete=false">No</button>-->
+            <button (click)="deleteNote()">Delete Note</button>
           </mat-card>
         </div>
       </mat-list-item>
