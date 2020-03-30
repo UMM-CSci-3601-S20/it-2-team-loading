@@ -17,6 +17,10 @@ export class NoteService {
   // maybe this needs to be formatted like getNotes where we return with params:httpParams?
   // currently this doesn't filter anything. It just displays all the notes.
 
+
+  getNoteById(id: string): Observable<Note> {
+    return this.httpClient.get<Note>(this.noteUrl + '/' + id);
+  }
   getOwnerNotes(filters?: { owner_id?: string}): Observable<Note[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters.owner_id) {

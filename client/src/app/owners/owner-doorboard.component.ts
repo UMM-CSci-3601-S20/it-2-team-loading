@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy, Input,Output, EventEmitter} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Owner } from './owner';
 import { OwnerService } from './owner.service';
@@ -22,6 +22,9 @@ export class OwnerDoorBoardComponent implements OnInit, OnDestroy {
   id: string;
   getNotesSub: Subscription;
   getOwnerSub: Subscription;
+  @Input() note: Note;
+  @Output() notifyDelete: EventEmitter<string> = new EventEmitter<string>();
+  confirmDelete = false;
   ngOnInit(): void {
     // We subscribe to the parameter map here so we'll be notified whenever
     // that changes (i.e., when the URL changes) so this component will update
@@ -44,9 +47,7 @@ export class OwnerDoorBoardComponent implements OnInit, OnDestroy {
   }
 
   deleteNote(){
-    this.noteService.deleteNote(this.id).subscribe(
-      () => console.log('Note with Id = ${this.id} deleted'),
-      (err) => console.log(err)
-    );
+    this.noteService.deleteNote(this.note._id);
+    this.notifyDelete.emit(this.note._id);
   }
 }
