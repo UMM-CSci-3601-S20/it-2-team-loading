@@ -46,8 +46,9 @@ export class OwnerDoorBoardComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteNote(){
-    this.noteService.deleteNote(this.note._id);
-    this.notifyDelete.emit(this.note._id);
+  deleteNote(id: string ): void {
+    this.noteService.deleteNote1(id);
+    this.noteService.deleteNote(id);
+    this.notifyDelete.emit(id);
   }
 }

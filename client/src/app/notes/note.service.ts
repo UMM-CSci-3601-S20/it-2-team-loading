@@ -37,7 +37,24 @@ export class NoteService {
     (this.ownerUrl + '/' + id  + '/notes/new', newNote).pipe(map(res => res.id));
   }
 
-  deleteNote(id: string): Observable<void> {
-    return this.httpClient.delete<void>('${this.baseUrl}/${id}');
+  deleteNote(id: string ): Observable<Note> {
+    console.log('It got here');
+    return this.httpClient.delete<Note>(this.noteUrl + '/' + encodeURI(id));
+
+  }
+
+
+  // The example of how to delete from a different group
+  deleteNote1(id: string): Observable<boolean> {
+    type DeleteResponse = 'deleted' | 'nothing deleted';
+    console.log('It got to deleteNote1');
+    const response = this.httpClient.delete(
+      this.noteUrl + '/' + encodeURI(id),
+      {
+        responseType: 'text',
+      },
+    ) as Observable<DeleteResponse>;
+
+    return response.pipe(map(theResponse => theResponse === 'deleted'));
   }
 }

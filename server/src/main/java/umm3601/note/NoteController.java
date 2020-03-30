@@ -74,6 +74,7 @@ public class NoteController {
   public void deleteNote(Context ctx) {
     String id = ctx.pathParam("id");
     noteCollection.deleteOne(eq("_id", new ObjectId(id)));
+    System.out.println("It got to the NoteController");
   }
 
   /**
