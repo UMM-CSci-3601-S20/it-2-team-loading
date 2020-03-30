@@ -98,13 +98,6 @@ public class NoteController {
     if (ctx.queryParamMap().containsKey("owner_id")) {
       filters.add(eq("owner_id", ctx.queryParam("owner_id")));
      List<Note> notes = noteCollection.find(and(filters)).into(new ArrayList<>());
-     //for(int i = 0; i < notes.size(); i++){
-
-     //}
-      System.out.println(notes.get(notes.size()-1).expiration);
-    long seconds =  Instant.parse(notes.get((notes.size()-1)).expiration).toEpochMilli();
-    System.out.println("milleseconds named seconds... " + seconds);
-    System.out.println("current: " + currentDateTime);
     for(int i = 0; i < notes.size(); i++){
       if(notes.get(i).expiration != null){
       long testExpire = Instant.parse(notes.get(i).expiration).toEpochMilli();
