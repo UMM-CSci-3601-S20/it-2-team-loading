@@ -37,7 +37,7 @@ export class NoteService {
     // Create a date object with the current time
     const now: Date = new Date();
     // Create an array with the current month, day and time
-    const date: Array<string> = [ String(now.getMonth() + 1), String(now.getDay()), String(now.getFullYear()) ];
+    const date: Array<string> = [ String(now.getMonth() + 1), String(now.getDate()), String(now.getFullYear()) ];
     // Create an array with the current hour, minute and second
     const time: Array<string> = [ String(now.getHours()), String(now.getMinutes()), String(now.getSeconds())];
     // Return the formatted string
