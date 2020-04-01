@@ -90,8 +90,8 @@ public class NoteControllerSpec {
       "                }"));
     testNotes.add(Document.parse("{\n" +
       "                    message: \"But we're leaving\",\n" +
-      "                    owner_id: \"1523\",\n" +
-      "                    expiration: \"2021-03-27T04:52:37.888Z\",\n" +
+      "                    owner_id: \"1310\",\n" +
+      "                    expiration: \"2019-03-27T04:52:37.888Z\",\n" +
 
       "                }"));
     testNotes.add(Document.parse("{\n" +
@@ -132,7 +132,7 @@ public class NoteControllerSpec {
 
     String result = ctx.resultString();
     Note[] resultNotes = JavalinJson.fromJson(result, Note[].class);
-
+// there are two notes with the id'1310' but one should be deleted since it is "expired"
     assertEquals(1, resultNotes.length); // There should be one owner returned
     for (Note note : resultNotes) {
       assertEquals("1310", note.owner_id); // There should be one with that id
