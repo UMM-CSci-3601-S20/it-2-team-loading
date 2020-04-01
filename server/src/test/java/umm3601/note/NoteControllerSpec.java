@@ -115,7 +115,7 @@ public class NoteControllerSpec {
     BasicDBObject sam = new BasicDBObject("_id", samsId);
     sam = sam.append("message", "Sam's message")
       .append("owner_id", "1300")
-      .append("timestamp", "new Date");
+      .append("timestamp", "2017-01-23T16:46:07.812Z");
 
 
     // noteDocuments.insertMany(testNotes);
@@ -160,7 +160,7 @@ public class NoteControllerSpec {
   public void AddNote() throws IOException {
 
     String testNewNote = "{\n\t\"message\": \"Alien\",\n\t\"owner_id\": \"coolguyid\",\n"
-     + "\t\"timestamp\": \"new Date\"\n}";
+     + "\t\"timestamp\": ISODate(\"2017-01-23T16:46:07.812Z\")\n}";
     System.out.println(testNewNote);
 
     mockReq.setBodyContent(testNewNote);

@@ -65,8 +65,10 @@ describe('Note service: ', () => {
 
     expect(req.request.method).toEqual('GET');
     expect(req.request.params.get('owner_id')).toEqual('588935f57546a2daea44de7c');
+    expect(req.request.params.get('owner_id') != null).toBeTrue();
+    // expect(req.request.method).toEqual('GET');
     // expect(req.request.params.get('timestamp') != null).toBeTrue();
-    expect(req.request.params.get('timestamp')).toEqual('new Date()');
+    // expect(req.request.params.get('timestamp')).toEqual('new Date()');
     req.flush(testNotes);
   });
 
