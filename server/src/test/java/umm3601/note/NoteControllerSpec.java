@@ -106,7 +106,7 @@ public class NoteControllerSpec {
     BasicDBObject sam = new BasicDBObject("_id", samsId);
     sam = sam.append("message", "Sam's message")
       .append("owner_id", "1300")
-      .append("expiration", "2021-03-27T04:52:37.888Z");
+      .append("expiration", "2019-03-27T04:52:37.888Z");
 
 
     noteDocuments.insertMany(testNotes);
@@ -170,19 +170,21 @@ public class NoteControllerSpec {
 
   @Test
   public void CheckExpirationDate() throws IOException {
-    String testID = samsId.toHexString();
+     // Set the query string to test with
+     mockReq.setQueryString("owner_id=1310");
 
-    // Sam exists in the database before we delete him
-    assertEquals(1, db.getCollection("notes").countDocuments(eq("_id", new ObjectId(testID))));
+     // Create our fake Javalin context
+     Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes");
 
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes", ImmutableMap.of("id", testID));
     noteController.getOwnerNotes(ctx);
 
     assertEquals(200, mockRes.getStatus());
 
     String result = ctx.resultString();
-    Note[] resultNote = JavalinJson.fromJson(result, Note[].class);
-    assertEquals(resultNote[3].message, "Sam's message");
+    Note[] resultNotes = JavalinJson.fromJson(result, Note[].class);
+
+   // Owner is no longer in the database
+   assertEquals(1, resultNotes.length);
   }
 
   @Test
@@ -217,7 +219,7 @@ public class NoteControllerSpec {
 
     assertEquals(resultNote._id, samsId.toHexString());
     assertEquals(resultNote.owner_id, "1300");
-    assertEquals(resultNote.expiration, "2021-03-27T04:52:37.888Z");
+    assertEquals(resultNote.expiration, "2019-03-27T04:52:37.888Z");
   }
 
 }
