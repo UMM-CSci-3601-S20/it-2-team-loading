@@ -14,17 +14,20 @@ export class MockNoteService extends NoteService {
     {
       _id: 'one_id',
       message: 'Spirate pur, Spirate',
-      owner_id: 'Aladdin'
+      owner_id: 'Aladdin',
+      expiration: "N/A",
     },
     {
       _id: 'two_id',
       message: 'In te spera verunt',
-      owner_id: 'Belle'
+      owner_id: 'Belle',
+      expiration: "N/A",
     },
     {
       _id: 'three_id',
       message: 'patre nostris',
-      owner_id: 'Genie'
+      owner_id: 'Genie',
+      expiration: "N/A",
     }
   ];
 
