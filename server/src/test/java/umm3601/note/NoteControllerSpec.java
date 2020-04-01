@@ -98,17 +98,17 @@ public class NoteControllerSpec {
     testNotes.add(Document.parse("{\n" +
       "                    message: \"I wanna say something,\",\n" +
       "                    owner_id: \"1310\",\n" +
-      "                    timestamp : \"2020-03-26 00:47:34.386\",\n" +
+      "                    timestamp : \"2017-01-23T16:46:07.812Z\",\n" +
       "                }"));
     testNotes.add(Document.parse("{\n" +
       "                    message: \"But we're leaving\",\n" +
       "                    owner_id: \"1523\",\n" +
-      "                    timestamp : \"2020-03-26 00:47:34.386\",\n" +
+      "                    timestamp : \"2017-01-23T16:46:07.812Z\",\n" +
       "                }"));
     testNotes.add(Document.parse("{\n" +
       "                    message: \"And it's over\",\n" +
       "                    owner_id: \"1600\",\n" +
-      "                    timestamp : \"2020-03-26 00:47:34.386\",\n" +
+      "                    timestamp : \"2017-01-23T16:46:07.812Z\",\n" +
       "                }"));
 
     samsId = new ObjectId();
@@ -159,8 +159,7 @@ public class NoteControllerSpec {
   @Test
   public void AddNote() throws IOException {
 
-    String testNewNote = "{\n\t\"message\": \"Alien\",\n\t\"owner_id\": \"coolguyid\",\n"
-     + "\t\"timestamp\": new Date(\"2017-01-23T16:46:07.812Z\")\n}";
+    String testNewNote = "{\n\t\"message\": \"Alien\",\n\t\"owner_id\": \"coolguyid\"\n}";
     System.out.println(testNewNote);
 
     mockReq.setBodyContent(testNewNote);
@@ -182,10 +181,11 @@ public class NoteControllerSpec {
 
     //verify owner was added to the database and the correct ID
     Document addedNote = db.getCollection("notes").find(eq("_id", new ObjectId(id))).first();
-    System.out.println(addedNote.toString());
+    System.out.println(addedNote.toString() + "hello world");
+    System.out.println(addedNote.getDate("timestamp") + "hello world");
     assertNotNull(addedNote);
     assertEquals("Alien", addedNote.getString("message"));
-    assertEquals("new Date",addedNote.getString("timestamp"));
+    assertNotNull(addedNote.getDate("timestamp"));
   }
 
   @Test
