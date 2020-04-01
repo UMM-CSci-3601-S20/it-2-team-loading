@@ -90,12 +90,12 @@ public class NoteController {
       long testExpire = Instant.parse(notes.get(i).expiration).toEpochMilli();
 
       if(checkIfExpired(testExpire) ){
-       String removeID = notes.get(i)._id;
+        String removeID = notes.get(i)._id;
         System.out.println(notes.get(i).message + " is expired");
         noteCollection.deleteOne(eq("_id",new ObjectId(removeID)));
+        }
       }
-  }
-}
+    }
   }
 
 
@@ -108,10 +108,10 @@ public class NoteController {
 
     if (ctx.queryParamMap().containsKey("owner_id")) {//
       filters.add(eq("owner_id", ctx.queryParam("owner_id")));// gathering the owner id
-     List<Note> notes = noteCollection.find(and(filters)).into(new ArrayList<>()); // creating an Array List of notes from database
-     // from a specific owner id
-    filterExpiredNotes(notes); // filtering out and deleting expired notes
-  }
+      List<Note> notes = noteCollection.find(and(filters)).into(new ArrayList<>()); // creating an Array List of notes from database
+      // from a specific owner id
+      filterExpiredNotes(notes); // filtering out and deleting expired notes
+    }
     ctx.json(noteCollection.find(filters.isEmpty() ? new Document() : and(filters))
     .into(new ArrayList<>()));
   }
