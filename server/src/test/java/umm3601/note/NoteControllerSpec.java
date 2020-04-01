@@ -160,7 +160,7 @@ public class NoteControllerSpec {
   public void AddNote() throws IOException {
 
     String testNewNote = "{\n\t\"message\": \"Alien\",\n\t\"owner_id\": \"coolguyid\",\n"
-     + "\t\"timestamp\": ISODate(\"2017-01-23T16:46:07.812Z\")\n}";
+     + "\t\"timestamp\": new Date(\"2017-01-23T16:46:07.812Z\")\n}";
     System.out.println(testNewNote);
 
     mockReq.setBodyContent(testNewNote);
