@@ -84,22 +84,9 @@ public class NoteController {
     noteCollection.deleteOne(eq("_id", new ObjectId(id)));
   }
 
-
-
-  /**
-   * Get a JSON response with a list of all the notes.
-   *
-   * @param ctx a Javalin HTTP context
-   */
-  public void getOwnerNotes(Context ctx) {
-    //UpdateNotes
-    List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
-    System.out.println("Date in milleseconds" + currentDateTime);
-    if (ctx.queryParamMap().containsKey("owner_id")) {
-      filters.add(eq("owner_id", ctx.queryParam("owner_id")));
-     List<Note> notes = noteCollection.find(and(filters)).into(new ArrayList<>());
-    for(int i = 0; i < notes.size(); i++){
-      if(notes.get(i).expiration != null){
+  private void filterExpiredNotes(List<Note> notes){
+    for(int i = 0; i < notes.size(); i++){ // running through each index of the array
+      if(notes.get(i).expiration != null){ // makeing sure the expiration date exists
       long testExpire = Instant.parse(notes.get(i).expiration).toEpochMilli();
 
       if(checkIfExpired(testExpire) ){
@@ -107,15 +94,28 @@ public class NoteController {
         System.out.println(notes.get(i).message + " is expired");
         noteCollection.deleteOne(eq("_id",new ObjectId(removeID)));
       }
-
   }
-    }
-     // updateNotes(filters);
-    }
+}
+  }
 
+
+  /**
+   * Get a JSON response with a list of all the notes.
+   * @param ctx a Javalin HTTP context
+   */
+  public void getOwnerNotes(Context ctx) {
+    List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
+
+    if (ctx.queryParamMap().containsKey("owner_id")) {//
+      filters.add(eq("owner_id", ctx.queryParam("owner_id")));// gathering the owner id
+     List<Note> notes = noteCollection.find(and(filters)).into(new ArrayList<>()); // creating an Array List of notes from database
+     // from a specific owner id
+    filterExpiredNotes(notes); // filtering out and deleting expired notes
+  }
     ctx.json(noteCollection.find(filters.isEmpty() ? new Document() : and(filters))
     .into(new ArrayList<>()));
   }
+
   private boolean checkIfExpired(Long expiredDate){
     if(expiredDate != null){
     if(currentDateTime >= expiredDate){
