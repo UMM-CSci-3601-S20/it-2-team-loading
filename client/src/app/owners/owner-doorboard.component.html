@@ -20,7 +20,7 @@
             <p class="message-content">{{note.message}}</p>
             <span *ngIf="confirmDelete">
             <span>Are you sure you want to delete?</span>
-            <button class="btn-danger" (click)="deleteNote(this.id)">Yes</button>
+            <button class="btn-danger" (click)="deleteNote()" >Yes</button>
             <button class="btn-primary" (click)="confirmDelete=false">No</button>
             </span>
             <button *ngIf="!confirmDelete" (click)="confirmDelete=true">Delete Note</button>

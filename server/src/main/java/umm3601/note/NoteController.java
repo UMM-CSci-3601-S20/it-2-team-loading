@@ -78,7 +78,7 @@ public class NoteController {
   }
 
   /**
-   * Get a JSON response with a list of all the notes.
+   * Get a JSON response with a list of all the notes in ... order.
    *
    * @param ctx a Javalin HTTP context
    */
@@ -86,6 +86,9 @@ public class NoteController {
 
     List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
 
+    // TODO: Need to update this query so that the notes come from the
+    // database in the correct order, whatever the team decides is the
+    // correct order.
     if (ctx.queryParamMap().containsKey("owner_id")) {
       filters.add(eq("owner_id", ctx.queryParam("owner_id")));
     }

@@ -6,7 +6,7 @@ import { Note } from './note';
 import { map, catchError } from 'rxjs/operators';
 @Injectable()
 export class NoteService {
-  readonly noteUrl: string = environment.API_URL + 'notes';
+  readonly noteUrl: string = environment.API_URL + '/notes';
   readonly ownerUrl: string = environment.API_URL + 'owner';
   handleError: (err: any, caught: Observable<void>) => ObservableInput<any>;
 
@@ -37,9 +37,9 @@ export class NoteService {
     (this.ownerUrl + '/' + id  + '/notes/new', newNote).pipe(map(res => res.id));
   }
 
-  deleteNote(id: string ): Observable<Note> {
+  deleteNote(note: Note ): Observable<Note> {
     console.log('It got here');
-    return this.httpClient.delete<Note>(this.noteUrl + '/' + encodeURI(id));
+    return this.httpClient.delete<Note>(this.noteUrl + '/' + encodeURI(this.noteId));
 
   }
 

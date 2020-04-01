@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Input,Output, EventEmitter} from '@angula
 import { ActivatedRoute } from '@angular/router';
 import { Owner } from './owner';
 import { OwnerService } from './owner.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { NoteService } from '../notes/note.service';
 import { Note } from '../notes/note';
 
@@ -46,9 +46,12 @@ export class OwnerDoorBoardComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteNote(id: string ): void {
-    this.noteService.deleteNote1(id);
-    this.noteService.deleteNote(id);
-    this.notifyDelete.emit(id);
+  getNoteById() {
+     const noteId = (this.noteService.getNoteById(this.id));
+     return this.noteService.deleteNote(noteId);
+  }
+  deleteNote(note: Note ): void {
+    // this.noteService.deleteNote(note._id);
+    // this.notifyDelete.emit(id);
   }
 }
