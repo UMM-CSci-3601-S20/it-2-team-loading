@@ -40,6 +40,7 @@ import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
 import io.javalin.http.util.ContextUtil;
 import io.javalin.plugin.json.JavalinJson;
+import junit.extensions.TestDecorator;
 
 
 /**
@@ -99,23 +100,29 @@ public class NoteControllerSpec {
       "                    message: \"I wanna say something,\",\n" +
       "                    owner_id: \"1310\",\n" +
       "                    timestamp : \"2020-03-26 00:47:34.386\",\n" +
+      "                    expiration: \"2021-03-27T04:52:37.888Z\",\n" +
       "                }"));
     testNotes.add(Document.parse("{\n" +
       "                    message: \"But we're leaving\",\n" +
-      "                    owner_id: \"1523\",\n" +
+      "                    owner_id: \"1310\",\n" +
+      "                    expiration: \"2019-03-27T04:52:37.888Z\",\n" +
       "                    timestamp : \"2020-03-26 00:47:34.386\",\n" +
       "                }"));
     testNotes.add(Document.parse("{\n" +
       "                    message: \"And it's over\",\n" +
       "                    owner_id: \"1600\",\n" +
+      "                    expiration: \"2021-03-27T04:52:37.888Z\",\n" +
       "                    timestamp : \"2020-03-26 00:47:34.386\",\n" +
       "                }"));
 
     samsId = new ObjectId();
     BasicDBObject sam = new BasicDBObject("_id", samsId);
     sam = sam.append("message", "Sam's message")
-      .append("owner_id", "1300")
+      .append("owner_id", "1300)
+      .append("expiration", "2019-03-27T04:52:37.888Z")
       .append("timestamp", "new Date");
+      .append("owner_id", "1300")
+      .append("expiration", "2019-03-27T04:52:37.888Z");
 
 
     // noteDocuments.insertMany(testNotes);
@@ -145,10 +152,6 @@ public class NoteControllerSpec {
     String result = ctx.resultString();
 
     Note[] resultNotes = JavalinJson.fromJson(result, Note[].class);
-    for (Note note : resultNotes) {
-      System.out.println(note);
-    }
-
 
     assertEquals(1, resultNotes.length); // There should be one owner returned
     for (Note note : resultNotes) {
@@ -159,9 +162,7 @@ public class NoteControllerSpec {
   @Test
   public void AddNote() throws IOException {
 
-    String testNewNote = "{\n\t\"message\": \"Alien\",\n\t\"owner_id\": \"coolguyid\",\n"
-     + "\t\"timestamp\": \"new Date\"\n}";
-    System.out.println(testNewNote);
+    String testNewNote = "{\n\t\"message\": \"Alien\",\n\t\"owner_id\": \"coolguyid\"\n}";
 
     mockReq.setBodyContent(testNewNote);
     mockReq.setMethod("POST");
@@ -186,6 +187,25 @@ public class NoteControllerSpec {
     assertNotNull(addedNote);
     assertEquals("Alien", addedNote.getString("message"));
     assertEquals("new Date",addedNote.getString("timestamp"));
+  }
+
+  @Test
+  public void CheckExpirationDate() throws IOException {
+     // Set the query string to test with
+     mockReq.setQueryString("owner_id=1310");
+
+     // Create our fake Javalin context
+     Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes");
+
+    noteController.getOwnerNotes(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+
+    String result = ctx.resultString();
+    Note[] resultNotes = JavalinJson.fromJson(result, Note[].class);
+
+   // Owner is no longer in the database
+   assertEquals(1, resultNotes.length);
   }
 
   @Test
@@ -222,8 +242,6 @@ public class NoteControllerSpec {
 
     assertEquals(resultNote._id, samsId.toHexString());
     assertEquals(resultNote.owner_id, "1300");
-    assertNotEquals(resultNote.timestamp, null);
-    assertEquals(resultNote.timestamp.toString(), resultTimeStamp);
   }
 
 }

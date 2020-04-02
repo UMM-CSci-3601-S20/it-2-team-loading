@@ -6,29 +6,35 @@ import { NoteService } from './note.service';
 import { request } from 'http';
 
 describe('Note service: ', () => {
+  const date = new Date();
+  const newDate = new Date(date.setHours(date.getHours() + 5));
   const testNotes: Note[] = [
     {
       _id: '401965892d4c0b6138467f51',
       owner_id: '588935f57546a2daea44de7c',
       message: 'I\'m going to be a few minutes late to my office hours today. I got caught in traffic this morning.',
+      expiration: newDate.toISOString()
       timestamp: 'new Date()',
     },
     {
       _id: '588935f57546a2daea44de7d',
       owner_id: '588935f57546a2daea44de7c',
       message: 'Never mind, it seems like traffic is worse than I expected. Office hours will be moved up a half hour.',
+      expiration: newDate.toISOString()
       timestamp: 'new Date()',
     },
     {
       _id: '588935f57346a2daea44de7f',
       owner_id: '588935f57546a2daea44de7e',
       message: 'Office hours are canceled today!',
+      expiration: newDate.toISOString()
       timestamp: 'new Date()',
     },
     {
       _id: '588935f57446a2daea44de7d',
       owner_id: '78f1d3bfa098879fe7a01373',
       message: 'Just getting into the building now, sorry for the delay!',
+      expiration: newDate.toISOString()
       timestamp: 'new Date()',
     },
   ];
