@@ -42,13 +42,13 @@ export class NoteService {
     // Create an array with the current hour, minute and second
     const time: Array<string> = [ String(now.getHours() - 12), String(now.getMinutes()), String(now.getSeconds())];
     // Return the formatted string
-    return date.join('-') + ' P.M.' + ' ' + time.join(':');
+    return date.join('-') + ' ' + time.join(':') + ' P.M.';
   } else {
     const date: Array<string> = [ String(now.getMonth() + 1), String(now.getDate()), String(now.getFullYear()) ];
     // Create an array with the current hour, minute and second
     const time: Array<string> = [ String(now.getHours()), String(now.getMinutes()), String(now.getSeconds())];
     // Return the formatted string
-    return date.join('-') + ' A.M.' + ' ' + time.join(':');
+    return date.join('-') + ' ' + time.join(':')  + ' A.M.';
   }
 }
 }
