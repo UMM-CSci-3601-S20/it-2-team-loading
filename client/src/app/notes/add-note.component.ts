@@ -45,7 +45,8 @@ export class AddNoteComponent implements OnInit {
         Validators.minLength(2),
         Validators.maxLength(550)
       ])),
-      expireDate: new FormControl(''),
+      expireDate: new FormControl('', Validators.compose([
+      ])),
       // owner: new FormControl('', Validators.compose([
       //   Validators.required,
       // ]))
@@ -64,18 +65,22 @@ export class AddNoteComponent implements OnInit {
     const formResults = this.addNoteForm.value;
 
     const currentDate = new Date();
-    const newDate = new Date(currentDate.setHours(currentDate.getHours() + 1));//open to change to what is needed
-    this.selectedTime = formResults.expireDate;
-    console.log('The selected expire date is: ' + this.selectedTime);
-    this.selectedTime = this.convertToIsoDate(this.selectedTime);
-    let newNote:Note;
+    const newDate = new Date(currentDate.setHours(currentDate.getHours() + 1)); // open to change to what is needed
+    if (formResults.expireDate === '') {
+      this.selectedTime = newDate.toJSON();
+    } else {
+      this.selectedTime = formResults.expireDate;
+      console.log('The selected expire date is: ' + this.selectedTime);
+      this.selectedTime = this.convertToIsoDate(this.selectedTime);
+    }
 
+    let newNote: Note;
     newNote = {
-      owner_id: this.id,
-      _id: undefined,
-      message: formResults.message,
-      expiration: this.selectedTime
-  };
+        owner_id: this.id,
+        _id: undefined,
+        message: formResults.message,
+        expiration: this.selectedTime
+    };
 
     this.noteService.addNote(this.id, newNote).subscribe((newID) => {
       this.snackBar.open('Posted', null, {

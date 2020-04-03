@@ -4,6 +4,7 @@ export interface TestNote {
   owner_id: string;
   message: string;
   owner: string;
+  expiration: string
 }
 
 export class AddNotePage {
