@@ -1,7 +1,12 @@
 
     <!--Each message is its own mat-card-->
-    <div fxFlex="column" class="list-of-notes">
-      <mat-card fxLayout="row wrap" class="note-card">
-        <note-card><p class="message-content">{{note.message}}</p> </note-card>
-      </mat-card>
-    </mat-list-item>
+        <mat-card class="note-card" *ngIf="this.note">
+          <mat-card-content>
+            <mat-card-subtitle>{{ this.note.message}}</mat-card-subtitle>
+          <p>{{ this.note._id}}</p>
+          </mat-card-content>
+         <!-- Time stamp needs to be in here when it is implemented-->
+          <mat-card-actions>
+           <!--Delete Note should go here-->
+          </mat-card-actions>
+        </mat-card>

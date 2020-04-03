@@ -22,10 +22,19 @@ h3{
   font-size: 1.8em;
   text-align: center;
 }
+.list-of-notes{
+  display: inline-block;
+  align-content: center;
+  overflow-wrap: break-word;
+}
 .note-card{
   display: inline-block;
-  align-content: left;
-  background-color: rgb(255, 237, 223);
+  margin-top: 10px;
+  margin-right: 10px;
+  width: 20%;
+  height: 100%;
+  position: relative;
+  align-content: center;
   text-align: left;
   overflow-wrap: break-word;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;

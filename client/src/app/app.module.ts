@@ -34,6 +34,7 @@ import { NoteService } from './notes/note.service';
 import { OwnerCardComponent } from './owners/owner-card.component';
 import { OwnerDoorBoardComponent } from './owners/owner-doorboard.component';
 import { AddOwnerComponent } from './owners/add-owner.component';
+import { NoteCardComponent } from './notes/note-card.component' ;
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -59,6 +60,7 @@ const MATERIAL_MODULES: any[] = [
     AppComponent,
     HomeComponent,
     AddNoteComponent,
+    NoteCardComponent,
     OwnerListComponent,
     OwnerCardComponent,
     OwnerDoorBoardComponent,
