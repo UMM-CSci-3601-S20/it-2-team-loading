@@ -118,11 +118,9 @@ public class NoteControllerSpec {
     samsId = new ObjectId();
     BasicDBObject sam = new BasicDBObject("_id", samsId);
     sam = sam.append("message", "Sam's message")
-      .append("owner_id", "1300)
+      .append("owner_id", "1300")
       .append("expiration", "2019-03-27T04:52:37.888Z")
       .append("timestamp", "new Date");
-      .append("owner_id", "1300")
-      .append("expiration", "2019-03-27T04:52:37.888Z");
 
 
     // noteDocuments.insertMany(testNotes);
