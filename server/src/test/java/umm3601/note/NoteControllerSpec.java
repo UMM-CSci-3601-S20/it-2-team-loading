@@ -183,10 +183,11 @@ public class NoteControllerSpec {
 
     //verify owner was added to the database and the correct ID
     Document addedNote = db.getCollection("notes").find(eq("_id", new ObjectId(id))).first();
-    System.out.println(addedNote.toString());
+    System.out.println(addedNote.toString() + "hello world");
+    System.out.println(addedNote.getDate("timestamp") + "hello world");
     assertNotNull(addedNote);
     assertEquals("Alien", addedNote.getString("message"));
-    assertEquals("new Date",addedNote.getString("timestamp"));
+    assertNotNull(addedNote.getDate("timestamp"));
   }
 
   @Test

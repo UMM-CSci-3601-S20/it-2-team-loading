@@ -74,6 +74,7 @@ describe('Note service: ', () => {
     req.flush(testNotes);
   });
 
+  it('getNoteById() calls api/notes/id', () => {
   it('addNote() calls api/owner/:id/notes/new', () => {
     // addNote takes in an owner_id and a Note type and returns
     noteService.addNote('588935f57546a2daea44de7c', testNotes[1]).subscribe(

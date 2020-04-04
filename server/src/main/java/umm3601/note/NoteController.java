@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -134,7 +135,6 @@ public class NoteController {
     Note newNote = ctx.bodyValidator(Note.class)
     .check((pst) -> pst.message != null) // note should have a message
     .check((pst) -> pst.owner_id != null) // note should have an owner_id
-    .check((pst) -> pst.timestamp != null)
     .get();
     System.out.println("INSERTING");
     noteCollection.insertOne(newNote);
@@ -142,7 +142,6 @@ public class NoteController {
     ctx.status(201);
     System.out.println("status");
     ctx.json(ImmutableMap.of("id", newNote._id));
-
 
   }
 
