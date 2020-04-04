@@ -68,7 +68,7 @@ export class AddNoteComponent implements OnInit {
       owner_id: this.id,
       _id: undefined,
       message: formResults.message,
-      expiration: newDate.toISOString()
+      expiration: newDate.toISOString(),
       timestamp: this.timestamp,
     };
 
