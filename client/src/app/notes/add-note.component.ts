@@ -65,7 +65,7 @@ export class AddNoteComponent implements OnInit {
     const formResults = this.addNoteForm.value;
 
     const currentDate = new Date();
-    const newDate = new Date(currentDate.setHours(currentDate.getHours() + 1)); // open to change to what is needed
+    const newDate = new Date(currentDate.setHours(currentDate.getHours() + 5)); // open to change to what is needed
     if (formResults.expireDate === '') {
       this.selectedTime = newDate.toJSON();
     } else {
