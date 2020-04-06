@@ -44,7 +44,7 @@ export class AddNoteComponent implements OnInit {
       message: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(2),
-        Validators.maxLength(200)
+        Validators.maxLength(300)
       ])),
       expireDate: new FormControl('', Validators.compose([
       ])),
@@ -70,7 +70,7 @@ export class AddNoteComponent implements OnInit {
 
     const newDate = new Date(currentDate.setHours(currentDate.getHours() + 5)); // open to change to what is needed
     const timeStampDate = new Date();
-      
+
     if (formResults.expireDate === '') {
       this.selectedTime = newDate.toJSON();
     } else {
@@ -84,7 +84,8 @@ export class AddNoteComponent implements OnInit {
         owner_id: this.id,
         _id: undefined,
         message: formResults.message,
-        expiration: this.selectedTime
+        expiration: this.selectedTime,
+        timestamp: timeStampDate.toLocaleString('en-US'),
     };
 
     this.noteService.addNote(this.id, newNote).subscribe((newID) => {
