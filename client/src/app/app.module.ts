@@ -35,6 +35,9 @@ import { OwnerCardComponent } from './owners/owner-card.component';
 import { OwnerDoorBoardComponent } from './owners/owner-doorboard.component';
 import { AddOwnerComponent } from './owners/add-owner.component';
 
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
+
 const MATERIAL_MODULES: any[] = [
   MatListModule,
   MatButtonModule,
@@ -73,7 +76,10 @@ const MATERIAL_MODULES: any[] = [
     HttpClientModule,
     MATERIAL_MODULES,
     LayoutModule,
-    AppRoutingModule
+    AppRoutingModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
+
   ],
   providers: [
     NoteService,
