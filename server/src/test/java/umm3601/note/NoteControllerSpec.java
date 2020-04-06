@@ -29,6 +29,7 @@ import com.mongodb.client.MongoDatabase;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import org.eclipse.jdt.internal.compiler.lookup.SourceTypeBinding;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -99,31 +100,31 @@ public class NoteControllerSpec {
     testNotes.add(Document.parse("{\n" +
       "                    message: \"I wanna say something,\",\n" +
       "                    owner_id: \"1310\",\n" +
-      "                    timestamp : \"2020-03-26 00:47:34.386\",\n" +
-      "                    expiration: \"2021-03-27T04:52:37.888Z\",\n" +
+      "                    expiration: \"2021-04-27T04:52:37.888Z\",\n" +
+      "                    timestamp : \"2020-04-26 00:47:34.386\",\n" +
       "                }"));
     testNotes.add(Document.parse("{\n" +
       "                    message: \"But we're leaving\",\n" +
       "                    owner_id: \"1310\",\n" +
-      "                    expiration: \"2019-03-27T04:52:37.888Z\",\n" +
-      "                    timestamp : \"2020-03-26 00:47:34.386\",\n" +
+      "                    expiration: \"2019-04-27T04:52:37.888Z\",\n" +
+      "                    timestamp : \"2019-04-26 00:47:34.386\",\n" +
       "                }"));
     testNotes.add(Document.parse("{\n" +
       "                    message: \"And it's over\",\n" +
       "                    owner_id: \"1600\",\n" +
-      "                    expiration: \"2021-03-27T04:52:37.888Z\",\n" +
-      "                    timestamp : \"2020-03-26 00:47:34.386\",\n" +
+      "                    expiration: \"2021-04-27T04:52:37.888Z\",\n" +
+      "                    timestamp : \"2020-04-26 00:47:34.386\",\n" +
       "                }"));
 
     samsId = new ObjectId();
     BasicDBObject sam = new BasicDBObject("_id", samsId);
     sam = sam.append("message", "Sam's message")
       .append("owner_id", "1300")
-      .append("expiration", "2019-03-27T04:52:37.888Z")
+      .append("expiration", "2020-04-27T04:52:37.888Z")
       .append("timestamp", "new Date");
 
 
-    // noteDocuments.insertMany(testNotes);
+    noteDocuments.insertMany(testNotes);
     noteDocuments.insertOne(Document.parse(sam.toJson()));
 
     noteController = new NoteController(db);
@@ -160,7 +161,8 @@ public class NoteControllerSpec {
   @Test
   public void AddNote() throws IOException {
 
-    String testNewNote = "{\n\t\"message\": \"Alien\",\n\t\"owner_id\": \"coolguyid\"\n}";
+    String testNewNote = "{\n\t\"message\": \"Alien\",\n\t\"owner_id\": \"coolguyid\"," +
+    "\n\t\"expiration\": \"2021-04-27T04:52:37.888Z\", \n\t\"timestamp\":\"2020-04-26 00:47:34.386\"}";
 
     mockReq.setBodyContent(testNewNote);
     mockReq.setMethod("POST");
@@ -182,10 +184,10 @@ public class NoteControllerSpec {
     //verify owner was added to the database and the correct ID
     Document addedNote = db.getCollection("notes").find(eq("_id", new ObjectId(id))).first();
     System.out.println(addedNote.toString() + "hello world");
-    System.out.println(addedNote.getDate("timestamp") + "hello world");
+    System.out.println(addedNote.getString("timestamp") + "hello world");
     assertNotNull(addedNote);
     assertEquals("Alien", addedNote.getString("message"));
-    assertNotNull(addedNote.getDate("timestamp"));
+    assertNotNull(addedNote.getString("timestamp"));
   }
 
   @Test

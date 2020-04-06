@@ -89,7 +89,7 @@ public class NoteController {
     for(int i = 0; i < notes.size(); i++){ // running through each index of the array
       if(notes.get(i).expiration != null){ // makeing sure the expiration date exists
       long testExpire = Instant.parse(notes.get(i).expiration).toEpochMilli();
-
+      currentDateTime = Instant.now().toEpochMilli();
       if(checkIfExpired(testExpire) ){
         String removeID = notes.get(i)._id;
         System.out.println(notes.get(i).message + " is expired");
