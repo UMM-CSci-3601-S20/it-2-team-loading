@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ModuleWithComponentFactories } from '@angular/core';
 import { Note } from './note';
 import { NoteService } from './note.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -63,13 +63,14 @@ export class AddNoteComponent implements OnInit {
 
     const currentDate = new Date();
     const newDate = new Date(currentDate.setHours(currentDate.getHours() + 5));
+    const timeStampDate = new Date();
 
     const newNote: Note = {
       owner_id: this.id,
       _id: undefined,
       message: formResults.message,
       expiration: newDate.toISOString(),
-      timestamp: this.timestamp,
+      timestamp: timeStampDate.toLocaleString('en-US'),
     };
 
     this.noteService.addNote(this.id, newNote).subscribe((newID) => {
