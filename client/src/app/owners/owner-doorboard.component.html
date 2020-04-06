@@ -9,20 +9,22 @@
       <button mat-raised-button class="add-note-button" matTooltip="Add Note" matTooltipPosition="below"
         routerLink="/owner/{{this.id}}/notes/new">Add New Note
       </button>
-    </div>
-    <div class="note-list-container">
+  </div>
+  <div class="note-list-container">
     <!--This is where we are looping through the notes that belong to each owner-->
     <mat-list fxLayout="row wrap" class="list-of-owner-notes">
       <mat-list-item *ngFor="let note of notes; first as last " class="owner-note">
         <!--Each message is its own mat-card-->
         <div fxFlex="column" class="list-of-notes">
           <mat-card fxLayout="row wrap" class="note-card">
-            <p class="message-content">{{note.message}}</p>
+            <mat-list-item class = "note-list-item">
+              <p matLine class="message">{{note.message}}</p>
+              <p matLine class="timestamp">{{note.timestamp}}</p>
+            </mat-list-item>
           </mat-card>
         </div>
       </mat-list-item>
     </mat-list>
   </div>
-
-  </div>
 </div>
+
