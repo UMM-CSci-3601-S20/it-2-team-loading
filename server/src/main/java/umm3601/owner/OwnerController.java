@@ -3,13 +3,8 @@ package umm3601.owner;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.regex;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 import com.mongodb.client.MongoCollection;
@@ -120,33 +115,10 @@ public class OwnerController {
       .check((owner) -> owner.email.matches(emailRegex)) // Verify that the provided email is a valid email
       .get();
 
-    // Generate owner avatar (you won't need this part for todos)
-    /*
-    try {
-      newOwner.avatar = "https://gravatar.com/avatar/" + md5(newOwner.email) + "?d=identicon";  // generate unique md5 code for identicon
-    } catch (NoSuchAlgorithmException ignored) {
-      newOwner.avatar = "https://gravatar.com/avatar/?d=mp";                           // set to mystery person
-    }
-    */
 
     OwnerCollection.insertOne(newOwner);
     ctx.status(201);
     ctx.json(ImmutableMap.of("id", newOwner._id));
   }
 
-  // /**
-  //  * Utility function to generate the md5 hash for a given string
-  //  *
-  //  * @param str the string to generate a md5 for
-  //  */
-  // public String md5(String str) throws NoSuchAlgorithmException {
-  //   MessageDigest md = MessageDigest.getInstance("MD5");
-  //   byte[] hashInBytes = md.digest(str.toLowerCase().getBytes(StandardCharsets.UTF_8));
-
-  //   String result = "";
-  //   for (byte b : hashInBytes) {
-  //     result += String.format("%02x", b);
-  //   }
-  //   return result;
-  // }
 }

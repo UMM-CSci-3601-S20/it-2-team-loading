@@ -40,5 +40,3 @@ describe('Add note', () => {
   });
 
 });
-
-/// Tried lots of things and nothing worked.
