@@ -15,19 +15,19 @@ export class MockNoteService extends NoteService {
       _id: 'one_id',
       message: 'Spirate pur, Spirate',
       owner_id: 'Aladdin',
-      expiration: "N/A",
+      expiration: 'N/A',
     },
     {
       _id: 'two_id',
       message: 'In te spera verunt',
       owner_id: 'Belle',
-      expiration: "N/A",
+      expiration: 'N/A',
     },
     {
       _id: 'three_id',
       message: 'patre nostris',
       owner_id: 'Genie',
-      expiration: "N/A",
+      expiration: 'N/A',
     }
   ];
 
@@ -35,7 +35,7 @@ export class MockNoteService extends NoteService {
     super(null);
   }
   // should be tested in the doorboard component spec
-  getOwnerNotes(filters: { owner_id?: string }): Observable<Note[]> {
+  getNotes(filters: { owner_id?: string }): Observable<Note[]> {
     return of(MockNoteService.testNotes);
   }
 
