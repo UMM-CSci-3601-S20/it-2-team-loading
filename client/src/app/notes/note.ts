@@ -3,4 +3,5 @@ export interface Note {
   owner_id: string;
   message: string;
   expiration: string;
+  timestamp: string;
 }

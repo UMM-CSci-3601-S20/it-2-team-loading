@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -88,8 +89,7 @@ public class NoteController {
     for(int i = 0; i < notes.size(); i++){ // running through each index of the array
       if(notes.get(i).expiration != null){ // makeing sure the expiration date exists
       long testExpire = Instant.parse(notes.get(i).expiration).toEpochMilli();
-
-      currentDateTime =Instant.now().toEpochMilli();
+      currentDateTime = Instant.now().toEpochMilli();
 
       if(checkIfExpired(testExpire) ){
         String removeID = notes.get(i)._id;

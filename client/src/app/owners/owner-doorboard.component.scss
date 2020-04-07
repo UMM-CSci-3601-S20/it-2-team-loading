@@ -2,6 +2,7 @@
   font-size: 1.5em;
   padding-bottom: 2rem;
   overflow-wrap: break-word;
+  padding-top: 5px;
 }
 .add-button-container{
   padding-top: 1rem;
@@ -51,9 +52,17 @@ h3{
 }
 .add-note-button{
   background-color: rgb(218, 247, 166);
+  color: black;
 }
 .message-content{
   overflow-wrap: break-word;
 }
 
+.timestamp{
+  color: black;
+  text-align: end;
+}
 
+.message{
+  color: black;
+}

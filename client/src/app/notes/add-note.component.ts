@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ModuleWithComponentFactories } from '@angular/core';
 import { Note } from './note';
 import { NoteService } from './note.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,6 +20,7 @@ export class AddNoteComponent implements OnInit {
   selectedTime: string;
   note: Note;
   id: string;
+  timestamp: string;
 
   constructor(private fb: FormBuilder, private noteService: NoteService, private snackBar: MatSnackBar,
               private router: Router, private route: ActivatedRoute) {
@@ -43,7 +44,7 @@ export class AddNoteComponent implements OnInit {
       message: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(2),
-        Validators.maxLength(200)
+        Validators.maxLength(300)
       ])),
       expireDate: new FormControl('', Validators.compose([
       ])),
@@ -55,6 +56,7 @@ export class AddNoteComponent implements OnInit {
 
   ngOnInit() {
     this.createForms();
+    this.timestamp = this.noteService.getTimestamp();
     // grabbing owner id from api
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
@@ -65,7 +67,10 @@ export class AddNoteComponent implements OnInit {
     const formResults = this.addNoteForm.value;
 
     const currentDate = new Date();
+
     const newDate = new Date(currentDate.setHours(currentDate.getHours() + 5)); // open to change to what is needed
+    const timeStampDate = new Date();
+
     if (formResults.expireDate === '') {
       this.selectedTime = newDate.toJSON();
     } else {
@@ -79,7 +84,8 @@ export class AddNoteComponent implements OnInit {
         owner_id: this.id,
         _id: undefined,
         message: formResults.message,
-        expiration: this.selectedTime
+        expiration: this.selectedTime,
+        timestamp: timeStampDate.toLocaleString('en-US'),
     };
 
     this.noteService.addNote(this.id, newNote).subscribe(newID => {
