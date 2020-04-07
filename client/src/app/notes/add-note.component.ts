@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ModuleWithComponentFactories } from '@angular/core';
 import { Note } from './note';
 import { NoteService } from './note.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { isObject } from 'util';
+
 
 @Component({
   selector: 'app-add-note',
@@ -14,9 +17,10 @@ import { ActivatedRoute } from '@angular/router';
 export class AddNoteComponent implements OnInit {
 
   addNoteForm: FormGroup;
-
+  selectedTime: string;
   note: Note;
   id: string;
+  timestamp: string;
 
   constructor(private fb: FormBuilder, private noteService: NoteService, private snackBar: MatSnackBar,
               private router: Router, private route: ActivatedRoute) {
@@ -40,7 +44,9 @@ export class AddNoteComponent implements OnInit {
       message: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(2),
-        Validators.maxLength(550)
+        Validators.maxLength(300)
+      ])),
+      expireDate: new FormControl('', Validators.compose([
       ])),
       // owner: new FormControl('', Validators.compose([
       //   Validators.required,
@@ -50,6 +56,7 @@ export class AddNoteComponent implements OnInit {
 
   ngOnInit() {
     this.createForms();
+    this.timestamp = this.noteService.getTimestamp();
     // grabbing owner id from api
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
@@ -58,14 +65,30 @@ export class AddNoteComponent implements OnInit {
 
   submitForm() {
     const formResults = this.addNoteForm.value;
-    const newNote: Note = {
-      owner_id: this.id,
-      _id: undefined,
-      //owner: formResults.owner,
-      message: formResults.message,
+
+    const currentDate = new Date();
+
+    const newDate = new Date(currentDate.setHours(currentDate.getHours() + 5)); // open to change to what is needed
+    const timeStampDate = new Date();
+
+    if (formResults.expireDate === '') {
+      this.selectedTime = newDate.toJSON();
+    } else {
+      this.selectedTime = formResults.expireDate;
+      console.log('The selected expire date is: ' + this.selectedTime);
+      this.selectedTime = this.convertToIsoDate(this.selectedTime);
+    }
+
+    let newNote: Note;
+    newNote = {
+        owner_id: this.id,
+        _id: undefined,
+        message: formResults.message,
+        expiration: this.selectedTime,
+        timestamp: timeStampDate.toLocaleString('en-US'),
     };
 
-    this.noteService.addNote(this.id, newNote).subscribe(() => {
+    this.noteService.addNote(this.id, newNote).subscribe(newID => {
       this.snackBar.open('Posted', null, {
         duration: 2000,
       });
@@ -76,5 +99,11 @@ export class AddNoteComponent implements OnInit {
         duration: 2000,
       });
     });
+  }
+  convertToIsoDate(selectedDate: string): string {
+    console.log('CALLED...');
+    const tryDate = new Date(selectedDate);
+    console.log('Converted Date: ' + tryDate);
+    return tryDate.toISOString();
   }
 }

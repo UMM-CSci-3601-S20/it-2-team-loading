@@ -6,8 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,6 +27,8 @@ import com.mongodb.client.MongoDatabase;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import org.eclipse.jdt.internal.compiler.lookup.SourceTypeBinding;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,6 +36,7 @@ import org.junit.jupiter.api.Test;
 import io.javalin.http.Context;
 import io.javalin.http.util.ContextUtil;
 import io.javalin.plugin.json.JavalinJson;
+import junit.extensions.TestDecorator;
 
 
 /**
@@ -47,6 +52,10 @@ public class NoteControllerSpec {
   private NoteController noteController;
 
   private ObjectId samsId;
+  private Timestamp timestamp;
+  private Date date;
+
+
 
   static MongoClient mongoClient;
   static MongoDatabase db;
@@ -74,6 +83,11 @@ public class NoteControllerSpec {
     mockReq.resetAll();
     mockRes.resetAll();
 
+    // Set timestamp toString
+    date = new Date();
+    timestamp = new Timestamp(date.getTime());
+    String sTimestamp = timestamp.toString();
+
         // Setup database
     MongoCollection<Document> noteDocuments = db.getCollection("notes");
     noteDocuments.drop();
@@ -81,20 +95,28 @@ public class NoteControllerSpec {
     testNotes.add(Document.parse("{\n" +
       "                    message: \"I wanna say something,\",\n" +
       "                    owner_id: \"1310\",\n" +
+      "                    expiration: \"2021-04-27T04:52:37.888Z\",\n" +
+      "                    timestamp : \"2020-04-26 00:47:34.386\",\n" +
       "                }"));
     testNotes.add(Document.parse("{\n" +
       "                    message: \"But we're leaving\",\n" +
-      "                    owner_id: \"1523\",\n" +
+      "                    owner_id: \"1310\",\n" +
+      "                    expiration: \"2019-04-27T04:52:37.888Z\",\n" +
+      "                    timestamp : \"2019-04-26 00:47:34.386\",\n" +
       "                }"));
     testNotes.add(Document.parse("{\n" +
       "                    message: \"And it's over\",\n" +
       "                    owner_id: \"1600\",\n" +
+      "                    expiration: \"2021-04-27T04:52:37.888Z\",\n" +
+      "                    timestamp : \"2020-04-26 00:47:34.386\",\n" +
       "                }"));
 
     samsId = new ObjectId();
     BasicDBObject sam = new BasicDBObject("_id", samsId);
     sam = sam.append("message", "Sam's message")
-      .append("owner_id", "1300");
+      .append("owner_id", "1300")
+      .append("expiration", "2020-04-27T04:52:37.888Z")
+      .append("timestamp", "new Date");
 
 
     noteDocuments.insertMany(testNotes);
@@ -109,11 +131,12 @@ public class NoteControllerSpec {
     mongoClient.close();
   }
 
+
   @Test
   public void GetNotesByOwner_id() throws IOException {
 
     // Set the query string to test with
-    mockReq.setQueryString("owner_id=1310");
+    mockReq.setQueryString("owner_id=1300");
 
     // Create our fake Javalin context
     Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes");
@@ -121,18 +144,20 @@ public class NoteControllerSpec {
     noteController.getOwnerNotes(ctx);
 
     String result = ctx.resultString();
+
     Note[] resultNotes = JavalinJson.fromJson(result, Note[].class);
 
     assertEquals(1, resultNotes.length); // There should be one owner returned
     for (Note note : resultNotes) {
-      assertEquals("1310", note.owner_id); // There should be one with that id
+      assertEquals("1300", note.owner_id); // There should be one with that id
     }
   }
 
   @Test
   public void AddNote() throws IOException {
 
-    String testNewNote = "{\n\t\"message\": \"Alien\",\n\t\"owner_id\": \"coolguyid\"\n}";
+    String testNewNote = "{\n\t\"message\": \"Alien\",\n\t\"owner_id\": \"coolguyid\"," +
+    "\n\t\"expiration\": \"2021-04-27T04:52:37.888Z\", \n\t\"timestamp\":\"2020-04-26 00:47:34.386\"}";
 
     mockReq.setBodyContent(testNewNote);
     mockReq.setMethod("POST");
@@ -144,6 +169,7 @@ public class NoteControllerSpec {
     assertEquals(201, mockRes.getStatus());
 
     String result = ctx.resultString();
+
     String id = jsonMapper.readValue(result, ObjectNode.class).get("id").asText();
     assertNotEquals("", id);
     System.out.println(id);
@@ -152,8 +178,30 @@ public class NoteControllerSpec {
 
     //verify owner was added to the database and the correct ID
     Document addedNote = db.getCollection("notes").find(eq("_id", new ObjectId(id))).first();
+    System.out.println(addedNote.toString() + "hello world");
+    System.out.println(addedNote.getString("timestamp") + "hello world");
     assertNotNull(addedNote);
     assertEquals("Alien", addedNote.getString("message"));
+    assertNotNull(addedNote.getString("timestamp"));
+  }
+
+  @Test
+  public void CheckExpirationDate() throws IOException {
+     // Set the query string to test with
+     mockReq.setQueryString("owner_id=1310");
+
+     // Create our fake Javalin context
+     Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes");
+
+    noteController.getOwnerNotes(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+
+    String result = ctx.resultString();
+    Note[] resultNotes = JavalinJson.fromJson(result, Note[].class);
+
+   // Owner is no longer in the database
+   assertEquals(1, resultNotes.length);
   }
 
   @Test
@@ -185,6 +233,8 @@ public class NoteControllerSpec {
 
     String result = ctx.resultString();
     Note resultNote = JavalinJson.fromJson(result, Note.class);
+    String resultTimeStamp = resultNote.timestamp.toString();
+    System.out.println(resultTimeStamp);
 
     assertEquals(resultNote._id, samsId.toHexString());
     assertEquals(resultNote.owner_id, "1300");

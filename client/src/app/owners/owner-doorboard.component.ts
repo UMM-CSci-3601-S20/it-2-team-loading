@@ -29,7 +29,9 @@ export class OwnerDoorBoardComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
       this.getOwnerSub = this.ownerService.getOwnerById(this.id).subscribe(owner => this.owner = owner);
-      this.getNotesSub = this.noteService.getOwnerNotes({ owner_id: this.id }).subscribe(notes => this.notes = notes.reverse());
+      this.getNotesSub = this.noteService.getNotes({ owner_id: this.id }).subscribe(notes =>
+         this.notes = notes.reverse()
+         );
 
     });
   }

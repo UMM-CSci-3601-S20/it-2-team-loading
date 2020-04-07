@@ -67,7 +67,7 @@ public class Server {
     server.post("api/owners/new", ownerController::addNewOwner);
 
     //Get all notes from an owner
-    // server.get("api/owner/:id/notes", noteController::getOwnerNotes);
+    server.get("api/owner/:id/notes", noteController::getOwnerNotes);
 
     server.delete("api/notes/:id", noteController::deleteNote);
 

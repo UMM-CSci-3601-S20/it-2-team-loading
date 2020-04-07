@@ -120,4 +120,10 @@ describe('AddNoteComponent', () => {
       expect(nameControl.hasError('existingName')).toBeTruthy();
     });*/
   });
+
+  describe('Timestamp Field', () => {
+    it('timestamp should not be null', () => {
+
+    });
+  });
 });
