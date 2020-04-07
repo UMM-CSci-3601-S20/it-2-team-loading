@@ -2,11 +2,21 @@
     <!--Each message is its own mat-card-->
         <mat-card class="note-card" *ngIf="this.note">
           <mat-card-content>
-            <mat-card-subtitle>{{ this.note.message}}</mat-card-subtitle>
-            <mat-card-subtitle id="notetime">{{this.note.timestamp}}</mat-card-subtitle>
+            {{ this.note.message}}
+          </mat-card-content>
+          <mat-card-content id="noteCardTimestamp" align="end">
+            {{ this.note.timestamp}}
           </mat-card-content>
          <!-- Time stamp needs to be in here when it is implemented-->
-          <mat-card-actions>
-           <!--Delete Note should go here-->
-          </mat-card-actions>
+
+        <mat-card-actions align="start">
+          <p>
+            <span *ngIf="confirmDelete">
+            <span>Are you sure you want to delete?</span>
+            <button class="btn-danger" (click)="deleteNoteFromServer()" onclick="history.go(0)" >Yes</button>
+            <button class="btn-primary" (click)="confirmDelete=false">No</button>
+            </span>
+            <button *ngIf="!confirmDelete" (click)="confirmDelete=true">Delete Note</button>
+        </p>
+        </mat-card-actions>
         </mat-card>

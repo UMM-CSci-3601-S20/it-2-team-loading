@@ -82,7 +82,9 @@ public class NoteController {
    */
   public void deleteNote(Context ctx) {
     String id = ctx.pathParam("id");
+    System.out.println("SERVER CALLED: " + id);
     noteCollection.deleteOne(eq("_id", new ObjectId(id)));
+    System.out.println("NOTE DELTED");
   }
 
   private void filterExpiredNotes(List<Note> notes){
