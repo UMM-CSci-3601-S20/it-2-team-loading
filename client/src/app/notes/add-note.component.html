@@ -17,7 +17,15 @@
                     {{validation.message}}
                     </mat-error>
               </mat-error>
-            </mat-form-field>
+                </mat-form-field>
+              <mat-form-field>
+                <mat-label>Expiration Date</mat-label>
+                <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1"  placeholder="Date Time"
+                matInput id="expireField" placeholder="Expiration" formControlName="expireDate">
+                <mat-hint id="expireHint" >If no expiration date is selected, then it will automatically expire in 5 hours</mat-hint>
+                <owl-date-time #dt1></owl-date-time>
+              </mat-form-field>
+
 
           </mat-card-content>
           <mat-card-actions align="end">
