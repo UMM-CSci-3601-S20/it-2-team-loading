@@ -38,7 +38,7 @@ export class MockNoteService extends NoteService {
     super(null);
   }
   // should be tested in the doorboard component spec
-  getOwnerNotes(filters: { owner_id?: string }): Observable<Note[]> {
+  getNotes(filters: { owner_id?: string }): Observable<Note[]> {
     return of(MockNoteService.testNotes);
   }
 

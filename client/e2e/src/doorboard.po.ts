@@ -16,6 +16,6 @@ export class DoorBoard {
   }
 
   getOwnerListItems() {
-    return element(by.className('list-of-owner-notes')).all(by.className('list-of-notes'));
+    return element(by.className('note-cards-container')).all(by.className('note-cards-container'));
   }
 }

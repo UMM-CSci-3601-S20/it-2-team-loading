@@ -1,5 +1,5 @@
+
 <div class="doorboard-background" fxFill>
-  <div>
     <!--Seems to be throwing error: "cannot read name of undefined once or twice while the page is loading, probably want to refactor this at some point-->
     <mat-card class="owner-card" *ngIf="owner">
       <h3>{{this.owner.name}}</h3>
@@ -9,22 +9,17 @@
       <button mat-raised-button class="add-note-button" matTooltip="Add Note" matTooltipPosition="below"
         routerLink="/owner/{{this.id}}/notes/new">Add New Note
       </button>
-  </div>
-  <div class="note-list-container">
-    <!--This is where we are looping through the notes that belong to each owner-->
-    <mat-list fxLayout="row wrap" class="list-of-owner-notes">
-      <mat-list-item *ngFor="let note of notes; first as last " class="owner-note">
-        <!--Each message is its own mat-card-->
-        <div fxFlex="column" class="list-of-notes">
-          <mat-card fxLayout="row wrap" class="note-card">
-            <mat-list-item class = "note-list-item">
-              <p matLine class="message">{{note.message}}</p>
-              <p matLine class="timestamp">{{note.timestamp}}</p>
-            </mat-list-item>
-          </mat-card>
-        </div>
-      </mat-list-item>
-    </mat-list>
-  </div>
+    </div>
+
+
+    <div fxLayout="row wrap" fxLayoutGap="30px" class="note-cards-container">
+      <app-note-card simple="true" *ngFor="let note of notes" class="note-card" [note]="note"
+        fxFlex="1 1 280px"></app-note-card>
+    </div>
+    <!-- This is where we are looping through the notes that belong to each owner-->
 </div>
 
+    <!-- <mat-list-item *ngFor="let note of notes " [class.selected]="note === selectedNote" (click)="onSelect(note)">
+    <span class="badge">{{note._id}}</span>{{note.message}}
+
+    </mat-list-item>> -->

@@ -88,7 +88,7 @@ export class AddNoteComponent implements OnInit {
         timestamp: timeStampDate.toLocaleString('en-US'),
     };
 
-    this.noteService.addNote(this.id, newNote).subscribe((newID) => {
+    this.noteService.addNote(this.id, newNote).subscribe(newID => {
       this.snackBar.open('Posted', null, {
         duration: 2000,
       });
