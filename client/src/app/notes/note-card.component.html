@@ -3,7 +3,7 @@
         <mat-card class="note-card" *ngIf="this.note">
           <mat-card-content>
             <mat-card-subtitle>{{ this.note.message}}</mat-card-subtitle>
-          <p>{{ this.note._id}}</p>
+            <mat-card-subtitle id="notetime">{{this.note.timestamp}}</mat-card-subtitle>
           </mat-card-content>
          <!-- Time stamp needs to be in here when it is implemented-->
           <mat-card-actions>
