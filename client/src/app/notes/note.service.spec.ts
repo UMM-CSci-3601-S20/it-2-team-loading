@@ -56,7 +56,7 @@ describe('Note service: ', () => {
   });
 
   it('getOwnerNotes() calls api/notes', () => {
-    noteService.getOwnerNotes({ owner_id: '588935f57546a2daea44de7c' }).subscribe(
+    noteService.getNotes({ owner_id: '588935f57546a2daea44de7c' }).subscribe(
       notes => expect(notes).toEqual(testNotes)
     );
     // not sure about this test
