@@ -9,8 +9,12 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './note-card.component.html',
   styleUrls: ['./note-card.component.scss']
 })
+
+
 export class NoteCardComponent implements OnInit, OnDestroy {
  // This would be in the doorboard component notes: Note[];
+  getNotesSub: Subscription;
+  public serverFilteredNotes: Note[];
   id: string;
   @Input() note: Note;
   @Input() simple ? = false;

@@ -69,7 +69,7 @@ export class AddNoteComponent implements OnInit {
       expiration: newDate.toISOString()
     };
 
-    this.noteService.addNote(this.id, newNote).subscribe((newID) => {
+    this.noteService.addNote(this.id, newNote).subscribe(newID => {
       this.snackBar.open('Posted', null, {
         duration: 2000,
       });

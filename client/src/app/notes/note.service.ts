@@ -17,7 +17,7 @@ export class NoteService {
   // maybe this needs to be formatted like getNotes where we return with params:httpParams?
   // currently this doesn't filter anything. It just displays all the notes.
 
-  getOwnerNotes(filters?: { owner_id?: string}): Observable<Note[]> {
+  getNotes(filters?: { owner_id?: string}): Observable<Note[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters.owner_id) {
       httpParams = httpParams.set('owner_id', filters.owner_id);
@@ -35,4 +35,6 @@ export class NoteService {
     console.log(newNote.expiration);
     return client;
   }
+
+
 }
