@@ -21,7 +21,16 @@ export class NoteCardComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute, private noteService: NoteService) { }
 
+  getNotesFromServer(): void {
+    this.getNotesSub = this.noteService.getNotes({ owner_id: this.id })
+    .subscribe(notes =>
+      this.serverFilteredNotes = notes.reverse()
+      , err => {
+      console.log(err);
+    });
+  }
   ngOnInit(): void {
+    this.getNotesFromServer();
   }
 
   ngOnDestroy(): void {
