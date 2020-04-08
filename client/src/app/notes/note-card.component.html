@@ -12,14 +12,14 @@
          <!-- Time stamp needs to be in here when it is implemented-->
 
         <mat-card-actions align="start">
-          <p>
+          <p align='center'>
             <span *ngIf="confirmDelete">
             <P>Are you sure you want to delete?</P>
-            <button class="btn-danger" (click)="deleteNoteFromServer()" onclick="history.go(0)"  >Yes</button>
-            <button class="btn-primary" (click)="confirmDelete=false">No</button>
+            <button mat-button  class="btn-danger" (click)="deleteNoteFromServer()" mdbWave2sEffect onclick="history.go(0)">Yes</button>
+            <button mat-button class="btn-primary" (click)="confirmDelete=false" mdbWave2sEffect>No</button>
             </span>
 
-            <button *ngIf="!confirmDelete" (click)="confirmDelete=true">Delete Note</button>
+            <button mat-button class="deleteBtn" *ngIf="!confirmDelete" (click)="confirmDelete=true" mdbWave2sEffect>Delete Note</button>
         </p>
         </mat-card-actions>
         </mat-card>

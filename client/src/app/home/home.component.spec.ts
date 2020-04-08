@@ -13,8 +13,8 @@ describe('Home', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MatCardModule],
-      declarations: [HomeComponent], // declare the test component
+      imports: [ MatCardModule ],
+      declarations: [ HomeComponent ], // declare the test component
     });
 
     fixture = TestBed.createComponent(HomeComponent);

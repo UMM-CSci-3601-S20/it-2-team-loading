@@ -56,9 +56,10 @@ is potentially helpful and contributed to the shaping of this example -->
 
         </mat-card-content>
         <mat-card-actions align="end">
-          <button mat-button id="confirmAddOwnerButton" type="button" color="primary" [disabled]="!addOwnerForm.valid"type="submit">
+          <button  mat-button id="confirmAddOwnerButton" type="button" color="primary" [disabled]="!addOwnerForm.valid"type="submit" mdbWavesEffect>
             ADD OWNER
           </button>
+          <button mat-button id="cancelButton" type="button" mdbBtn color="danger" mdbWave2sEffect onclick="history.back()">Cancel</button>
         </mat-card-actions>
       </mat-card>
     </form>
