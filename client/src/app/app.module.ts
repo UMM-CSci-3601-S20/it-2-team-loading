@@ -69,6 +69,7 @@ const MATERIAL_MODULES: any[] = [
     OwnerDoorBoardComponent,
     AddOwnerComponent,
   ],
+
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -81,12 +82,12 @@ const MATERIAL_MODULES: any[] = [
     AppRoutingModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule
-
   ],
+
   providers: [
     NoteService,
     OwnerService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NoteService } from '../notes/note.service';
 import { Note } from './note';
@@ -15,9 +15,11 @@ export class NoteCardComponent implements OnInit, OnDestroy {
  // This would be in the doorboard component notes: Note[];
   getNotesSub: Subscription;
   public serverFilteredNotes: Note[];
-  id: string;
+  id:string
   @Input() note: Note;
   @Input() simple ? = false;
+  @Output() notifyDelete: EventEmitter<string> = new EventEmitter<string>();
+  confirmDelete = false;
 
   constructor(private route: ActivatedRoute, private noteService: NoteService) { }
 
@@ -28,6 +30,17 @@ export class NoteCardComponent implements OnInit, OnDestroy {
       , err => {
       console.log(err);
     });
+  }
+
+  deleteNoteFromServer(): void {
+    this.getNotesSub = this.noteService.deleteNote(this.note._id).subscribe( deleted =>{
+      console.log('Note deleted');
+      this.getNotesFromServer();
+    }, err => {
+        console.log(err);
+      }
+
+    );
   }
   ngOnInit(): void {
     this.getNotesFromServer();

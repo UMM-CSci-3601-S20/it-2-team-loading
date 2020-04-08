@@ -1,10 +1,26 @@
 
     <!--Each message is its own mat-card-->
         <mat-card class="note-card" *ngIf="this.note">
-          <mat-card-content>
-            <mat-card-subtitle>{{ this.note.message}}</mat-card-subtitle>
-            <mat-card-subtitle id="notetime">{{this.note.timestamp}}</mat-card-subtitle>
+          <mat-card-content id="noteCardTimestamp" align="end">
+            {{ this.note.timestamp}}
           </mat-card-content>
-          <mat-card-actions>
-          </mat-card-actions>
+
+          <mat-card-content>
+            {{ this.note.message}}
+          </mat-card-content>
+
+
+         <!-- Time stamp needs to be in here when it is implemented-->
+
+        <mat-card-actions align="start">
+          <p align='center'>
+            <span *ngIf="confirmDelete">
+            <P>Are you sure you want to delete?</P>
+            <button mat-button  class="btn-danger" (click)="deleteNoteFromServer()" mdbWave2sEffect onclick="history.go(0)">Yes</button>
+            <button mat-button class="btn-primary" (click)="confirmDelete=false" mdbWave2sEffect>No</button>
+            </span>
+
+            <button mat-button class="deleteBtn" *ngIf="!confirmDelete" (click)="confirmDelete=true" mdbWave2sEffect>Delete Note</button>
+        </p>
+        </mat-card-actions>
         </mat-card>

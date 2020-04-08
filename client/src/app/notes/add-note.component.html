@@ -30,9 +30,10 @@
           </mat-card-content>
           <mat-card-actions align="end">
             <button mat-button id="confirmAddNoteButton" type="button" color="primary"
-                    [disabled]="!addNoteForm.valid" type="submit">
+                    [disabled]="!addNoteForm.valid" type="submit" mdbWave2sEffect>
                     ADD NOTE
             </button>
+            <button mat-button id="cancelButton" type="button" color="secondary" mdbWave2sEffect onclick="history.back()">Cancel</button>
           </mat-card-actions>
       </mat-card>
     </form>
