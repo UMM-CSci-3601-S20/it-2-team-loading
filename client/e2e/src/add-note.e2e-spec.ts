@@ -22,22 +22,4 @@ describe('Add note', () => {
     expect(element(by.buttonText('ADD NOTE')).isEnabled()).toBe(true);
   });
 
-/*  it('Should add a new note and go to the right page', async () => {
-    const note: TestNote = {
-      owner_id: '78f1d3bfa098879fe7a01373',
-      message: E2EUtil.randomLetters(10),
-      owner: E2EUtil.randomLetters(7),
-      expiration:  new Date(new Date().getHours() + 1).toISOString()
-    };
-
-    await page.addNote(note);
-
-    // Wait until the URL does not contain 'notes/new
-   // await browser.wait(EC.not(EC.urlContains('notes/new')), 10000);
-
-    const url = await page.getUrl();
-    expect(RegExp('/owner/78f1d3bfa098879fe7a01373/notes').test(url)).toBe(true);
-    expect(url.endsWith('/notes/new')).toBe(false);
-  });
-*/
 });

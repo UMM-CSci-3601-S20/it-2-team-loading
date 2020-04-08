@@ -27,8 +27,6 @@ import com.mongodb.client.MongoDatabase;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import org.eclipse.jdt.internal.compiler.lookup.SourceTypeBinding;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +34,6 @@ import org.junit.jupiter.api.Test;
 import io.javalin.http.Context;
 import io.javalin.http.util.ContextUtil;
 import io.javalin.plugin.json.JavalinJson;
-import junit.extensions.TestDecorator;
 
 
 /**
@@ -86,9 +83,8 @@ public class NoteControllerSpec {
     // Set timestamp toString
     date = new Date();
     timestamp = new Timestamp(date.getTime());
-    String sTimestamp = timestamp.toString();
 
-        // Setup database
+    // Setup database
     MongoCollection<Document> noteDocuments = db.getCollection("notes");
     noteDocuments.drop();
     List<Document> testNotes = new ArrayList<>();

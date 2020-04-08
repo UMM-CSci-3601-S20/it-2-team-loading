@@ -108,17 +108,6 @@ describe('AddNoteComponent', () => {
       expect(messageControl.valid).toBeTruthy();
     });
 
-    /*it('should fail if we provide an "existing" name', () => {
-      // We're assuming that "abc123" and "123abc" already
-      // exist so we disallow them.
-      nameControl.setValue('abc123');
-      expect(nameControl.valid).toBeFalsy();
-      expect(nameControl.hasError('existingName')).toBeTruthy();
-
-      nameControl.setValue('123abc');
-      expect(nameControl.valid).toBeFalsy();
-      expect(nameControl.hasError('existingName')).toBeTruthy();
-    });*/
   });
 
   describe('Timestamp Field', () => {

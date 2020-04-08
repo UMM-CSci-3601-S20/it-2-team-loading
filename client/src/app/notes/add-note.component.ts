@@ -34,9 +34,6 @@ export class AddNoteComponent implements OnInit {
       { type: 'minlength', message: 'Message is too short' },
       { type: 'maxlength', message: 'Message is too long' }
     ],
-    // owner: [
-    //   { type: 'required', message: 'Owner is required' },
-    // ]
   };
 
   createForms() {
@@ -48,15 +45,11 @@ export class AddNoteComponent implements OnInit {
       ])),
       expireDate: new FormControl('', Validators.compose([
       ])),
-      // owner: new FormControl('', Validators.compose([
-      //   Validators.required,
-      // ]))
     });
   }
 
   ngOnInit() {
     this.createForms();
-    this.timestamp = this.noteService.getTimestamp();
     // grabbing owner id from api
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');

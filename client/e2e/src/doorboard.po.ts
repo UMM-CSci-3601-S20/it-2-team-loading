@@ -1,4 +1,4 @@
-import {browser, by, element, Key, ElementFinder} from 'protractor';
+import {browser, by, element} from 'protractor';
 
 export class DoorBoard {
   // navigates to Rachel Johnson's doorboard

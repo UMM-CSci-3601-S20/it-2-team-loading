@@ -273,8 +273,6 @@ public class OwnerControllerSpec {
     assertEquals("1524", addedOwner.getString("officeID"));
     assertEquals("Mars", addedOwner.getString("building"));
     assertEquals("coolguy@gmail.com", addedOwner.getString("email"));
-    //assertEquals("viewer", addedOwner.getString("role"));
-    //assertTrue(addedOwner.containsKey("avatar"));
   }
 
   @Test
