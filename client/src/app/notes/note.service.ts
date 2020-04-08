@@ -36,6 +36,12 @@ export class NoteService {
     return client;
   }
 
+  deleteNote(id: string): Observable<string> {
+    let httpParams: HttpParams = new HttpParams();
+    httpParams = httpParams.set('owner_id', id);
+    console.log('NOTE SERVICE CALLED');
+    return this.httpClient.delete<string>(this.noteUrl + '/' + id);
+  }
 
   getTimestamp(): string {
     // Create a date object with the current time
