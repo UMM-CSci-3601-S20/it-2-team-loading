@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -36,35 +36,7 @@ export class OwnerService {
 
   filterOwners(owners: Owner[], filters: {  }): Owner[] {
 
-    let filteredOwners = owners;
-
-    // // Filter by name
-    // if (filters.name) {
-    //   filters.name = filters.name.toLowerCase();
-
-    //   filteredOwners = filteredOwners.filter(owner => {
-    //     return owner.name.toLowerCase().indexOf(filters.name) !== -1;
-    //   });
-    // }
-
-    // // Filter by officeID
-    // if (filters.officeID) {
-    //   filters.officeID = filters.officeID.toLowerCase();
-
-    //   filteredOwners = filteredOwners.filter(owner => {
-    //     return owner.officeID.toLowerCase().indexOf(filters.officeID) !== -1;
-    //   });
-    // }
-
-    // // Filter by building
-    // if (filters.building) {
-    //   filters.building = filters.building.toLowerCase();
-
-    //   filteredOwners = filteredOwners.filter(owner => {
-    //     return owner.building.toLowerCase().indexOf(filters.building) !== -1;
-    //   });
-    // }
-
+    const filteredOwners = owners;
     return filteredOwners;
   }
 

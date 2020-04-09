@@ -3,7 +3,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed } from '@angular/core/testing';
 import { Owner } from './owner';
 import { OwnerService } from './owner.service';
-import { empty } from 'rxjs';
 
 describe('Owner service: ', () => {
   // A small collection of test owners

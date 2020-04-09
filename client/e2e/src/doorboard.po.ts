@@ -1,9 +1,9 @@
-import {browser, by, element, Key, ElementFinder} from 'protractor';
+import {browser, by, element} from 'protractor';
 
 export class DoorBoard {
   // navigates to Rachel Johnson's doorboard
   navigateTo() {
-    return browser.get('/owner/588935f57546a2daea44de7c/notes');
+    return browser.get('/owner/5e7cf9ac7d640633c9256b90/notes');
   }
 
   getUrl() {
@@ -14,8 +14,8 @@ export class DoorBoard {
     const title = element(by.className('owner-card')).getText();
     return title;
   }
-
-  getOwnerListItems() {
-    return element(by.className('note-cards-container')).all(by.className('note-cards-container'));
+  getNoteCards() {
+    return element(by.className('note-cards-container')).all(by.tagName('app-note-card'));
   }
+
 }

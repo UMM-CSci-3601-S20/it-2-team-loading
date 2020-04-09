@@ -1,5 +1,5 @@
 import {DoorBoard} from './doorboard.po';
-import { protractor, by, element } from 'protractor';
+import { protractor, by, element, Button } from 'protractor';
 
 describe('Owner Doorboard', () => {
   let page: DoorBoard;
@@ -10,17 +10,15 @@ describe('Owner Doorboard', () => {
     page.navigateTo();
   });
 
-  it('Should have the correct title', () => {
-    expect(page.getPageTitle()).toEqual('Rachel Johnson');
-  });
+//  it('Should have the correct title', () => {
+  //  expect(page.getPageTitle()).toEqual('TestOwner');
+  //});
+  // it('Should have correct last note', async () => {
+  //  page.getNoteCards().last();
+  //  expect(element(by.className('message')).getText()).toEqual(
+  //   'This is a test Note');
+  // });
 
 
- /*   // This test needs to be re-written to get the correct note
-  it('Should have the correct first note', async () => {
-    page.getOwnerListItems().first();
-    expect(element(by.className('message')).getText()).toEqual(
-      'I\'m going to be a few minutes late to my office hours today. I got caught in traffic this morning.');
-  });
-  */
-  });
 
+  });

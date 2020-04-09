@@ -18,16 +18,26 @@ describe('Add note', () => {
 
   it('Should enable and disable the add note button', async () => {
     expect(element(by.buttonText('ADD NOTE')).isEnabled()).toBe(false);
-    await page.typeInput('messageField', 'bit.ly/umm-cscc');
+    await page.typeInput('messageField', 'This is random text');
+    expect(element(by.buttonText('ADD NOTE')).isEnabled()).toBe(true);
+    await page.typeInput('expireField', new Date().toLocaleString());
     expect(element(by.buttonText('ADD NOTE')).isEnabled()).toBe(true);
   });
 
-/*  it('Should add a new note and go to the right page', async () => {
+  it('Should disable add note button', async () => {
+    expect(element(by.buttonText('ADD NOTE')).isEnabled()).toBe(false);
+    await page.typeInput('messageField', 'This is random text');
+    expect(element(by.buttonText('ADD NOTE')).isEnabled()).toBe(true);
+    await page.typeInput('expireField', 'Most definitely not a date'); // entering a non valid input
+    expect(element(by.buttonText('ADD NOTE')).isEnabled()).toBe(false);
+  });
+
+  it('Should add a new note and go to the right page', async () => {
     const note: TestNote = {
       owner_id: '78f1d3bfa098879fe7a01373',
       message: E2EUtil.randomLetters(10),
       owner: E2EUtil.randomLetters(7),
-      expiration:  new Date(new Date().getHours() + 1).toISOString()
+      expiration:  new Date(new Date().setHours(new Date().getHours() + 1)).toISOString()
     };
 
     await page.addNote(note);
@@ -37,9 +47,10 @@ describe('Add note', () => {
 
     const url = await page.getUrl();
     expect(RegExp('/owner/78f1d3bfa098879fe7a01373/notes').test(url)).toBe(true);
-    expect(url.endsWith('/notes/new')).toBe(false);
+    //expect(url.endsWith('/notes/new'),).toBe(false);
+
   });
-*/
+
 });
 
 /// Tried lots of things and nothing worked.

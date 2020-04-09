@@ -49,9 +49,6 @@ export class OwnerListComponent implements OnInit, OnDestroy {
   public updateFilter(): void {
   this.filteredOwners = this.ownerService.filterOwners(
     this.serverFilteredOwners, {
-    // name: this.ownerName,
-    // officeID: this.ownerOfficeID,
-    // building: this.ownerBuilding
   });
 }
 

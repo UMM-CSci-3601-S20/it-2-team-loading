@@ -108,22 +108,26 @@ describe('AddNoteComponent', () => {
       expect(messageControl.valid).toBeTruthy();
     });
 
-    /*it('should fail if we provide an "existing" name', () => {
-      // We're assuming that "abc123" and "123abc" already
-      // exist so we disallow them.
-      nameControl.setValue('abc123');
-      expect(nameControl.valid).toBeFalsy();
-      expect(nameControl.hasError('existingName')).toBeTruthy();
-
-      nameControl.setValue('123abc');
-      expect(nameControl.valid).toBeFalsy();
-      expect(nameControl.hasError('existingName')).toBeTruthy();
-    });*/
   });
 
   describe('Timestamp Field', () => {
     it('timestamp should not be null', () => {
 
     });
+  });
+
+  describe('Expiration Date Field', () => {
+      let expirationControl: AbstractControl;
+      beforeEach(() => {
+        expirationControl = addNoteComponent.addNoteForm.controls[`expireDate`];
+      });
+      it('Expiration date can be null', () => {
+        expirationControl.setValue('');
+        expect(expirationControl.valid).toBeTruthy();
+    });
+      it('Expiration is valid when a date is entered', () => {
+          expirationControl.setValue(new Date());
+          expect(expirationControl.valid).toBeTruthy();
+      });
   });
 });

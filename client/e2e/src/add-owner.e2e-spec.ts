@@ -1,4 +1,4 @@
-import {browser, protractor, by, element, utils} from 'protractor';
+import {browser, protractor, by, element} from 'protractor';
 import { AddOwnerPage, TestOwner } from './add-owner.po';
 import { E2EUtil } from './e2e.util';
 
@@ -23,7 +23,7 @@ describe('Add owner', () => {
     await page.typeInput('officeIDField', '3141');
     expect(element(by.buttonText('ADD OWNER')).isEnabled()).toBe(false);
     await page.typeInput('emailField', 'test@example.com');
-    expect(element(by.buttonText('ADD OWNER')).isEnabled()).toBe(false);
+    expect(element(by.buttonText('ADD OWNER')).isEnabled()).toBe(true);
     await page.typeInput('buildingField', 'test building');
     expect(element(by.buttonText('ADD OWNER')).isEnabled()).toBe(true);
   });

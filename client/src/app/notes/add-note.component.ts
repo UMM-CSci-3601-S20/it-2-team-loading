@@ -22,6 +22,10 @@ export class AddNoteComponent implements OnInit {
   id: string;
   timestamp: string;
 
+  min: Date;
+
+  max: Date;
+
   constructor(private fb: FormBuilder, private noteService: NoteService, private snackBar: MatSnackBar,
               private router: Router, private route: ActivatedRoute) {
   }
@@ -34,9 +38,6 @@ export class AddNoteComponent implements OnInit {
       { type: 'minlength', message: 'Message is too short' },
       { type: 'maxlength', message: 'Message is too long' }
     ],
-    // owner: [
-    //   { type: 'required', message: 'Owner is required' },
-    // ]
   };
 
   createForms() {
@@ -48,18 +49,17 @@ export class AddNoteComponent implements OnInit {
       ])),
       expireDate: new FormControl('', Validators.compose([
       ])),
-      // owner: new FormControl('', Validators.compose([
-      //   Validators.required,
-      // ]))
     });
   }
 
   ngOnInit() {
     this.createForms();
-    this.timestamp = this.noteService.getTimestamp();
     // grabbing owner id from api
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
+      this.min = new Date();
+      console.log(this.min.getFullYear());
+      this.max = new Date(new Date().setFullYear(this.min.getFullYear() + 5));
     });
   }
 

@@ -165,20 +165,6 @@ public class MongoSpec {
     assertNull(docs.get(0).get("_id"), "First should not have '_id'");
   }
 
-  // @Test
-  // public void justNameAndEmailNoIdSortedByCompany() {
-  //   FindIterable<Document> documents
-  //     = ownerDocuments.find()
-  //     .sort(Sorts.ascending("building"))
-  //     .projection(fields(include("name", "email"), excludeId()));
-  //   List<Document> docs = intoList(documents);
-  //   assertEquals(3, docs.size(), "Should be 3");
-  //   assertEquals("Jamie", docs.get(0).get("name"), "First should be Jamie");
-  //   assertNotNull(docs.get(0).get("email"), "First should have email");
-  //   assertNull(docs.get(0).get("building"), "First shouldn't have 'building'");
-  //   assertNull(docs.get(0).get("_id"), "First should not have '_id'");
-  // }
-
   @Test
   public void officeIDCounts() {
     AggregateIterable<Document> documents
@@ -204,23 +190,4 @@ public class MongoSpec {
     assertEquals(docs.get(1).get("officeIDCount"), 1);
   }
 
-  // @Test
-  // public void officeID() {
-  //   AggregateIterable<Document> documents
-  //     = ownerDocuments.aggregate(
-  //     Arrays.asList(
-  //       Aggregates.group("$building",
-  //         Accumulators.avg("officeID", "$officeID")),
-  //       Aggregates.sort(Sorts.ascending("_id"))
-  //     ));
-  //   List<Document> docs = intoList(documents);
-  //   assertEquals(3, docs.size(), "Should be three companies");
-
-  //   assertEquals("Frogs, Inc.", docs.get(0).get("_id"));
-  //   assertEquals(37.0, docs.get(0).get("officeID"));
-  //   assertEquals("IBM", docs.get(1).get("_id"));
-  //   assertEquals(37.0, docs.get(1).get("officeID"));
-  //   assertEquals("UMM", docs.get(2).get("_id"));
-  //   assertEquals(25.0, docs.get(2).get("officeID"));
-  // }
 }
