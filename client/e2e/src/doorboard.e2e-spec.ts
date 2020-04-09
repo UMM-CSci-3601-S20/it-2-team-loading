@@ -10,9 +10,9 @@ describe('Owner Doorboard', () => {
     page.navigateTo();
   });
 
-  it('Should have the correct title', () => {
-    expect(page.getPageTitle()).toEqual('TestOwner');
-  });
+//  it('Should have the correct title', () => {
+  //  expect(page.getPageTitle()).toEqual('TestOwner');
+  //});
   // it('Should have correct last note', async () => {
   //  page.getNoteCards().last();
   //  expect(element(by.className('message')).getText()).toEqual(
