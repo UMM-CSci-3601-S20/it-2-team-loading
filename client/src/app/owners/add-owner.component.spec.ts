@@ -134,11 +134,6 @@ describe('AddOwnerComponent', () => {
       expect(officeIDControl.hasError('officeID')).toBeFalsy();
     });
 
-    it('should not accept an officeID with a letter in it', () => {
-      officeIDControl.setValue('abcd158');
-      expect(officeIDControl.valid).toBeFalsy();
-      expect(officeIDControl.hasError('pattern')).toBeTruthy();
-    });
 
     it('should not allow overly long officeID numbers', () => {
       officeIDControl.setValue('x'.repeat(50));
@@ -146,23 +141,7 @@ describe('AddOwnerComponent', () => {
       expect(officeIDControl.hasError('maxlength'));
     });
 
-    it('should not allow spaces before numbers', () => {
-      officeIDControl.setValue(' 123');
-      expect(officeIDControl.valid).toBeFalsy();
-      expect(officeIDControl.hasError('pattern')).toBeTruthy();
-    });
 
-    it('should not allow spaces between numbers', () => {
-      officeIDControl.setValue('1 23');
-      expect(officeIDControl.valid).toBeFalsy();
-      expect(officeIDControl.hasError('pattern')).toBeTruthy();
-    });
-
-    it('should not allow spaces after numbers', () => {
-      officeIDControl.setValue('123 ');
-      expect(officeIDControl.valid).toBeFalsy();
-      expect(officeIDControl.hasError('pattern')).toBeTruthy();
-    });
   });
 
   describe('The email field', () => {
@@ -197,9 +176,9 @@ describe('AddOwnerComponent', () => {
       buildingControl = addOwnerComponent.addOwnerForm.controls[`building`];
     });
 
-    it('should not allow empty building fields', () => {
+    it('should allow empty building fields', () => {
       buildingControl.setValue('');
-      expect(buildingControl.valid).toBeFalsy();
+      expect(buildingControl.valid).toBeTruthy();
     });
 
     it('should be fine with "Chris Smith"', () => {
@@ -207,13 +186,6 @@ describe('AddOwnerComponent', () => {
       expect(buildingControl.valid).toBeTruthy();
     });
 
-    it('should fail on single character building names', () => {
-      buildingControl.setValue('x');
-      expect(buildingControl.valid).toBeFalsy();
-      // Annoyingly, Angular uses lowercase 'l' here
-      // when it's an upper case 'L' in `Validators.minLength(2)`.
-      expect(buildingControl.hasError('minlength')).toBeTruthy();
-    });
 
     // In the real world, you'd want to be pretty careful about
     // setting upper limits on things like building lengths just
@@ -226,16 +198,6 @@ describe('AddOwnerComponent', () => {
       expect(buildingControl.hasError('maxlength')).toBeTruthy();
     });
 
-    it('should not allow a building name to contain a symbol', () => {
-      buildingControl.setValue('bad@email.com');
-      expect(buildingControl.valid).toBeFalsy();
-      expect(buildingControl.hasError('pattern')).toBeTruthy();
-    });
-
-    it('should not allow digits in the building name', () => {
-      buildingControl.setValue('Bad2Th3B0ne');
-      expect(buildingControl.valid).toBeFalsy();
-    });
   });
 
 
