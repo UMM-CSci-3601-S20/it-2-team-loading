@@ -35,8 +35,8 @@ is potentially helpful and contributed to the shaping of this example -->
           <mat-form-field>
             <mat-label>Building</mat-label>
             <input matInput #input id="buildingField" placeholder="Building" formControlName="building">
-            <mat-error *ngFor="let validation of add_owner_validation_messages.officeID">
-              <mat-error class="error-message" id="officeID-error"
+            <mat-error *ngFor="let validation of add_owner_validation_messages.building">
+              <mat-error class="error-message" id="building-error"
                 *ngIf="addOwnerForm.get('building').hasError(validation.type) && (addOwnerForm.get('building').dirty || addOwnerForm.get('building').touched)">
                 {{validation.message}}
               </mat-error>
