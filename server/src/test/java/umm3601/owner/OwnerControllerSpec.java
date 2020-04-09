@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -274,8 +273,6 @@ public class OwnerControllerSpec {
     assertEquals("1524", addedOwner.getString("officeID"));
     assertEquals("Mars", addedOwner.getString("building"));
     assertEquals("coolguy@gmail.com", addedOwner.getString("email"));
-    //assertEquals("viewer", addedOwner.getString("role"));
-    //assertTrue(addedOwner.containsKey("avatar"));
   }
 
   @Test

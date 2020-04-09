@@ -48,7 +48,6 @@ describe('Owner list', () => {
     TestBed.configureTestingModule({
       imports: [COMMON_IMPORTS],
       declarations: [OwnerListComponent, OwnerCardComponent],
-      // providers:    [ OwnerService ]  // NO! Don't provide the real service!
       // Provide a test-double instead
       providers: [{ provide: OwnerService, useValue: new MockOwnerService() }]
     });
@@ -107,7 +106,6 @@ describe('Misbehaving Owner List', () => {
     TestBed.configureTestingModule({
       imports: [COMMON_IMPORTS],
       declarations: [OwnerListComponent],
-      // providers:    [ OwnerService ]  // NO! Don't provide the real service!
       // Provide a test-double instead
       providers: [{ provide: OwnerService, useValue: ownerServiceStub }]
     });

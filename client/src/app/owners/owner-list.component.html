@@ -28,36 +28,7 @@
               [(ngModel)]="ownerOfficeID" (input)="getOwnersFromServer()">
           </mat-form-field>
         </div>
-        <!-- Keeping these commented for now, seem like they might be useful for formatting options later -->
-
-        <!-- <mat-form-field class="input-field">
-            <mat-label></mat-label>
-            <input matInput id="owner-age-input" type="number" placeholder="Filter by age"
-            min="0" max="200" [(ngModel)]="ownerAge" (input)="getOwnersFromServer()">
-            <mat-hint>Filtered on Server</mat-hint>
-          </mat-form-field>
-
-          <mat-form-field class="input-field">
-            <mat-label>Role</mat-label>
-            <mat-select (selectionChange)="getOwnersFromServer()" [(ngModel)]="ownerRole" id="owner-role-select">
-              <mat-option>--</mat-option>
-              <mat-option value="admin">Admin</mat-option>
-              <mat-option value="editor">Editor</mat-option>
-              <mat-option value="viewer">Viewer</mat-option>
-            </mat-select>
-            <mat-hint>Filtered on server</mat-hint>
-          </mat-form-field>
-        </div> -->
-
         <br>
-        <!-- <div fxLayout="row wrap" fxLayoutGap="10px">
-          <label>View type: </label>
-          <mat-radio-group aria-label="View type" [(ngModel)]="viewType" id="view-type-radio">
-            <mat-radio-button value="card">Card</mat-radio-button>
-            <mat-radio-button value="list">List</mat-radio-button>
-          </mat-radio-group>
-        </div> -->
-
       </mat-card-content>
     </mat-card>
   </div>
@@ -71,21 +42,6 @@
       <app-owner-card simple="true" *ngFor="let owner of filteredOwners" class="owner-card" [owner]="owner"
         fxFlex="1 1 280px"></app-owner-card>
     </div>
-    <!--also keeping this for later in case we want multiple views-->
-    <!-- List view
-      <mat-card *ngSwitchCase="'list'">
-        <mat-card-content>
-          <mat-nav-list class="owner-nav-list">
-            <h3 mat-subheader>Owners</h3>
-            <a mat-list-item *ngFor="let owner of this.filteredOwners" [routerLink]="['/owners', owner._id]" class="owner-list-item">
-              <img matListAvatar [src]="owner.avatar" *ngIf="this.owner.avatar">
-              <h3 matLine class="owner-list-name"> {{owner.name}} </h3>
-              <p matLine class="owner-list-role"> {{owner.role}} </p>
-            </a>
-          </mat-nav-list>
-        </mat-card-content>
-      </mat-card> -->
-
   </div>
 </div>
 

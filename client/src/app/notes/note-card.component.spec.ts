@@ -13,13 +13,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Observable } from 'rxjs';
 import { MockNoteService } from '../../testing/note.service.mock';
 import { Note } from './note';
 import { NoteCardComponent } from './note-card.component';
 import { NoteService } from './note.service';
 import { MatIconModule } from '@angular/material/icon';
-import { splitClasses } from '@angular/compiler';
 
 const COMMON_IMPORTS: any[] = [
   FormsModule,

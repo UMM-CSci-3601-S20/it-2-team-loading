@@ -17,6 +17,4 @@ export class AppPage {
     return element(by.className('sidenav'));
   }
 
-
-
 }
