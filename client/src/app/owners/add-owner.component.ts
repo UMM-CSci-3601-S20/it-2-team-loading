@@ -71,13 +71,9 @@ export class AddOwnerComponent implements OnInit {
       officeID: new FormControl('', Validators.compose([
          Validators.required,
          Validators.maxLength(30),
-         Validators.pattern('^[0-9]+$') // only numbers allowed
       ])),
       building: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.minLength(2),
         Validators.maxLength(100),
-        Validators.pattern('^[A-Za-z\\s]+[A-Za-z\\s]+$(//s.+)?'), // only allow letters
       ])),
       email: new FormControl('', Validators.compose([
         Validators.required,
