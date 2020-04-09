@@ -20,3 +20,25 @@
   bottom: 20px;
   right: 35px;
 }
+
+.vertical-divider {
+  vertical-align: center;
+  height: 5.5em;
+  width: 10em;
+  padding-bottom: 10em;
+}
+
+.owner-list-item {
+vertical-align: space-between;
+}
+.owner-list-name{
+position: relative;
+}
+
+.owner-list-building{
+position: relative;
+}
+
+.owner-list-officeId {
+position: relative;
+}

@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Owner } from './owner';
 import { OwnerService } from './owner.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-owner-list-component',
+  selector: 'app-owner-list',
   templateUrl: 'owner-list.component.html',
   styleUrls: ['./owner-list.component.scss'],
   providers: []
@@ -20,7 +20,8 @@ export class OwnerListComponent implements OnInit, OnDestroy {
   public ownerEmail: string;
   public ownerBuilding: string;
   getOwnersSub: Subscription;
-
+  @Input() owner: Owner;
+  @Input() simple ? = false;
 
   // Inject the OwnerService into this component.
   // That's what happens in the following constructor.

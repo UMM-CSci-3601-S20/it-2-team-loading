@@ -63,29 +63,29 @@
   </div>
 </div>
 
-<div fxLayout="row">
-  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredOwners; else ownersError">
+<div fxLayout="column">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="5" *ngIf="serverFilteredOwners; else ownersError">
 
-    <!-- Card grid view -->
+    <!-- Card grid view
     <div fxLayout="row wrap" fxLayoutGap="10px" class="owner-cards-container">
       <app-owner-card simple="true" *ngFor="let owner of filteredOwners" class="owner-card" [owner]="owner"
         fxFlex="1 1 280px"></app-owner-card>
-    </div>
+    </div> -->
     <!--also keeping this for later in case we want multiple views-->
-    <!-- List view
-      <mat-card *ngSwitchCase="'list'">
-        <mat-card-content>
           <mat-nav-list class="owner-nav-list">
             <h3 mat-subheader>Owners</h3>
             <a mat-list-item *ngFor="let owner of this.filteredOwners" [routerLink]="['/owners', owner._id]" class="owner-list-item">
-              <img matListAvatar [src]="owner.avatar" *ngIf="this.owner.avatar">
-              <h3 matLine class="owner-list-name"> {{owner.name}} </h3>
-              <p matLine class="owner-list-role"> {{owner.role}} </p>
+
+              <mat-list-item> <h3 matLine class="owner-list-name"> {{this.owner.name}} </h3></mat-list-item>
+                <mat-action-list>
+                <mat-list-item><button mat-button *ngIf="this.simple" [routerLink]="['/owner', this.owner._id, 'notes']">VIEW DOORBOARD</button>
+                <mat-divider class="vertical-divider" [vertical]="true"></mat-divider>
+                </mat-list-item>
+                </mat-action-list>
+              <mat-list-item> <p matLine class="owner-list-building"> {{this.owner.building}} </p></mat-list-item>
+              <mat-list-item>  <p matLine class="owner-list-officeID"> {{this.owner.officeID }} </p></mat-list-item>
             </a>
           </mat-nav-list>
-        </mat-card-content>
-      </mat-card> -->
-
   </div>
 </div>
 
