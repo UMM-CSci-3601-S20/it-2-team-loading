@@ -22,6 +22,10 @@ export class AddNoteComponent implements OnInit {
   id: string;
   timestamp: string;
 
+  min: Date;
+
+  max: Date;
+
   constructor(private fb: FormBuilder, private noteService: NoteService, private snackBar: MatSnackBar,
               private router: Router, private route: ActivatedRoute) {
   }
@@ -53,6 +57,9 @@ export class AddNoteComponent implements OnInit {
     // grabbing owner id from api
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
+      this.min = new Date();
+      console.log(this.min.getFullYear());
+      this.max = new Date(new Date().setFullYear(this.min.getFullYear() + 5));
     });
   }
 
