@@ -48,8 +48,8 @@ describe('Add note', () => {
     const url = await page.getUrl();
     expect(RegExp('/owner/78f1d3bfa098879fe7a01373/notes').test(url)).toBe(true);
     //expect(url.endsWith('/notes/new'),).toBe(false);
+
   });
 
 });
 
-/// Tried lots of things and nothing worked.
