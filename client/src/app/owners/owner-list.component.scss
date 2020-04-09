@@ -22,23 +22,30 @@
 }
 
 .vertical-divider {
-  vertical-align: center;
-  height: 5.5em;
-  width: 10em;
-  padding-bottom: 10em;
+  height: 100%;
+  margin-right: auto;
+  margin-right: auto;
+  width: 100%;
+
 }
 
 .owner-list-item {
-vertical-align: space-between;
+padding-top: flex;
+padding-bottom: flex;
 }
 .owner-list-name{
-position: relative;
 }
 
 .owner-list-building{
-position: relative;
 }
 
 .owner-list-officeId {
-position: relative;
+
+
+}
+
+.view-doorboard-button{
+width: flex;
+height: flex;
+
 }

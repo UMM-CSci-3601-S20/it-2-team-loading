@@ -73,17 +73,21 @@
     </div> -->
     <!--also keeping this for later in case we want multiple views-->
           <mat-nav-list class="owner-nav-list">
-            <h3 mat-subheader>Owners</h3>
             <a mat-list-item *ngFor="let owner of this.filteredOwners" [routerLink]="['/owners', owner._id]" class="owner-list-item">
 
-              <mat-list-item> <h3 matLine class="owner-list-name"> {{this.owner.name}} </h3></mat-list-item>
+                <mat-list-item> <h3 matLine class="owner-list-name"> {{this.owner.name}} </h3>
                 <mat-action-list>
-                <mat-list-item><button mat-button *ngIf="this.simple" [routerLink]="['/owner', this.owner._id, 'notes']">VIEW DOORBOARD</button>
-                <mat-divider class="vertical-divider" [vertical]="true"></mat-divider>
-                </mat-list-item>
+                <button  matLine class='view-doorboard-button' *ngIf="this.simple" [routerLink]="['/owner', this.owner._id, 'notes']" > <p>VIEW DOORBOARD  </p></button>
                 </mat-action-list>
-              <mat-list-item> <p matLine class="owner-list-building"> {{this.owner.building}} </p></mat-list-item>
-              <mat-list-item>  <p matLine class="owner-list-officeID"> {{this.owner.officeID }} </p></mat-list-item>
+                </mat-list-item>
+                <mat-divider class="vertical-divider" [vertical]='true'></mat-divider>
+
+
+               <mat-list-item>
+               <p matLine class="owner-list-building"> {{this.owner.building}} </p>
+               <p matLine class="owner-list-officeID"> {{this.owner.officeID }} </p>
+               </mat-list-item>
+
             </a>
           </mat-nav-list>
   </div>
@@ -105,3 +109,20 @@
 <button mat-fab class="add-owner-fab" matTooltip="Add Owner" matTooltipPosition="left" routerLink="/owners/new">
   <mat-icon class="md-24" aria-label="Add Owner">add</mat-icon>
 </button>
+<mat-list>
+
+
+  <!-- <h3 matSubheader>Folders</h3>
+  <mat-list-item *ngFor="let folder of folders">
+     <mat-icon matListIcon>folder</mat-icon>
+     <h4 matLine>{{folder.name}}</h4>
+     <p matLine class="demo-2"> {{folder.updated}} </p>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <h3 matSubheader>Notes</h3>
+  <mat-list-item *ngFor="let note of notes">
+     <mat-icon matListIcon>note</mat-icon>
+     <h4 matLine>{{note.name}}</h4>
+     <p matLine class="demo-2"> {{note.updated}} </p>
+  </mat-list-item>
+</mat-list> -->
