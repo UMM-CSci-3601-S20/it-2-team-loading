@@ -1,6 +1,7 @@
 <div fxLayout="row">
   <div fxFlex fxFles.gt-sm="80" fxFlexOffset.gt-sm="10">
     <form [formGroup]="addNoteForm" (ngSubmit)="submitForm();">
+
       <mat-card class="add-note-card">
         <mat-card-header>
           <mat-card-title class="add-note-title">New Note</mat-card-title>
@@ -9,8 +10,10 @@
 
             <mat-form-field>
               <mat-label>Message</mat-label>
-              <input matInput id="messageField" placeholder="Message" formControlName="message"
-                    required>
+
+                    <textarea matInput id="messageField" placeholder="Message" formControlName="message" required
+                    cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5">
+                  </textarea>
               <mat-error *ngFor="let validation of add_note_validation_messages.message">
                 <mat-error class="error-message" id="message-error"
                       *ngIf="addNoteForm.get('message').hasError(validation.type) && (addNoteForm.get('message').dirty || addNoteForm.get('message').touched)">
@@ -18,10 +21,11 @@
                     </mat-error>
               </mat-error>
                 </mat-form-field>
-              <mat-form-field>
+
+                <mat-form-field>
                 <mat-label>Expiration Date</mat-label>
-                <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1"  placeholder="Date Time"
-                matInput id="expireField" placeholder="Expiration" formControlName="expireDate">
+                <input [min]="min" [max]="max" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1"
+                placeholder="Date Time" matInput id="expireField" placeholder="Expiration" formControlName="expireDate">
                 <mat-hint id="expireHint" >If no expiration date is selected, then it will automatically expire in 5 hours</mat-hint>
                 <owl-date-time #dt1></owl-date-time>
               </mat-form-field>
