@@ -125,7 +125,7 @@ describe('AddNoteComponent', () => {
         expirationControl.setValue('');
         expect(expirationControl.valid).toBeTruthy();
     });
-      it('Expiration date can\'t take non dates as a string', () => {
+      it('Expiration is valid when a date is entered', () => {
           expirationControl.setValue(new Date());
           expect(expirationControl.valid).toBeTruthy();
       });
