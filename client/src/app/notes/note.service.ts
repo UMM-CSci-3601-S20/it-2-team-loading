@@ -43,22 +43,4 @@ export class NoteService {
     return this.httpClient.delete<string>(this.noteUrl + '/' + id);
   }
 
-  getTimestamp(): string {
-    // Create a date object with the current time
-    const now: Date = new Date();
-    // Create an array with the current month, day and time
-    if (now.getHours() > 12) {
-    const date: Array<string> = [ String(now.getMonth() + 1), String(now.getDate()), String(now.getFullYear()) ];
-    // Create an array with the current hour, minute and second
-    const time: Array<string> = [ String(now.getHours() - 12), String(now.getMinutes()), String(now.getSeconds())];
-    // Return the formatted string
-    return date.join('-') + ' ' + time.join(':') + ' P.M.';
-  } else {
-    const date: Array<string> = [ String(now.getMonth() + 1), String(now.getDate()), String(now.getFullYear()) ];
-    // Create an array with the current hour, minute and second
-    const time: Array<string> = [ String(now.getHours()), String(now.getMinutes()), String(now.getSeconds())];
-    // Return the formatted string
-    return date.join('-') + ' ' + time.join(':')  + ' A.M.';
-  }
-}
 }
