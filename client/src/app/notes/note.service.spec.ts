@@ -87,5 +87,12 @@ describe('Note service: ', () => {
 
     req.flush({ id: '588935f57546a2daea44de7c' });
   });
+  it('deleteNote() calls api/owner:id' , () => {
+    noteService.deleteNote('588935f57546a2daea44de7c').subscribe(()=>{});
+    const req = httpTestingController.expectOne(noteService.noteUrl + '/' + '588935f57546a2daea44de7c');
 
+    expect(req.request.method).toEqual('DELETE');
+
+    req.flush({ id: '588935f57546a2daea44de7c' });
+  })
 });
