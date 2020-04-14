@@ -236,4 +236,35 @@ public class NoteControllerSpec {
     assertEquals(resultNote.owner_id, "1300");
   }
 
+  @Test
+  public void deleteNote() throws IOException {
+    String idToDelete = samsId.toHexString();
+    mockReq.setQueryString("owner_id=1300");
+     Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes");
+
+    noteController.getOwnerNotes(ctx);
+
+    String result = ctx.resultString();
+    Note[] preDeleteNotes = JavalinJson.fromJson(result, Note[].class);// Smas note pre deletion
+    assertEquals(1, preDeleteNotes.length);
+
+    mockReq.setMethod("DELETE");
+
+
+    ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", idToDelete));
+    noteController.deleteNote(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+    mockReq.setQueryString("owner_id=1300");
+
+    // Create our fake Javalin context
+    ctx = ContextUtil.init(mockReq, mockRes, "api/notes");
+
+    noteController.getOwnerNotes(ctx);
+
+    result = ctx.resultString();
+
+    Note[] resultNotes = JavalinJson.fromJson(result, Note[].class);// deletes sams note so there will be an array of 0
+    assertEquals(0, resultNotes.length);
+  }
 }
